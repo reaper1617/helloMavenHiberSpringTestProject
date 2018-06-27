@@ -4,10 +4,12 @@ package com.gerasimchuk.mvc;
 import com.gerasimchuk.dao.UsersEntityDAO;
 import com.gerasimchuk.dao.UsersEntityDAOImpl;
 import com.gerasimchuk.entities.UsersEntity;
+import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,25 +19,21 @@ public class SignUpController {
 
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String indexGet(Model ui){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        UsersEntityDAO userDAO = new UsersEntityDAOImpl(sessionFactory);
-        UsersEntity u2 = userDAO.create("Igor", "Vetkin", "54445");
+    public String indexGet(){
 
-        UsersEntity user = userDAO.getById(5);
-
-
-
-
-        ui.addAttribute("user1", u2.getUname());
-        ui.addAttribute("user2", user.getUname());
-        return "/signup/success";
+        return "/signup/failed";
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
-    public String indexPost(){
+    public String indexPost(UsersEntity user, BindingResult bindingResult, Model ui){
+        UsersEntityDAO usersDAO = UsersEntityDAOImpl.getUsersEntityDAOInsance();
+        UsersEntity createdUser = usersDAO.create(user.getUname(),user.getLastname(),user.getUnumber());
 
-        return "/failed";
+        ui.addAttribute("createdUserName", user.getUname());
+        ui.addAttribute("createdUserLastname", user.getLastname());
+        ui.addAttribute("createdUserUnumber", user.getUnumber());
+
+        return "/signup/success";
     }
 
 }

@@ -1,6 +1,7 @@
 package com.gerasimchuk.dao;
 
 import com.gerasimchuk.entities.UsersEntity;
+import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,12 +15,20 @@ public class UsersEntityDAOImpl implements UsersEntityDAO {
 
 
     private static SessionFactory sessionFactory;
+    private static UsersEntityDAOImpl instance;
 
-
-    public UsersEntityDAOImpl(SessionFactory sessionFactory){
+    private UsersEntityDAOImpl(SessionFactory sessionFactory){
         UsersEntityDAOImpl.sessionFactory = sessionFactory;
     }
 
+    public static UsersEntityDAO getUsersEntityDAOInsance(){
+        if (instance == null){
+            synchronized (UsersEntityDAOImpl.class){
+                instance = new UsersEntityDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
+            }
+        }
+        return instance;
+    }
 
     public UsersEntity create(String uname, String lastname, String unumber) {
         Session session = sessionFactory.openSession();

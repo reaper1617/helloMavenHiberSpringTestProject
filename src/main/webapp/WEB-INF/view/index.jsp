@@ -85,28 +85,31 @@
 
 
 <div class = "style2" align = "center">
-    <form>
+    <form action="/index" id="signup" method="post">
         <table>
             <tr>
-                <td> Name: </td><td>    <label> <input type="text" required></label>        </td>
+                <td> Name: </td><td>    <label> <input name="uname" type="text" form="signup" required></label>        </td>
             </tr>
 
 
             <tr>
-                <td> Password: </td><td>    <label> <input type="password" required></label> </td>
+                <td> Last name: </td><td>    <label> <input name="lastname" type="text" form="signup" required></label> </td>
+            </tr>
+            <tr>
+                <td> Personal number: </td> <td>    <label> <input name="unumber" type="password" form="signup" required></label> </td>
             </tr>
 
-
         </table>
+        <form>
+            <button  formmethod="post">Submit</button>
+        </form>
     </form>
 </div>
 
 
-<div align="center">
-    <form>
-        <button formmethod="get">Submit</button>
-    </form>
-</div>
+<%--<div align="center">--%>
+    <%----%>
+<%--</div>--%>
 
 <div class="style1"  align = center>
     <h1>Sign In</h1>
