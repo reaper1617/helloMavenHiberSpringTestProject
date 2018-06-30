@@ -1,19 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
   User: Reaper
-  Date: 27.06.2018
-  Time: 0:37
+  Date: 29.06.2018
+  Time: 13:38
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Sign Up Success</title>
+    <title>Cargo View</title>
 </head>
 <body>
-    Sign Up Success!
-    <h1>Name: ${createdUserName}</h1>
-    <h2>Middle name: ${createdUserMiddleName}</h2>
-    <h3>Last name: ${createdUserLastname}</h3>
+
+
 </body>
 </html>

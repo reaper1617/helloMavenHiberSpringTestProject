@@ -24,7 +24,7 @@
 <html>
 
 <head>
-    <title>Form</title>
+    <title>Add Cargo</title>
 
     <%--<link href='style.css' rel='stylesheet' type='text/css'>--%>
 
@@ -79,27 +79,25 @@
 
 <div class="style1"  align = center>
 
-    <h1>Sign Up </h1>
+    <h1>Add cargo</h1>
 </div>
 
 
 
 <div class = "style2" align = "center">
-    <form action="/index" id="signup" method="post">
+    <form action="/addcargoview" id="addcargo" method="post">
         <table>
             <tr>
-                <td> Name: </td><td>    <label> <input name="userName" type="text" form="signup" required></label>        </td>
+                <td> Item: </td><td>    <label> <input name="cargoItem" type="text" form="addcargo" required></label>        </td>
             </tr>
 
             <tr>
-                <td> Middle name: </td><td>    <label> <input name="userMiddleName" type="text" form="signup" required></label> </td>
+                <td> Weight: </td><td>    <label> <input name="cargoWeight" type="text" form="addcargo" required></label> </td>
             </tr>
             <tr>
-                <td> Last name: </td><td>    <label> <input name="userLastname" type="text" form="signup" required></label> </td>
+                <td> Status: </td><td>    <label> <input name="cargoStatus" type="text" form="addcargo" required></label> </td>
             </tr>
-            <tr>
-                <td> Password: </td> <td>    <label> <input name="userPassword" type="password" form="signup" required></label> </td>
-            </tr>
+
 
         </table>
         <form>
@@ -110,7 +108,7 @@
 
 
 <%--<div align="center">--%>
-    <%----%>
+<%----%>
 <%--</div>--%>
 
 <div class="style1"  align = center>
@@ -119,24 +117,6 @@
 
 
 
-<div class = "style2" align = "center">
-    <form>
-        <table>
-            <tr>
-                <td> Name: </td><td>    <label> <input type="text" required></label>        </td>
-            </tr>
-
-
-            <tr>
-                <td> Password: </td><td>    <label> <input type="password" required></label> </td>
-            </tr>
-
-            <tr>
-                <td> PersonalNumber: </td><td> <label><input type="text" required></label> </td>
-            </tr>
-        </table>
-    </form>
-</div>
 
 
 <div align="center">

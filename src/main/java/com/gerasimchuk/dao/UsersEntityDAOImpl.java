@@ -5,8 +5,6 @@ import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
@@ -17,11 +15,12 @@ public class UsersEntityDAOImpl implements UsersEntityDAO {
     private static SessionFactory sessionFactory;
     private static UsersEntityDAOImpl instance;
 
+
     private UsersEntityDAOImpl(SessionFactory sessionFactory){
         UsersEntityDAOImpl.sessionFactory = sessionFactory;
     }
 
-    public static UsersEntityDAO getUsersEntityDAOInsance(){
+    public static UsersEntityDAO getUsersEntityDAOInstance(){
         if (instance == null){
             synchronized (UsersEntityDAOImpl.class){
                 instance = new UsersEntityDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
@@ -30,26 +29,47 @@ public class UsersEntityDAOImpl implements UsersEntityDAO {
         return instance;
     }
 
-    public UsersEntity create(String uname, String lastname, String unumber) {
+    public UsersEntity create(String userName,
+                        String userMiddleName,
+                        String userLastname,
+                        String userPassword,
+                        int userManager,
+                        int userDriver) {
+
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         UsersEntity user= new UsersEntity();
-        user.setUname(uname);
-        user.setLastname(lastname);
-        user.setUnumber(unumber);
+
+        user.setUserName(userName);
+        user.setUserMiddleName(userMiddleName);
+        user.setUserLastname(userLastname);
+        user.setUserPassword(userPassword);
+        user.setUserManager(userManager);
+        user.setUserDriver(userDriver);
+
         session.persist(user);
         transaction.commit();
         if (session.isOpen()) session.close();
         return user;
     }
 
-    public UsersEntity update(int id, String uname, String lastname, String unumber) {
+    public UsersEntity update(int id,
+                        String userName,
+                        String userMiddleName,
+                        String userLastname,
+                        String userPassword,
+                        int userManager,
+                        int userDriver) {
+
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         UsersEntity user = session.get(UsersEntity.class, id);
-        user.setUname(uname);
-        user.setLastname(lastname);
-        user.setUnumber(unumber);
+        user.setUserName(userName);
+        user.setUserMiddleName(userMiddleName);
+        user.setUserLastname(userLastname);
+        user.setUserPassword(userPassword);
+        user.setUserManager(userManager);
+        user.setUserDriver(userDriver);
         session.saveOrUpdate(user);
         transaction.commit();
         if (session.isOpen()) session.close();

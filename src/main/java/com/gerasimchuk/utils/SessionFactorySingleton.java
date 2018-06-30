@@ -17,6 +17,7 @@ public class SessionFactorySingleton {
         return sessionFactory;
     }
 
+
     private SessionFactorySingleton() {
     }
 }
