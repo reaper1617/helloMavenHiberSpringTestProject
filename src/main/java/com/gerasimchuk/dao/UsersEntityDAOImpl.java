@@ -1,5 +1,8 @@
 package com.gerasimchuk.dao;
 
+import com.gerasimchuk.entities.DriversEntity;
+import com.gerasimchuk.entities.ManagersEntity;
+import com.gerasimchuk.enums.UserRole;
 import com.gerasimchuk.entities.UsersEntity;
 import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
@@ -29,24 +32,25 @@ public class UsersEntityDAOImpl implements UsersEntityDAO {
         return instance;
     }
 
+
     public UsersEntity create(String userName,
-                        String userMiddleName,
-                        String userLastname,
-                        String userPassword,
-                        int userManager,
-                        int userDriver) {
+                              String userMiddleName,
+                              String userLastname,
+                              String userPassword,
+                              UserRole role,
+                              ManagersEntity userManager,
+                              DriversEntity userDriver) {
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         UsersEntity user= new UsersEntity();
-
         user.setUserName(userName);
-        user.setUserMiddleName(userMiddleName);
-        user.setUserLastname(userLastname);
-        user.setUserPassword(userPassword);
-        user.setUserManager(userManager);
-        user.setUserDriver(userDriver);
-
+        user.setMiddleName(userMiddleName);
+        user.setLastname(userLastname);
+        user.setPassword(userPassword);
+        user.setRole(role);
+        user.setManager(userManager);
+        user.setDriver(userDriver);
         session.persist(user);
         transaction.commit();
         if (session.isOpen()) session.close();
@@ -58,18 +62,20 @@ public class UsersEntityDAOImpl implements UsersEntityDAO {
                         String userMiddleName,
                         String userLastname,
                         String userPassword,
-                        int userManager,
-                        int userDriver) {
+                        UserRole role,
+                        ManagersEntity userManager,
+                        DriversEntity userDriver) {
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         UsersEntity user = session.get(UsersEntity.class, id);
         user.setUserName(userName);
-        user.setUserMiddleName(userMiddleName);
-        user.setUserLastname(userLastname);
-        user.setUserPassword(userPassword);
-        user.setUserManager(userManager);
-        user.setUserDriver(userDriver);
+        user.setMiddleName(userMiddleName);
+        user.setLastname(userLastname);
+        user.setPassword(userPassword);
+        user.setRole(role);
+        user.setManager(userManager);
+        user.setDriver(userDriver);
         session.saveOrUpdate(user);
         transaction.commit();
         if (session.isOpen()) session.close();

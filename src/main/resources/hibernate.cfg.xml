@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/testdb?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/logisticon?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.dialect">
@@ -15,6 +15,17 @@
        <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <mapping class="com.gerasimchuk.entities.UsersEntity"/>
+        <mapping class="com.gerasimchuk.entities.ManagersEntity"/>
+        <mapping class="com.gerasimchuk.entities.DriversEntity"/>
+        <mapping class="com.gerasimchuk.entities.DriverStatusEntity"/>
+        <mapping class="com.gerasimchuk.entities.TrucksEntity"/>
+        <mapping class="com.gerasimchuk.entities.CargoPropertiesEntity"/>
+        <mapping class="com.gerasimchuk.entities.CargosEntity"/>
+        <mapping class="com.gerasimchuk.entities.CitiesEntity"/>
+        <mapping class="com.gerasimchuk.entities.MapEntity"/>
+        <mapping class="com.gerasimchuk.entities.OrderPropertiesEntity"/>
+        <mapping class="com.gerasimchuk.entities.OrdersEntity"/>
+        <mapping class="com.gerasimchuk.entities.RoutePointsEntity"/>
 
 
     </session-factory>

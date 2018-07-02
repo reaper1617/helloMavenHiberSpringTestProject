@@ -1,8 +1,11 @@
 package com.gerasimchuk;
 
-import com.gerasimchuk.dao.UsersEntityDAO;
-import com.gerasimchuk.dao.UsersEntityDAOImpl;
-import com.gerasimchuk.entities.UsersEntity;
+import com.gerasimchuk.dao.*;
+import com.gerasimchuk.entities.*;
+import com.gerasimchuk.enums.CityHasAgency;
+import com.gerasimchuk.enums.ManagerPosition;
+import com.gerasimchuk.enums.OrderState;
+import com.gerasimchuk.enums.UserRole;
 
 import java.util.Collection;
 
@@ -11,32 +14,25 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        UsersEntityDAO usersEntityDAO = UsersEntityDAOImpl.getUsersEntityDAOInstance();
-        usersEntityDAO.create("sgsg",
-                "stgfg",
-                "dfhgh",
-                "zdghgh",
-                3,
-                2);
-        usersEntityDAO.create("swgegsg",
-                "stgfwegg",
-                "dfhgwegh",
-                "zdwgghgh",
-                3,
-                2);
-
-        usersEntityDAO.create("rgsgsg",
-                "stgergfg",
-                "dfhgherg",
-                "zdgerghgh",
-                3,
-                2);
+//       CitiesEntityDAO citiesDAO = CitiesEntityDAOImpl.getCitiesEntityDAOInstance();
+//       citiesDAO.create("Moskow",CityHasAgency.HAS);
+//        citiesDAO.create("Saint-Petersburg",CityHasAgency.HAS);
+//        citiesDAO.create("Petrozavodsk",CityHasAgency.HAS);
+//
+//        Collection<CitiesEntity> cities = citiesDAO.getAll();
+//        for(CitiesEntity c: cities){
+//            System.out.println(c.getCityName() + " " + c.getHasAgency());
+//        }
 
 
-        Collection<UsersEntity> collection = usersEntityDAO.getAll();
+        OrdersEntityDAO ordersDAO = OrdersEntityDAOImpl.getOrdersEntityDAOInstance();
+        ordersDAO.create(OrderState.PREPARED);
+        ordersDAO.create(OrderState.PREPARED);
+        ordersDAO.create(OrderState.PREPARED);
 
-        for(UsersEntity u : collection){
-            System.out.println(u.getUserName());
+        Collection<OrdersEntity> orders = ordersDAO.getAll();
+        for(OrdersEntity o: orders){
+            System.out.println(o.getOrderState() + " ");
         }
 
     }
