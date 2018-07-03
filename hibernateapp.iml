@@ -4,7 +4,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="55dd3676-0f62-4ac7-897c-fb3e3c1b38cc" />
+          <unit-entry name="hibernate.cfg.xml" value="76e38806-5bbe-4256-bd0c-5f19aa8ae137" />
         </datasource-map>
         <naming-strategy-map>
           <unit-entry name="hibernate.cfg.xml" />
@@ -18,7 +18,7 @@
         <setting name="provider-name" value="" />
         <datasource-mapping>
           <factory-entry name="Entities" value="dd7de9e3-ac46-4ea1-b389-237d718265e8" />
-          <factory-entry name="NewPersistenceUnit" value="55dd3676-0f62-4ac7-897c-fb3e3c1b38cc" />
+          <factory-entry name="NewPersistenceUnit" value="76e38806-5bbe-4256-bd0c-5f19aa8ae137" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/java/META-INF/persistence.xml" />
       </configuration>

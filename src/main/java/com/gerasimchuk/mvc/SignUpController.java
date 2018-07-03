@@ -1,10 +1,7 @@
 package com.gerasimchuk.mvc;
 
 
-import com.gerasimchuk.dao.UsersEntityDAO;
-import com.gerasimchuk.dao.UsersEntityDAOImpl;
-import com.gerasimchuk.enums.UserRole;
-import com.gerasimchuk.entities.UsersEntity;
+import com.gerasimchuk.entities.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +22,7 @@ public class SignUpController {
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
-    public String indexPost(UsersEntity user, BindingResult bindingResult, Model ui){
+    public String indexPost(User user, BindingResult bindingResult, Model ui){
 
 //        if (user!=null) {
 //            UsersEntityDAO usersDAO = UsersEntityDAOImpl.getUsersEntityDAOInstance();

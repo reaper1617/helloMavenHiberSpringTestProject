@@ -4,20 +4,9 @@
 
     <persistence-unit name="NewPersistenceUnit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.gerasimchuk.entities.UsersEntity</class>
-        <class>com.gerasimchuk.entities.ManagersEntity</class>
-        <class>com.gerasimchuk.entities.DriversEntity</class>
-        <class>com.gerasimchuk.entities.DriverStatusEntity</class>
-        <class>com.gerasimchuk.entities.CargoPropertiesEntity</class>
-        <class>com.gerasimchuk.entities.CargosEntity</class>
-        <class>com.gerasimchuk.entities.CitiesEntity</class>
-        <class>com.gerasimchuk.entities.MapEntity</class>
-        <class>com.gerasimchuk.entities.OrderPropertiesEntity</class>
-        <class>com.gerasimchuk.entities.OrdersEntity</class>
-        <class>com.gerasimchuk.entities.RoutePointsEntity</class>
-        <class>com.gerasimchuk.entities.TrucksEntity</class>
-
-
+        <class>com.gerasimchuk.entities.User</class>
+        <class>com.gerasimchuk.entities.Driver</class>
+        <class>com.gerasimchuk.entities.Manager</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/logisticon?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

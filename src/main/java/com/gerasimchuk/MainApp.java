@@ -2,10 +2,7 @@ package com.gerasimchuk;
 
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.entities.*;
-import com.gerasimchuk.enums.CityHasAgency;
-import com.gerasimchuk.enums.ManagerPosition;
-import com.gerasimchuk.enums.OrderState;
-import com.gerasimchuk.enums.UserRole;
+import com.gerasimchuk.enums.*;
 
 import java.util.Collection;
 
@@ -14,26 +11,19 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-//       CitiesEntityDAO citiesDAO = CitiesEntityDAOImpl.getCitiesEntityDAOInstance();
-//       citiesDAO.create("Moskow",CityHasAgency.HAS);
-//        citiesDAO.create("Saint-Petersburg",CityHasAgency.HAS);
-//        citiesDAO.create("Petrozavodsk",CityHasAgency.HAS);
+//        DriverDAO driverDAO = DriverDAOImpl.getDriverDAOInstance();
+//        Driver d = driverDAO.createDriver(10,DriverState.DRIVING,1,1);
 //
-//        Collection<CitiesEntity> cities = citiesDAO.getAll();
-//        for(CitiesEntity c: cities){
-//            System.out.println(c.getCityName() + " " + c.getHasAgency());
+//        UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
+//
+//        userDAO.createDriver("D1","D1", "D1", "sgsrg", d);
+//
+//        Collection<User> users = userDAO.getAll();
+//
+//        for(User u : users){
+//            System.out.println(u.getUserName());
 //        }
 
-
-        OrdersEntityDAO ordersDAO = OrdersEntityDAOImpl.getOrdersEntityDAOInstance();
-        ordersDAO.create(OrderState.PREPARED);
-        ordersDAO.create(OrderState.PREPARED);
-        ordersDAO.create(OrderState.PREPARED);
-
-        Collection<OrdersEntity> orders = ordersDAO.getAll();
-        for(OrdersEntity o: orders){
-            System.out.println(o.getOrderState() + " ");
-        }
 
     }
 
