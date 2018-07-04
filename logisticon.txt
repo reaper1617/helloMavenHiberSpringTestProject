@@ -1,0 +1,229 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema logisticon
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema logisticon
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `logisticon` DEFAULT CHARACTER SET utf8 ;
+USE `logisticon` ;
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`cities`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`cities` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`cities` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `city_name` VARCHAR(50) NOT NULL,
+  `has_agency` ENUM('HAS', 'HASNOT') NOT NULL DEFAULT 'HASNOT',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`route_points`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`route_points` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`route_points` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `_type` ENUM('LOADING', 'UNLOADING') NOT NULL DEFAULT 'LOADING',
+  `city_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `city_id_fk_idx` (`city_id` ASC),
+  CONSTRAINT `city_id_fk`
+    FOREIGN KEY (`city_id`)
+    REFERENCES `logisticon`.`cities` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`trucks`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`trucks` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`trucks` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `registration_number` VARCHAR(15) NOT NULL,
+  `shift` INT(11) NOT NULL,
+  `capacity` DOUBLE NOT NULL,
+  `state` ENUM('READY', 'NOTREADY') NOT NULL DEFAULT 'NOTREADY',
+  `current_city_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `registration_number` (`registration_number` ASC),
+  INDEX `current_city_id` (`current_city_id` ASC),
+  CONSTRAINT `trucks_ibfk_1`
+    FOREIGN KEY (`current_city_id`)
+    REFERENCES `logisticon`.`cities` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`orders`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`orders` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`orders` (
+  `order_id` INT(11) NOT NULL,
+  `order_state` ENUM('PREPARED', 'SHIPPED', 'DELIVERED') NOT NULL DEFAULT 'PREPARED',
+  `order_description` VARCHAR(45) NOT NULL,
+  `order_date` DATETIME NOT NULL,
+  `assigned_truck_id` INT NOT NULL,
+  PRIMARY KEY (`order_id`),
+  UNIQUE INDEX `order_id_UNIQUE` (`order_id` ASC),
+  INDEX `assigned_truck_id_fk_idx` (`assigned_truck_id` ASC),
+  CONSTRAINT `assigned_truck_id_fk`
+    FOREIGN KEY (`assigned_truck_id`)
+    REFERENCES `logisticon`.`trucks` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`cargos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`cargos` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`cargos` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `cargo_name` VARCHAR(50) NOT NULL,
+  `weight` DOUBLE NOT NULL,
+  `status` ENUM('PREPARED', 'SHIPPED', 'DELIVERED') NOT NULL DEFAULT 'PREPARED',
+  `assigned_order_id` INT NOT NULL,
+  `load_point_id` INT NOT NULL,
+  `unload_point_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `load_point_id_pk_idx` (`load_point_id` ASC),
+  INDEX `unload_point_id_fk_idx` (`unload_point_id` ASC),
+  INDEX `assigned_order_id_fk_idx` (`assigned_order_id` ASC),
+  CONSTRAINT `load_point_id_fk`
+    FOREIGN KEY (`load_point_id`)
+    REFERENCES `logisticon`.`route_points` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `unload_point_id_fk`
+    FOREIGN KEY (`unload_point_id`)
+    REFERENCES `logisticon`.`route_points` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `assigned_order_id_fk`
+    FOREIGN KEY (`assigned_order_id`)
+    REFERENCES `logisticon`.`orders` (`order_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`drivers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`drivers` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`drivers` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `hours_worked` DOUBLE NOT NULL,
+  `state` ENUM('DRIVING', 'RESTING', 'SHIFTING') NOT NULL DEFAULT 'RESTING',
+  `current_city_id` INT NOT NULL,
+  `current_truck_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `current_city_id_fk_idx` (`current_city_id` ASC),
+  INDEX `current_truck_id_fk_idx` (`current_truck_id` ASC),
+  CONSTRAINT `current_city_id_fk`
+    FOREIGN KEY (`current_city_id`)
+    REFERENCES `logisticon`.`cities` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `current_truck_id_fk`
+    FOREIGN KEY (`current_truck_id`)
+    REFERENCES `logisticon`.`trucks` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`managers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`managers` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`managers` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `manager_position` ENUM('JUNIOR', 'MIDDLE', 'EXPERT') NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`route`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`route` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`route` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `departure_city_id` INT NOT NULL,
+  `destination_city_id` INT NOT NULL,
+  `distance` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `route_id_UNIQUE` (`id` ASC),
+  INDEX `map_ibfk_1_idx` (`departure_city_id` ASC),
+  INDEX `map_ibfk_2_idx` (`destination_city_id` ASC),
+  CONSTRAINT `route_ibfk_1`
+    FOREIGN KEY (`departure_city_id`)
+    REFERENCES `logisticon`.`cities` (`id`),
+  CONSTRAINT `route_ibfk_2`
+    FOREIGN KEY (`destination_city_id`)
+    REFERENCES `logisticon`.`cities` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon`.`users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon`.`users` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon`.`users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_name` VARCHAR(50) NOT NULL,
+  `middle_name` VARCHAR(50) NOT NULL,
+  `lastname` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  `role` ENUM('DRIVER', 'MANAGER') NOT NULL,
+  `manager` INT(11) NULL DEFAULT NULL,
+  `driver` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `manager` (`manager` ASC),
+  INDEX `driver` (`driver` ASC),
+  CONSTRAINT `users_ibfk_1`
+    FOREIGN KEY (`manager`)
+    REFERENCES `logisticon`.`managers` (`id`),
+  CONSTRAINT `users_ibfk_2`
+    FOREIGN KEY (`driver`)
+    REFERENCES `logisticon`.`drivers` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
