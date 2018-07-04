@@ -7,6 +7,13 @@
         <class>com.gerasimchuk.entities.User</class>
         <class>com.gerasimchuk.entities.Driver</class>
         <class>com.gerasimchuk.entities.Manager</class>
+        <class>com.gerasimchuk.entities.Route</class>
+        <class>com.gerasimchuk.entities.RoutePoint</class>
+        <class>com.gerasimchuk.entities.Order</class>
+        <class>com.gerasimchuk.entities.Cargo</class>
+        <class>com.gerasimchuk.entities.Truck</class>
+        <class>com.gerasimchuk.entities.City</class>
+
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/logisticon?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
