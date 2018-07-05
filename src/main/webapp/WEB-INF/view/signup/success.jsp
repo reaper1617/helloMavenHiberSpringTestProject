@@ -12,7 +12,7 @@
 </head>
 <body>
     Sign Up Success!
-    <h1>Name: ${createdUserName}</h1>
+    <h1>Name: ${createdUserFirstName}</h1>
     <h2>Middle name: ${createdUserMiddleName}</h2>
     <h3>Last name: ${createdUserLastname}</h3>
 </body>

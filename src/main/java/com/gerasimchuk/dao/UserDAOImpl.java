@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 
 public class UserDAOImpl implements UserDAO {
@@ -60,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
         User user = session.get(User.class, id);
         user.setUserName(userName);
         user.setMiddleName(middleName);
-        user.setLastname(lastname);
+        user.setLastName(lastname);
         user.setPassword(password);
         user.setManager(manager);
         session.persist(user);
@@ -76,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
         User user = session.get(User.class, id);
         user.setUserName(userName);
         user.setMiddleName(middleName);
-        user.setLastname(lastname);
+        user.setLastName(lastname);
         user.setPassword(password);
         user.setDriver(driver);
         session.saveOrUpdate(user);

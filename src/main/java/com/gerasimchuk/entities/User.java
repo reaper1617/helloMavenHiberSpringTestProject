@@ -10,7 +10,7 @@ public class User {
     private int id;
     private String userName;
     private String middleName;
-    private String lastname;
+    private String lastName;
     private String password;
     private UserRole role;
     private Manager manager;
@@ -28,7 +28,7 @@ public class User {
 
         this.userName = userName;
         this.middleName = middleName;
-        this.lastname = lastname;
+        this.lastName = lastname;
         this.password = password;
         this.role = role;
         this.manager = manager;
@@ -44,7 +44,7 @@ public class User {
 
         this.userName = userName;
         this.middleName = middleName;
-        this.lastname = lastname;
+        this.lastName = lastname;
         this.password = password;
         this.role = role;
         this.manager = null;
@@ -84,12 +84,12 @@ public class User {
 
     @Basic
     @Column(name = "lastname")
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
     }
 
     @Basic
@@ -143,7 +143,7 @@ public class User {
         if (id != users.id) return false;
         if (userName != null ? !userName.equals(users.userName) : users.userName != null) return false;
         if (middleName != null ? !middleName.equals(users.middleName) : users.middleName != null) return false;
-        if (lastname != null ? !lastname.equals(users.lastname) : users.lastname != null) return false;
+        if (lastName != null ? !lastName.equals(users.lastName) : users.lastName != null) return false;
         if (password != null ? !password.equals(users.password) : users.password != null) return false;
         if (role != users.role) return false;
         if (manager != null ? !manager.equals(users.manager) : users.manager != null) return false;
@@ -157,7 +157,7 @@ public class User {
         int result = id;
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (manager != null ? manager.hashCode() : 0);

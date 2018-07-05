@@ -936,507 +936,478 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="237" parent="7" name="cargo_properties"/>
-    <table id="238" parent="7" name="cargos"/>
-    <table id="239" parent="7" name="cities"/>
-    <table id="240" parent="7" name="driver_status"/>
-    <table id="241" parent="7" name="drivers"/>
-    <table id="242" parent="7" name="managers"/>
-    <table id="243" parent="7" name="map"/>
-    <table id="244" parent="7" name="order_properties"/>
-    <table id="245" parent="7" name="orders"/>
-    <table id="246" parent="7" name="route_points"/>
-    <table id="247" parent="7" name="trucks"/>
-    <table id="248" parent="7" name="users"/>
-    <column id="249" parent="237" name="id">
+    <table id="237" parent="7" name="cargos"/>
+    <table id="238" parent="7" name="cities"/>
+    <table id="239" parent="7" name="drivers"/>
+    <table id="240" parent="7" name="hibernate_sequence"/>
+    <table id="241" parent="7" name="managers"/>
+    <table id="242" parent="7" name="orders"/>
+    <table id="243" parent="7" name="route"/>
+    <table id="244" parent="7" name="route_points"/>
+    <table id="245" parent="7" name="trucks"/>
+    <table id="246" parent="7" name="users"/>
+    <column id="247" parent="237" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="237" name="assigned_cargo_id">
+    <column id="248" parent="237" name="cargo_name">
       <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="237" name="assigned_route_point_id">
+    <column id="249" parent="237" name="weight">
       <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="252" parent="237" name="weight">
-      <Position>4</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="237" name="cargo_status">
-      <Position>5</Position>
+    <column id="250" parent="237" name="status">
+      <Position>4</Position>
       <DataType>enum(&apos;PREPARED&apos;, &apos;SHIPPED&apos;, &apos;DELIVERED&apos;)|0e</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;PREPARED&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="254" parent="237" name="assigned_cargo_id">
-      <ColNames>assigned_cargo_id</ColNames>
+    <column id="251" parent="237" name="assigned_order_id">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="252" parent="237" name="load_point_id">
+      <Position>6</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="253" parent="237" name="unload_point_id">
+      <Position>7</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="254" parent="237" name="assigned_order_id_fk_idx">
+      <ColNames>assigned_order_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="255" parent="237" name="assigned_route_point_id">
-      <ColNames>assigned_route_point_id</ColNames>
+    <index id="255" parent="237" name="load_point_id_pk_idx">
+      <ColNames>load_point_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="256" parent="237" name="PRIMARY">
+    <index id="256" parent="237" name="unload_point_id_fk_idx">
+      <ColNames>unload_point_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="257" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="257" parent="237" name="cargo_properties_ibfk_1">
-      <ColNames>assigned_cargo_id</ColNames>
+    <foreign-key id="258" parent="237" name="assigned_order_id_fk">
+      <ColNames>assigned_order_id</ColNames>
       <RefSchemaName>logisticon</RefSchemaName>
-      <RefTableName>cargos</RefTableName>
-      <RefColNames>id</RefColNames>
+      <RefTableName>orders</RefTableName>
+      <RefColNames>order_id</RefColNames>
     </foreign-key>
-    <foreign-key id="258" parent="237" name="cargo_properties_ibfk_2">
-      <ColNames>assigned_route_point_id</ColNames>
+    <foreign-key id="259" parent="237" name="load_point_id_fk">
+      <ColNames>load_point_id</ColNames>
       <RefSchemaName>logisticon</RefSchemaName>
       <RefTableName>route_points</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="259" parent="238" name="id">
+    <foreign-key id="260" parent="237" name="unload_point_id_fk">
+      <ColNames>unload_point_id</ColNames>
+      <RefSchemaName>logisticon</RefSchemaName>
+      <RefTableName>route_points</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="261" parent="238" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="238" name="cargo_name">
+    <column id="262" parent="238" name="city_name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="261" parent="238" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="262" parent="239" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="263" parent="239" name="city_name">
-      <Position>2</Position>
-      <DataType>varchar(50)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="264" parent="239" name="has_agency">
+    <column id="263" parent="238" name="has_agency">
       <Position>3</Position>
       <DataType>enum(&apos;HAS&apos;, &apos;HASNOT&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;HASNOT&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="265" parent="239" name="PRIMARY">
+    <key id="264" parent="238" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="266" parent="240" name="id">
+    <column id="265" parent="239" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="240" name="assigned_driver_id">
+    <column id="266" parent="239" name="hours_worked">
       <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="268" parent="240" name="state">
+    <column id="267" parent="239" name="state">
       <Position>3</Position>
       <DataType>enum(&apos;DRIVING&apos;, &apos;RESTING&apos;, &apos;SHIFTING&apos;)|0e</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>&apos;RESTING&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="269" parent="240" name="current_city_id">
+    <column id="268" parent="239" name="current_city_id">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="270" parent="240" name="current_truck_id">
+    <column id="269" parent="239" name="current_truck_id">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="271" parent="240" name="assigned_driver_id">
-      <ColNames>assigned_driver_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="272" parent="240" name="current_city_id">
+    <index id="270" parent="239" name="current_city_id_fk_idx">
       <ColNames>current_city_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="273" parent="240" name="current_truck_id">
+    <index id="271" parent="239" name="current_truck_id_fk_idx">
       <ColNames>current_truck_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="274" parent="240" name="PRIMARY">
+    <key id="272" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="275" parent="240" name="driver_status_ibfk_1">
-      <ColNames>assigned_driver_id</ColNames>
-      <RefSchemaName>logisticon</RefSchemaName>
-      <RefTableName>drivers</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <foreign-key id="276" parent="240" name="driver_status_ibfk_2">
+    <foreign-key id="273" parent="239" name="current_city_id_fk">
       <ColNames>current_city_id</ColNames>
       <RefSchemaName>logisticon</RefSchemaName>
       <RefTableName>cities</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="277" parent="240" name="driver_status_ibfk_3">
+    <foreign-key id="274" parent="239" name="current_truck_id_fk">
       <ColNames>current_truck_id</ColNames>
       <RefSchemaName>logisticon</RefSchemaName>
       <RefTableName>trucks</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="278" parent="241" name="id">
+    <column id="275" parent="240" name="next_val">
+      <Position>1</Position>
+      <DataType>bigint(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="276" parent="241" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="279" parent="241" name="hours_worked">
-      <Position>2</Position>
-      <DataType>double|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="280" parent="241" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="281" parent="242" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="282" parent="242" name="manager_position">
+    <column id="277" parent="241" name="manager_position">
       <Position>2</Position>
       <DataType>enum(&apos;JUNIOR&apos;, &apos;MIDDLE&apos;, &apos;EXPERT&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="283" parent="242" name="PRIMARY">
+    <key id="278" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="284" parent="243" name="departure_city_id">
+    <column id="279" parent="242" name="order_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="243" name="destination_city_id">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="286" parent="243" name="distance">
-      <Position>3</Position>
-      <DataType>double|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="287" parent="243" name="destination_city_id">
-      <ColNames>destination_city_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="288" parent="243" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>departure_city_id
-destination_city_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="289" parent="243" name="map_ibfk_1">
-      <ColNames>departure_city_id</ColNames>
-      <RefSchemaName>logisticon</RefSchemaName>
-      <RefTableName>cities</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <foreign-key id="290" parent="243" name="map_ibfk_2">
-      <ColNames>destination_city_id</ColNames>
-      <RefSchemaName>logisticon</RefSchemaName>
-      <RefTableName>cities</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <column id="291" parent="244" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="292" parent="244" name="assigned_order_id">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="293" parent="244" name="order_date">
-      <Position>3</Position>
-      <DataType>varchar(50)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="294" parent="244" name="assigned_truck_id">
-      <Position>4</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="295" parent="244" name="assigned_order_id">
-      <ColNames>assigned_order_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="296" parent="244" name="assigned_truck_id">
-      <ColNames>assigned_truck_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="297" parent="244" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="298" parent="244" name="order_properties_ibfk_1">
-      <ColNames>assigned_order_id</ColNames>
-      <RefSchemaName>logisticon</RefSchemaName>
-      <RefTableName>orders</RefTableName>
-      <RefColNames>order_id</RefColNames>
-    </foreign-key>
-    <foreign-key id="299" parent="244" name="order_properties_ibfk_2">
-      <ColNames>assigned_truck_id</ColNames>
-      <RefSchemaName>logisticon</RefSchemaName>
-      <RefTableName>trucks</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <column id="300" parent="245" name="order_id">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="301" parent="245" name="order_state">
+    <column id="280" parent="242" name="order_state">
       <Position>2</Position>
       <DataType>enum(&apos;PREPARED&apos;, &apos;SHIPPED&apos;, &apos;DELIVERED&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;PREPARED&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="302" parent="245" name="PRIMARY">
+    <column id="281" parent="242" name="order_description">
+      <Position>3</Position>
+      <DataType>varchar(45)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="282" parent="242" name="order_date">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="283" parent="242" name="assigned_truck_id">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="284" parent="242" name="order_id_UNIQUE">
+      <ColNames>order_id</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <index id="285" parent="242" name="assigned_truck_id_fk_idx">
+      <ColNames>assigned_truck_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="286" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>order_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="303" parent="246" name="id">
+    <key id="287" parent="242" name="order_id_UNIQUE">
+      <ColNames>order_id</ColNames>
+      <UnderlyingIndexName>order_id_UNIQUE</UnderlyingIndexName>
+    </key>
+    <foreign-key id="288" parent="242" name="assigned_truck_id_fk">
+      <ColNames>assigned_truck_id</ColNames>
+      <RefSchemaName>logisticon</RefSchemaName>
+      <RefTableName>trucks</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="289" parent="243" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="246" name="_type">
+    <column id="290" parent="243" name="departure_city_id">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="243" name="destination_city_id">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="292" parent="243" name="distance">
+      <Position>4</Position>
+      <DataType>double|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="293" parent="243" name="route_id_UNIQUE">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <index id="294" parent="243" name="map_ibfk_1_idx">
+      <ColNames>departure_city_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="295" parent="243" name="map_ibfk_2_idx">
+      <ColNames>destination_city_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="296" parent="243" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="297" parent="243" name="route_id_UNIQUE">
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>route_id_UNIQUE</UnderlyingIndexName>
+    </key>
+    <foreign-key id="298" parent="243" name="route_ibfk_1">
+      <ColNames>departure_city_id</ColNames>
+      <RefSchemaName>logisticon</RefSchemaName>
+      <RefTableName>cities</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="299" parent="243" name="route_ibfk_2">
+      <ColNames>destination_city_id</ColNames>
+      <RefSchemaName>logisticon</RefSchemaName>
+      <RefTableName>cities</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="300" parent="244" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="301" parent="244" name="_type">
       <Position>2</Position>
       <DataType>enum(&apos;LOADING&apos;, &apos;UNLOADING&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;LOADING&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="246" name="assigned_order_id">
+    <column id="302" parent="244" name="city_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="306" parent="246" name="city_id">
-      <Position>4</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="307" parent="246" name="assigned_order_id">
-      <ColNames>assigned_order_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="308" parent="246" name="city_id">
+    <index id="303" parent="244" name="city_id_fk_idx">
       <ColNames>city_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="309" parent="246" name="PRIMARY">
+    <key id="304" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="310" parent="246" name="route_points_ibfk_1">
-      <ColNames>assigned_order_id</ColNames>
-      <RefSchemaName>logisticon</RefSchemaName>
-      <RefTableName>orders</RefTableName>
-      <RefColNames>order_id</RefColNames>
-    </foreign-key>
-    <foreign-key id="311" parent="246" name="route_points_ibfk_2">
+    <foreign-key id="305" parent="244" name="city_id_fk">
       <ColNames>city_id</ColNames>
       <RefSchemaName>logisticon</RefSchemaName>
       <RefTableName>cities</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="312" parent="247" name="id">
+    <column id="306" parent="245" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="313" parent="247" name="registration_number">
+    <column id="307" parent="245" name="registration_number">
       <Position>2</Position>
       <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="314" parent="247" name="shift">
+    <column id="308" parent="245" name="shift">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="315" parent="247" name="capacity">
+    <column id="309" parent="245" name="capacity">
       <Position>4</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="316" parent="247" name="state">
+    <column id="310" parent="245" name="state">
       <Position>5</Position>
       <DataType>enum(&apos;READY&apos;, &apos;NOTREADY&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;NOTREADY&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="317" parent="247" name="current_city_id">
+    <column id="311" parent="245" name="current_city_id">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="318" parent="247" name="registration_number">
+    <index id="312" parent="245" name="registration_number">
       <ColNames>registration_number</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="319" parent="247" name="current_city_id">
+    <index id="313" parent="245" name="current_city_id">
       <ColNames>current_city_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="320" parent="247" name="PRIMARY">
+    <key id="314" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="321" parent="247" name="registration_number">
+    <key id="315" parent="245" name="registration_number">
       <ColNames>registration_number</ColNames>
       <UnderlyingIndexName>registration_number</UnderlyingIndexName>
     </key>
-    <foreign-key id="322" parent="247" name="trucks_ibfk_1">
+    <foreign-key id="316" parent="245" name="trucks_ibfk_1">
       <ColNames>current_city_id</ColNames>
       <RefSchemaName>logisticon</RefSchemaName>
       <RefTableName>cities</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="323" parent="248" name="id">
+    <column id="317" parent="246" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="324" parent="248" name="user_name">
+    <column id="318" parent="246" name="user_name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="325" parent="248" name="middle_name">
+    <column id="319" parent="246" name="middle_name">
       <Position>3</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="326" parent="248" name="lastname">
+    <column id="320" parent="246" name="lastname">
       <Position>4</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="327" parent="248" name="password">
+    <column id="321" parent="246" name="password">
       <Position>5</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="328" parent="248" name="role">
+    <column id="322" parent="246" name="role">
       <Position>6</Position>
       <DataType>enum(&apos;DRIVER&apos;, &apos;MANAGER&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="329" parent="248" name="manager">
+    <column id="323" parent="246" name="manager">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="330" parent="248" name="driver">
+    <column id="324" parent="246" name="driver">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="331" parent="248" name="manager">
+    <index id="325" parent="246" name="manager">
       <ColNames>manager</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="332" parent="248" name="driver">
+    <index id="326" parent="246" name="driver">
       <ColNames>driver</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="333" parent="248" name="PRIMARY">
+    <key id="327" parent="246" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="334" parent="248" name="users_ibfk_1">
+    <foreign-key id="328" parent="246" name="users_ibfk_1">
       <ColNames>manager</ColNames>
       <RefSchemaName>logisticon</RefSchemaName>
       <RefTableName>managers</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="335" parent="248" name="users_ibfk_2">
+    <foreign-key id="329" parent="246" name="users_ibfk_2">
       <ColNames>driver</ColNames>
       <RefSchemaName>logisticon</RefSchemaName>
       <RefTableName>drivers</RefTableName>

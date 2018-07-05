@@ -1,7 +1,14 @@
 package com.gerasimchuk.mvc;
 
 
+import com.gerasimchuk.dao.*;
+import com.gerasimchuk.entities.City;
+import com.gerasimchuk.entities.Driver;
+import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.entities.User;
+import com.gerasimchuk.enums.CityHasAgency;
+import com.gerasimchuk.enums.DriverState;
+import com.gerasimchuk.enums.TruckState;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,34 +31,22 @@ public class SignUpController {
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     public String indexPost(User user, BindingResult bindingResult, Model ui){
 
-//        if (user!=null) {
-//            UsersEntityDAO usersDAO = UsersEntityDAOImpl.getUsersEntityDAOInstance();
+        CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
+        City c = cityDAO.create("PTZ", CityHasAgency.HAS);
 
+        TruckDAO truckDAO= TruckDAOImpl.getTruckDAOInstance();
+        Truck t = truckDAO.create("r33rg", 5,10, TruckState.NOTREADY, c);
 
-
-     //       System.out.println("UserDAO not null:" + usersDAO != null);
-
+        DriverDAO driverDAO = DriverDAOImpl.getDriverDAOInstance();
+        Driver d = driverDAO.createDriver(10,DriverState.RESTING,c,t );
 //
-//            UsersEntity createdUser = usersDAO.create(user.getUserName(),
-//                    user.getMiddleName(),
-//                    user.getLastname(),
-//                    user.getPassword(),
-//                    UserRole.DRIVER,
-//                   4, // user.getUserManager(),
-//                    5); //user.getUserDriver());
+        UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
+        User u = userDAO.createDriver(user.getUserName(), user.getMiddleName(), user.getLastName(),user.getPassword(),d );
 
-        //    System.out.println("CreatedUser not null:" + createdUser!=null);
-//
-//            ui.addAttribute("createdUserName", createdUser.getUserName());
-//            ui.addAttribute("createdUserMiddleName", createdUser.getMiddleName());
-//            ui.addAttribute("createdUserLastname", createdUser.getLastname());
-//        }
-//        else {
+            ui.addAttribute("createdUserFirstName", u.getUserName() );
+            ui.addAttribute("createdUserMiddleName", u.getMiddleName());
+            ui.addAttribute("createdUserLastname", u.getLastName());
 
-            ui.addAttribute("createdUserName", "You're fucked up");
-            ui.addAttribute("createdUserMiddleName", "You're fucked up");
-            ui.addAttribute("createdUserLastname", "You're fucked up");
-       // }
         return "/signup/success";
     }
 
