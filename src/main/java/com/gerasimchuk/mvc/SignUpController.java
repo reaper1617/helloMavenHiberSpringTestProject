@@ -28,6 +28,21 @@ public class SignUpController {
         return "/index";
     }
 
+    @RequestMapping(value = "/signupmain", method = RequestMethod.GET)
+    public String indexGetSignUp(){
+
+
+        //return "/dark-login-form/23-dark-login-form/index";
+        return "/signup/signupmanager";
+    }
+
+    @RequestMapping(value = "/addcargoview", method = RequestMethod.GET)
+    public String indexGetAddCargoView(){
+
+        return "/cargos/addcargoview";
+    }
+
+
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     public String indexPost(User user, BindingResult bindingResult, Model ui){
 
@@ -47,7 +62,7 @@ public class SignUpController {
             ui.addAttribute("createdUserMiddleName", u.getMiddleName());
             ui.addAttribute("createdUserLastname", u.getLastName());
 
-        return "/signup/success";
+        return "/signup/signupmanager";
     }
 
 }

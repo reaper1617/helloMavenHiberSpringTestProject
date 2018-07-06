@@ -62,8 +62,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="index.jsp">Home</a></li>
-                <li><a class="hvr-underline-from-center active" href="index.jsp">About</a></li>
+                <li><a class="hvr-underline-from-center active" href="/index">Manage trucks</a></li>
+                <li><a class="hvr-underline-from-center active" href="/index">Manage drivers</a></li>
+                <li><a class="hvr-underline-from-center active" href="/index">Manage orders</a></li>
+                <li><a class="hvr-underline-from-center active" href="/index">Log out</a></li>
                 <%--<li><a href="services.html" class="hvr-underline-from-center">Services</a></li>--%>
                 <%--<li><a href="#team" class="hvr-underline-from-center scroll scroll">Team</a></li>--%>
                 <%--<li><a href="gallery.html" class="hvr-underline-from-center">Gallery</a></li>--%>
@@ -85,17 +87,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="slider">
     <div class="callbacks_container">
         <ul class="rslides" id="slider">
-            <%--<li>--%>
-                <%--<div class="w3layouts-banner-top w3layouts-banner-top1">--%>
-                    <%--<div class="banner-dott">--%>
-                        <%--<div class="container">--%>
-                            <%--<div class="slider-info">--%>
+            <li>
+                <div class="w3layouts-banner-top w3layouts-banner-top1">
+                    <div class="banner-dott">
+                        <div class="container">
+                            <div class="slider-info">
                                 <%--<div class="col-md-8">--%>
                                     <%--<h2>Auto transport to fill</h2>--%>
                                     <%--<h4>the truck space</h4>--%>
-                                    <%--<div class="w3ls-button">--%>
-                                    <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
-                                    <%--</div>--%>
+                                    <%--&lt;%&ndash;<div class="w3ls-button">&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
 
                                 <%--</div>--%>
                                 <%--<div class="col-md-4">--%>
@@ -111,26 +113,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         <%--</form>--%>
                                     <%--</div>--%>
                                 <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</li>--%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
 
 
-            <li>
-            <div class="w3layouts-banner-top w3layouts-banner-top2">
-            <div class="banner-dott">
-            <div class="container">
-            <div class="slider-info">
-            <div class="col-md-8">
+            <%--<li>--%>
+            <%--<div class="w3layouts-banner-top w3layouts-banner-top2">--%>
+            <%--<div class="banner-dott">--%>
+            <%--<div class="container">--%>
+            <%--<div class="slider-info">--%>
+            <%--<div class="col-md-8">--%>
             <%--<h3>vehicles Transport</h3>--%>
             <%--<h4>Huge in collection</h4>--%>
             <%--<div class="w3ls-button">--%>
             <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
             <%--</div>--%>
-            </div>
-            <div class="col-md-4">
+            <%--</div>--%>
+            <%--<div class="col-md-4">--%>
             <%--<div class="banner-form-agileinfo">--%>
             <%--<h5> <span>Log in</span></h5>--%>
 
@@ -142,12 +144,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
             <%--</form>--%>
             <%--</div>--%>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </li>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</li>--%>
 
             <%--<li>--%>
             <%--<div class="w3layouts-banner-top w3layouts-banner-top4">--%>

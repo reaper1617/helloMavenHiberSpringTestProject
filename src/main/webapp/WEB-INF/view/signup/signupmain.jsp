@@ -54,7 +54,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<h1><a href="/index">Logisticon-3000</a></h1>
+						<h1><a href="index.jsp">Logisticon-3000</a></h1>
 					</div>
 					<div class="top-nav-text">
 						<div class="nav-contact-w3ls"><i class="fa fa-phone" aria-hidden="true"></i><p>+0(12) 444 262 399</p></div> 
@@ -62,9 +62,9 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					<!-- navbar-header -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a class="hvr-underline-from-center active" href="/signupmain">Login</a></li>
+							<li><a class="hvr-underline-from-center active" href="index.jsp">Home</a></li>
 							<li><a class="hvr-underline-from-center active" href="index.jsp">About</a></li>
-														<%--<li><a href="services.html" class="hvr-underline-from-center">Services</a></li>--%>
+							<%--<li><a href="services.html" class="hvr-underline-from-center">Services</a></li>--%>
 							<%--<li><a href="#team" class="hvr-underline-from-center scroll scroll">Team</a></li>--%>
 							<%--<li><a href="gallery.html" class="hvr-underline-from-center">Gallery</a></li>--%>
 							<%--<li><a href="#" data-toggle="dropdown"><span data-hover="ShortCodes">Short Codes</span><span class="caret"></span></a>--%>
@@ -82,110 +82,107 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 	
 	</div>
 <!-- Slider -->
-<%--<div class="slider">--%>
-	<%--</div>--%>
-
-	<%--<div class="callbacks_container">--%>
+<div class="slider">
+	<div class="callbacks_container">
 		<ul class="rslides" id="slider">
-
 			<li>
 				<div class="w3layouts-banner-top w3layouts-banner-top1">
-					<%--<div class="banner-dott">--%>
-					<%--<div class="container">--%>
-						<%--<div class="slider-info">--%>
-							<%--&lt;%&ndash;<div class="col-md-8">&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<h2>Auto transport to fill</h2>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<h4>the truck space</h4>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<div class="w3ls-button">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+					<div class="banner-dott">
+					<div class="container">
+						<div class="slider-info">
+							<div class="col-md-8">
+								<h2>Auto transport to fill</h2>
+								<h4>the truck space</h4>
+								<%--<div class="w3ls-button">--%>
+									<%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+								<%--</div>--%>
 
-							<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-							<%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<div class="banner-form-agileinfo" align="center">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;<h5> <span>Log in</span></h5>&ndash;%&gt;--%>
+							</div>
+							<div class="col-md-4">
+								<div class="banner-form-agileinfo" align="center">
+									<h5> <span>Log in</span></h5>
 
-									<%--&lt;%&ndash;<form action="/index" id="signin" method="post">&ndash;%&gt;--%>
-											<%--&lt;%&ndash;<input type="text" name="userName" form="signin" placeholder="Name" required="required" >&ndash;%&gt;--%>
-											<%--&lt;%&ndash;<input type="text" name="middleName" form="signin" placeholder="Middle name" required="required" >&ndash;%&gt;--%>
-											<%--&lt;%&ndash;<input type="text" name="lastName" form="signin" placeholder="Last name"required="required" >&ndash;%&gt;--%>
-											<%--&lt;%&ndash;<input type="password" class="ramka" name="password" placeholder="Password" required="required">&ndash;%&gt;--%>
-											<%--&lt;%&ndash;<input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Get started">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;</form>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-							<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-						<%--</div>--%>
-					<%--</div>--%>
-					<%--</div>--%>
+									<form action="/index" id="signin" method="post">
+											<input type="text" name="userName" form="signin" placeholder="Name" required="required" >
+											<input type="text" name="middleName" form="signin" placeholder="Middle name" required="required" >
+											<input type="text" name="lastName" form="signin" placeholder="Last name"required="required" >
+											<input type="password" class="ramka" name="password" placeholder="Password" required="required">
+											<input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Get started">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
 				</div>
 			</li>
 
 
-			<li>
-				<div class="w3layouts-banner-top w3layouts-banner-top2">
+			<%--<li>--%>
+				<%--<div class="w3layouts-banner-top w3layouts-banner-top2">--%>
 					<%--<div class="banner-dott">--%>
 					<%--<div class="container">--%>
 						<%--<div class="slider-info">--%>
-							<%--&lt;%&ndash;<div class="col-md-8">&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<h3>vehicles Transport</h3>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<h4>Huge in collection</h4>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<div class="w3ls-button">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-							<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-							<%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<div class="banner-form-agileinfo">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;<h5> <span>Log in</span></h5>&ndash;%&gt;--%>
+							<%--<div class="col-md-8">--%>
+								<%--<h3>vehicles Transport</h3>--%>
+								<%--<h4>Huge in collection</h4>--%>
+								<%--<div class="w3ls-button">--%>
+									<%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+								<%--</div>--%>
+							<%--</div>--%>
+							<%--<div class="col-md-4">--%>
+								<%--<div class="banner-form-agileinfo">--%>
+									<%--<h5> <span>Log in</span></h5>--%>
 
-									<%--&lt;%&ndash;<form name="login" action="#" method="post">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="text" class="email" name="name" placeholder="Name" required="required">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="text" class="email" name="lastname" placeholder="Last name" required="required">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="password" class="email" name="pass" placeholder="Password" required="required">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="submit" class="hvr-shutter-in-vertical" value="Get started">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;</form>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-							<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+									<%--<form name="login" action="#" method="post">--%>
+										<%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
+										<%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
+										<%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
+										<%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
+										<%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
+									<%--</form>--%>
+								<%--</div>--%>
+							<%--</div>--%>
 						<%--</div>--%>
 					<%--</div>--%>
 					<%--</div>--%>
-				</div>
-			</li>
+				<%--</div>--%>
+			<%--</li>--%>
 
-			<li>
-				<div class="w3layouts-banner-top w3layouts-banner-top4">
+			<%--<li>--%>
+				<%--<div class="w3layouts-banner-top w3layouts-banner-top4">--%>
 					<%--<div class="banner-dott">--%>
 					<%--<div class="container">--%>
 						<%--<div class="slider-info">--%>
-							<%--&lt;%&ndash;<div class="col-md-8">&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<h3>Goods Carrying Train</h3>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<h4>Truck shipping</h4>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<div class="w3ls-button">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-							<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-							<%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-								<%--&lt;%&ndash;<div class="banner-form-agileinfo">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;<h5> <span>Log in</span></h5>&ndash;%&gt;--%>
+							<%--<div class="col-md-8">--%>
+								<%--<h3>Goods Carrying Train</h3>--%>
+								<%--<h4>Truck shipping</h4>--%>
+								<%--<div class="w3ls-button">--%>
+									<%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+								<%--</div>--%>
+							<%--</div>--%>
+							<%--<div class="col-md-4">--%>
+								<%--<div class="banner-form-agileinfo">--%>
+									<%--<h5> <span>Log in</span></h5>--%>
 
-									<%--&lt;%&ndash;<form name="login" action="#" method="post">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="text" class="email" name="name" placeholder="Name" required="required">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="text" class="email" name="lastname" placeholder="Last name" required="required">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="password" class="email" name="pass" placeholder="Password" required="required">&ndash;%&gt;--%>
-										<%--&lt;%&ndash;<input type="submit" class="hvr-shutter-in-vertical" value="Get started">&ndash;%&gt;--%>
-									<%--&lt;%&ndash;</form>&ndash;%&gt;--%>
-								<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-							<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+									<%--<form name="login" action="#" method="post">--%>
+										<%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
+										<%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
+										<%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
+										<%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
+										<%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
+									<%--</form>--%>
+								<%--</div>--%>
+							<%--</div>--%>
 						<%--</div>--%>
 					<%--</div>--%>
 					<%--</div>--%>
-				</div>
-			</li>
+				<%--</div>--%>
+			<%--</li>--%>
 		</ul>
-	<%--</div>--%>
-	<%--<div class="clearfix"></div>--%>
-<%--</div>--%>
+	</div>
+	<div class="clearfix"></div>
+</div>
 <!-- //Slider -->
 <!-- bootstrap-modal-pop-up -->
 
