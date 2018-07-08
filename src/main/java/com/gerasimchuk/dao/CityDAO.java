@@ -11,6 +11,9 @@ public interface CityDAO {
     City update(int id, String cityName, CityHasAgency hasAgency);
 
     City getById(int id);
+
+    City getByName(String cityName);
+
     Collection<City> getAll();
     void delete(int id);
 }

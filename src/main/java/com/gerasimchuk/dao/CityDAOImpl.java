@@ -60,6 +60,22 @@ public class CityDAOImpl implements CityDAO {
     }
 
     @Override
+    public City getByName(String cityName) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        City foundCity = null;
+        Collection<City> cities = session.createQuery("from Cities", City.class).getResultList();
+        if (cities != null) {
+            for (City c : cities) {
+                if (c.getCityName().equals(cityName)) foundCity = c;
+            }
+        }
+        transaction.commit();
+        if (session.isOpen()) session.close();
+        return foundCity;
+    }
+
+    @Override
     public Collection<City> getAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

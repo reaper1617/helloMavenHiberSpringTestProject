@@ -227,7 +227,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <form>
                                     <label for="drivershift">Set shift state:</label>
                                     <select class="form-control option-w3ls select-state"  id="drivershift">
-                                        <option hidden> Dont't started shift  </option>
+                                        <option hidden> Don't started shift  </option>
                                         <option> Started shift </option>
                                         <option> Finished shift </option>
                                     </select>

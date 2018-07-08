@@ -2,12 +2,16 @@ package com.gerasimchuk.mvc;
 
 
 import com.gerasimchuk.dao.*;
+import com.gerasimchuk.dto.TruckDTO;
+import com.gerasimchuk.dto.TruckDTOImpl;
 import com.gerasimchuk.dto.UserDTO;
 import com.gerasimchuk.dto.UserDTOImpl;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
 import com.gerasimchuk.service.SignInService;
 import com.gerasimchuk.service.SignInServiceImpl;
+import com.gerasimchuk.service.TruckService;
+import com.gerasimchuk.service.TruckServiceImpl;
 import com.gerasimchuk.utils.LoginStateSaver;
 import com.gerasimchuk.utils.LoginStateSaverImpl;
 import org.springframework.stereotype.Controller;
@@ -112,4 +116,18 @@ public class SignUpController {
         return "/error/errorpage";
     }
 
+    @RequestMapping(value = "/managetrucks", method = RequestMethod.GET)
+    public String manageTrucks(){
+        return "/manager/managetrucks";
+    }
+
+
+    @RequestMapping(value = "/managetrucks", method = RequestMethod.POST)
+    public String manageTrucksPOST(TruckDTOImpl truck, BindingResult bindingResult, Model ui ){
+
+        TruckService truckService = new TruckServiceImpl();
+        truckService.addTruckToDatabase(truck);
+
+        return "/manager/addedtrucksuccess";
+    }
 }

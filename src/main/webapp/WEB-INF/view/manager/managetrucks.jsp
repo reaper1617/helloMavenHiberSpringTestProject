@@ -7,7 +7,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Transporters a Transportation Category Flat Bootstrap Responsive Website Template | Home :: W3layouts</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,104 +41,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             color: #fff;
             letter-spacing: 1px;
         }
-
-        .driver-info {
-            border: none;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 15px;
-            margin-bottom: 15px;
-            outline: none;
-            font-size: 14px;
-            color: #d58512;
-            letter-spacing: 1px;
-        }
-
-        .driver-list {
-            border: none;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 15px;
-            margin-bottom: 15px;
-            outline: none;
-            font-size: 14px;
-            color: #d58512;
-            letter-spacing: 1px;
-        }
-
-        .select-state {
-            width: 300px; /* Ширина списка в пикселах */
-            alignment: center;
-        }
-
-        .driver-list-back{
-            border: none;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            outline: none;
-            font-size: 14px;
-            font-weight: normal;
-            line-height: 1.8em;
-            background: #fff;
-            background: rgba(0, 0, 0, 0.5);
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-            margin-top: 0px;
-            padding: 12px 0px;
-            text-transform: uppercase;
-            -webkit-transition: 0.5s all;
-            -o-transition: 0.5s all;
-            -moz-transition: 0.5s all;
-            transition: 0.5s all;
-        }
-        .manager-table{
-            border: none;
-            background: rgba(0, 0, 0, 0.5);
-            outline: none;
-            font-size: 14px;
-            font-weight: normal;
-            line-height: 1.8em;
-            background: #fff;
-            background: rgba(0, 0, 0, 0.5);
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-            margin-top: 0px;
-            padding: 12px 0px;
-            text-transform: uppercase;
-            -webkit-transition: 0.5s all;
-            -o-transition: 0.5s all;
-            -moz-transition: 0.5s all;
-            transition: 0.5s all;
-            width: 300px;
-            color: #2FD828;
-        }
-
-        .manager-submit-btn{
-            border-width: 5px;
-            box-sizing: padding-box;
-        }
-
-        .table-overflow{
-            overflow: auto;
-            width: 1000px; /* Ширина блока */
-            height: 400px; /* Высота блока */
-        }
-
     </style>
-
-    <script type="text/javascript">
-        function appendULElem() {
-
-            var txt3 = document.createElement("li");  // Create with DOM
-            txt3.innerHTML = "Next Item";
-            $("#orderslist").append(txt3);      // Append the new elements
-            alert("dgsgfdg");
-        }
-    </script>
 
 </head>
 <body>
@@ -152,7 +54,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <h1><a href="/index">Logisticon-3000</a></h1>
+            <h1><a href="index.jsp">Logisticon-3000</a></h1>
         </div>
         <div class="top-nav-text">
             <div class="nav-contact-w3ls"><i class="fa fa-phone" aria-hidden="true"></i><p>+0(12) 444 262 399</p></div>
@@ -160,11 +62,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
                 <li><a class="hvr-underline-from-center active" href="/index">Manage drivers</a></li>
                 <li><a class="hvr-underline-from-center active" href="/index">Manage orders</a></li>
                 <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
-
             </ul>
         </div>
 
@@ -173,104 +73,117 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </div>
 <!-- Slider -->
-
+<div class="slider">
     <div class="callbacks_container">
-
-
+        <ul class="rslides" id="slider">
+            <li>
                 <div class="w3layouts-banner-top w3layouts-banner-top1">
+                    <div class="banner-dott">
+                        <div class="container">
+                            <div class="slider-info">
+                                <div class="col-md-8">
+                                    <h2>Auto transport to fill</h2>
+                                    <h4>the truck space</h4>
+                                    <%--<div class="w3ls-button">--%>
+                                    <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+                                    <%--</div>--%>
 
-                    <div class="table-overflow" align="center">
-                        <table>
-                            <tr>
-                                <td>
-                                    <div class="manager-table" align="center">
-                                        <table >
-                                            <tr>
-                                                <th> Order </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="banner-form-agileinfo" align="center">
+                                        <h5> <span>Add new truck</span></h5>
 
-                                                    <ul id="orderslist" onclick="appendULElem()">
-                                                        <li>Item 1</li>
-                                                        <li>Item 2</li>
-                                                        <li>Item 3</li>
-                                                        <li>Item 4</li>
-                                                    </ul>
+                                        <form action="/managetrucks" id="addnewtruck" method="post">
+                                            <input type="text" name="registrationNumber" form="addnewtruck" placeholder="Registration number" required="required" >
+                                            <input type="text" name="shift" form="addnewtruck" placeholder="Shift size" required="required" >
+                                            <input type="text" name="capacity" form="addnewtruck" placeholder="Capacity" required="required" >
+                                            <%--<input type="<select name="state" id="tss1"></select>--%>
+                                            <select class="ramka" name="currentCity" id="truckcity" form="addnewtruck">
+                                                <option id="C1" selected>City1</option>
+                                                <option id="C2">City2</option>
+                                                <option id="C3">City3</option>
+                                            </select>
 
-                                                </td>
-                                            </tr>
-
-
-                                        </table>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="manager-table" align="center">
-                                        <table >
-                                            <tr>
-                                                <th> Order properties </th>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Id:
-                                                </td>
-                                                <td>
-                                                    idValue
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    Description:
-                                                </td>
-                                                <td>
-                                                    descrValue
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Status:
-                                                </td>
-                                                <td>
-                                                    statusValue
-                                                </td>
-
-                                            </tr>
-
-                                        </table>
-
-
-
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="banner-form-agileinfo manager-submit-btn" >
-                                        <form action="/index" id="moreaboutorder" method="post">
-                                            <input type="submit" name="btn1" class="hvr-shutter-in-vertical" form="moreaboutorder" value="More...">
+                                            <select class="ramka" name="state" id="truckstate" form="addnewtruck">
+                                                <option id="READY">Ready</option>
+                                                <option id="NOT_READY" selected>Not ready</option>
+                                            </select>
+                                            <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
+                                            <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new truck!">
                                         </form>
                                     </div>
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-
-
-                    <div class="banner-dott">
-
-                        <div class="container">
-
-
-                            <div class="slider-info">
-
-
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </li>
 
+
+            <%--<li>--%>
+            <%--<div class="w3layouts-banner-top w3layouts-banner-top2">--%>
+            <%--<div class="banner-dott">--%>
+            <%--<div class="container">--%>
+            <%--<div class="slider-info">--%>
+            <%--<div class="col-md-8">--%>
+            <%--<h3>vehicles Transport</h3>--%>
+            <%--<h4>Huge in collection</h4>--%>
+            <%--<div class="w3ls-button">--%>
+            <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="col-md-4">--%>
+            <%--<div class="banner-form-agileinfo">--%>
+            <%--<h5> <span>Log in</span></h5>--%>
+
+            <%--<form name="login" action="#" method="post">--%>
+            <%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
+            <%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
+            <%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
+            <%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
+            <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
+            <%--</form>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</li>--%>
+
+            <%--<li>--%>
+            <%--<div class="w3layouts-banner-top w3layouts-banner-top4">--%>
+            <%--<div class="banner-dott">--%>
+            <%--<div class="container">--%>
+            <%--<div class="slider-info">--%>
+            <%--<div class="col-md-8">--%>
+            <%--<h3>Goods Carrying Train</h3>--%>
+            <%--<h4>Truck shipping</h4>--%>
+            <%--<div class="w3ls-button">--%>
+            <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="col-md-4">--%>
+            <%--<div class="banner-form-agileinfo">--%>
+            <%--<h5> <span>Log in</span></h5>--%>
+
+            <%--<form name="login" action="#" method="post">--%>
+            <%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
+            <%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
+            <%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
+            <%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
+            <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
+            <%--</form>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</li>--%>
+        </ul>
+    </div>
     <div class="clearfix"></div>
 </div>
 <!-- //Slider -->
@@ -461,11 +374,5 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //FlexSlider-JavaScript -->
 
 <!-- //js-scripts -->
-
-
-
-
-
-
 </body>
 </html>
