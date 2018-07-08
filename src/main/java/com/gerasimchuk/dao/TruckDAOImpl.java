@@ -66,6 +66,25 @@ public class TruckDAOImpl implements TruckDAO{
     }
 
     @Override
+    public Truck getByRegistrationNumber(String regNum) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Truck foundTruck = null;
+        Collection<Truck> trucks = session.createQuery("from Trucks", Truck.class).getResultList();
+        if (trucks != null) {
+            for (Truck t : trucks) {
+                if (t.getRegistrationNumber().equals(regNum)) {
+                    foundTruck = t;
+                    break;
+                }
+            }
+        }
+        transaction.commit();
+        if (session.isOpen()) session.close();
+        return foundTruck;
+    }
+
+    @Override
     public Collection<Truck> getAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

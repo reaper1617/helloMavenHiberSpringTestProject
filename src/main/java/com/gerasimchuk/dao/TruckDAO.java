@@ -21,6 +21,9 @@ public interface TruckDAO {
                  City currentCity);
 
     Truck getById(int id);
+    Truck getByRegistrationNumber(String regNum);
+
+
     Collection<Truck> getAll();
     void delete(int id);
 }

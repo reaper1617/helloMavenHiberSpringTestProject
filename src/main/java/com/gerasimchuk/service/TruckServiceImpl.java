@@ -90,6 +90,9 @@ public class TruckServiceImpl implements TruckService {
         if (!validateTruckDTOData(truckDTO)) return false;
 
         City city = cityDAO.getByName(truckDTO.getCurrentCity());
+
+        if (truckDAO.getByRegistrationNumber(truckDTO.getRegistrationNumber())!=null) return false;
+
         truckDAO.create(truckDTO.getRegistrationNumber(),
                         truckDTO.getShiftVal(),
                         truckDTO.getCapacityVal(),

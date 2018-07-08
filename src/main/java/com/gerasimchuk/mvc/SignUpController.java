@@ -126,8 +126,9 @@ public class SignUpController {
     public String manageTrucksPOST(TruckDTOImpl truck, BindingResult bindingResult, Model ui ){
 
         TruckService truckService = new TruckServiceImpl();
-        truckService.addTruckToDatabase(truck);
+        boolean success = truckService.addTruckToDatabase(truck);
 
-        return "/manager/addedtrucksuccess";
+        if (success) return "/manager/addedtrucksuccess";
+        else return "/error/errorpage";
     }
 }
