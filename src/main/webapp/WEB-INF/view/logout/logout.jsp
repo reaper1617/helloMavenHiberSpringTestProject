@@ -94,7 +94,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="container">
                     <div class="slider-info">
                         <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
+                            <h3>You log out successfully!</h3>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="container">
                      <div class="slider-info">
                          <div class="col-md-8">
-                        <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
+                        <h3>You log out successfully!</h3>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="container">
                     <div class="slider-info">
                         <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
+                            <h3>You log out successfully!</h3>
                         </div>
                     </div>
                 </div>

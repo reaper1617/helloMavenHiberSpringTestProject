@@ -41,6 +41,89 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             color: #fff;
             letter-spacing: 1px;
         }
+
+        .driver-info {
+            border: none;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            outline: none;
+            font-size: 14px;
+            color: #d58512;
+            letter-spacing: 1px;
+        }
+
+        .driver-list {
+            border: none;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            outline: none;
+            font-size: 14px;
+            color: #d58512;
+            letter-spacing: 1px;
+        }
+
+        .select-state {
+            width: 300px; /* Ширина списка в пикселах */
+            alignment: center;
+        }
+
+        .driver-list-back{
+            border: none;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /*padding: 10px 15px;*/
+            /*margin-bottom: 15px;*/
+            outline: none;
+            font-size: 14px;
+            /*color: #fff;*/
+            /*letter-spacing: 1px;*/
+
+
+            /*color: #d58512;*/
+            font-weight: normal;
+            /*letter-spacing: 0.5px;*/
+            /*font-size: 14px;*/
+            /*margin: 1em 0;*/
+            line-height: 1.8em;
+            background: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            /*padding: 3em 2em;*/
+
+            /*border: none;*/
+            /*width: 100%;*/
+            /*background: rgba(0, 0, 0, 0.5);*/
+            /*padding: 10px 15px;*/
+            margin-bottom: 15px;
+            /*outline: none;*/
+            /*font-size: 14px;*/
+            /*color: #fff;*/
+            letter-spacing: 1px;
+
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+
+
+            /*width: 100%;*/
+            margin-top: 0px;
+            padding: 12px 0px;
+            /*font-size: 15px;*/
+            /*color: #fff;*/
+            /*letter-spacing: 1px;*/
+            text-transform: uppercase;
+            /*border: none;*/
+            /*background: #e01f3d;*/
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            /*-ms-transition: 0.5s all;*/
+            transition: 0.5s all;
+        }
+
+
     </style>
 
 </head>
@@ -62,8 +145,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="/login">Login</a></li>
-                <li><a class="hvr-underline-from-center active" href="/index">About</a></li>
+                <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
                 <%--<li><a href="services.html" class="hvr-underline-from-center">Services</a></li>--%>
                 <%--<li><a href="#team" class="hvr-underline-from-center scroll scroll">Team</a></li>--%>
                 <%--<li><a href="gallery.html" class="hvr-underline-from-center">Gallery</a></li>--%>
@@ -82,59 +164,154 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </div>
 <!-- Slider -->
-<%--<div class="slider">--%>
-<%--</div>--%>
 
-<%--<div class="callbacks_container">--%>
-<ul class="rslides" id="slider">
+    <div class="callbacks_container">
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top1">
-            <div class="banner-dott">
-                <div class="container">
-                    <div class="slider-info">
-                        <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
+
+                <div class="w3layouts-banner-top w3layouts-banner-top1">
+
+                    <div class="banner-dott">
+                        <div align="center">
+                            <form class="driver-info">
+
+                                <table>
+
+                                    <tr>
+                                        <td><label>Your ID:</label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Your name:</label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Your middle name:</label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Your last name:</label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Your current status:</label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Your current order:</label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Route points:</label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Your assistants: </label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Your current city:</label></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Your current truck:</label></td>
+                                    </tr>
+
+
+                                </table>
+                            </form>
+
+                        </div>
+                        <div align="center">
+                            <div class="banner-form-agileinfo driver-list select-state">
+
+                                <form>
+                                    <label for="drivershift">Set shift state:</label>
+                                    <select class="form-control option-w3ls select-state"  id="drivershift">
+                                        <option hidden> Dont't started shift  </option>
+                                        <option> Started shift </option>
+                                        <option> Finished shift </option>
+                                    </select>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div align="center">
+
+                            <div class="banner-form-agileinfo driver-list select-state" align="center">
+
+                                <form>
+                                    <label for="driverstateselect">Set your state:</label>
+                                    <select class="form-control option-w3ls select-state" id="driverstateselect">
+                                        <option> Resting </option>
+                                        <option> On driving </option>
+                                        <option> Second driver </option>
+                                        <option> Loading/unloading cargos </option>
+                                    </select>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div align="center">
+                            <div class="banner-form-agileinfo driver-list select-state" align="center">
+
+                                <form>
+                                    <label for="driverorderselect">Set cargo state:</label>
+                                    <select class="form-control option-w3ls select-state" id="driverorderselect">
+                                        <option hidden> Prepared to load </option>
+                                        <option> Loaded </option>
+                                        <option> Unoaded </option>
+                                    </select>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="container">
+
+
+
+
+                            <div class="slider-info">
+
+
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    </li>
+    <div class="clearfix"></div>
+</div>
+<!-- //Slider -->
+<!-- bootstrap-modal-pop-up -->
+
+<!-- //bootstrap-modal-pop-up -->
+<!-- banner-bottom -->
+
+<!-- //banner-bottom -->
+
+<!-- team -->
+
+<!-- //team -->
+
+<!-- Clients -->
+
+<!-- //Clients -->
+
+<!-- //Counter -->
 
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top2">
+<!-- our blog -->
 
-            <div class="banner-dott">
-                <div class="container">
-                     <div class="slider-info">
-                         <div class="col-md-8">
-                        <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </li>
-
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top4">
-            <div class="banner-dott">
-                <div class="container">
-                    <div class="slider-info">
-                        <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </li>
-</ul>
-
+<!-- //our blog -->
 
 <!-- footer -->
 <footer>

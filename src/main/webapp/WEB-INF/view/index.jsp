@@ -62,8 +62,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					<!-- navbar-header -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a class="hvr-underline-from-center active" href="/signupmain">Login</a></li>
-							<li><a class="hvr-underline-from-center active" href="index.jsp">About</a></li>
+							<li><a class="hvr-underline-from-center active" href="/login">Login</a></li>
+							<li><a class="hvr-underline-from-center active" href="/index">About</a></li>
 														<%--<li><a href="services.html" class="hvr-underline-from-center">Services</a></li>--%>
 							<%--<li><a href="#team" class="hvr-underline-from-center scroll scroll">Team</a></li>--%>
 							<%--<li><a href="gallery.html" class="hvr-underline-from-center">Gallery</a></li>--%>

@@ -7,6 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Transporters a Transportation Category Flat Bootstrap Responsive Website Template | Home :: W3layouts</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +42,104 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             color: #fff;
             letter-spacing: 1px;
         }
+
+        .driver-info {
+            border: none;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            outline: none;
+            font-size: 14px;
+            color: #d58512;
+            letter-spacing: 1px;
+        }
+
+        .driver-list {
+            border: none;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            outline: none;
+            font-size: 14px;
+            color: #d58512;
+            letter-spacing: 1px;
+        }
+
+        .select-state {
+            width: 300px; /* Ширина списка в пикселах */
+            alignment: center;
+        }
+
+        .driver-list-back{
+            border: none;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            outline: none;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.8em;
+            background: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            margin-top: 0px;
+            padding: 12px 0px;
+            text-transform: uppercase;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            transition: 0.5s all;
+        }
+        .manager-table{
+            border: none;
+            background: rgba(0, 0, 0, 0.5);
+            outline: none;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.8em;
+            background: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            margin-top: 0px;
+            padding: 12px 0px;
+            text-transform: uppercase;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            transition: 0.5s all;
+            width: 300px;
+            color: #2FD828;
+        }
+
+        .manager-submit-btn{
+            border-width: 5px;
+            box-sizing: padding-box;
+        }
+
+        .table-overflow{
+            overflow: auto;
+            width: 1000px; /* Ширина блока */
+            height: 400px; /* Высота блока */
+        }
+
     </style>
+
+    <script type="text/javascript">
+        function appendULElem() {
+
+            var txt3 = document.createElement("li");  // Create with DOM
+            txt3.innerHTML = "Next Item";
+            $("#orderslist").append(txt3);      // Append the new elements
+            alert("dgsgfdg");
+        }
+    </script>
 
 </head>
 <body>
@@ -62,18 +160,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="/login">Login</a></li>
-                <li><a class="hvr-underline-from-center active" href="/index">About</a></li>
-                <%--<li><a href="services.html" class="hvr-underline-from-center">Services</a></li>--%>
-                <%--<li><a href="#team" class="hvr-underline-from-center scroll scroll">Team</a></li>--%>
-                <%--<li><a href="gallery.html" class="hvr-underline-from-center">Gallery</a></li>--%>
-                <%--<li><a href="#" data-toggle="dropdown"><span data-hover="ShortCodes">Short Codes</span><span class="caret"></span></a>--%>
-                <%--<ul class="dropdown-menu">--%>
-                <%--<li><a href="icons.html"><span data-hover="Icons">Icons</span></a></li>--%>
-                <%--<li><a href="typography.html"><span data-hover="Typograpghy">Typograpghy</span></a></li>--%>
-                <%--</ul>--%>
-                <%--</li>	--%>
-                <%--<li><a href="contact.html" class="hvr-underline-from-center">Contact</a>--%>
+                <li><a class="hvr-underline-from-center active" href="/index">Manage trucks</a></li>
+                <li><a class="hvr-underline-from-center active" href="/index">Manage drivers</a></li>
+                <li><a class="hvr-underline-from-center active" href="/index">Manage orders</a></li>
+                <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
+
             </ul>
         </div>
 
@@ -82,59 +173,128 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </div>
 <!-- Slider -->
-<%--<div class="slider">--%>
-<%--</div>--%>
 
-<%--<div class="callbacks_container">--%>
-<ul class="rslides" id="slider">
+    <div class="callbacks_container">
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top1">
-            <div class="banner-dott">
-                <div class="container">
-                    <div class="slider-info">
-                        <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
+
+                <div class="w3layouts-banner-top w3layouts-banner-top1">
+
+                    <div class="table-overflow" align="center">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="manager-table" align="center">
+                                        <table >
+                                            <tr>
+                                                <th> Order </th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+
+                                                    <ul id="orderslist" onclick="appendULElem()">
+                                                        <li>Item 1</li>
+                                                        <li>Item 2</li>
+                                                        <li>Item 3</li>
+                                                        <li>Item 4</li>
+                                                    </ul>
+
+                                                </td>
+                                            </tr>
+
+
+                                        </table>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="manager-table" align="center">
+                                        <table >
+                                            <tr>
+                                                <th> Order properties </th>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Id:
+                                                </td>
+                                                <td>
+                                                    idValue
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    Description:
+                                                </td>
+                                                <td>
+                                                    descrValue
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Status:
+                                                </td>
+                                                <td>
+                                                    statusValue
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+
+
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="banner-form-agileinfo manager-submit-btn" >
+                                        <form action="/index" id="moreaboutorder" method="post">
+                                            <input type="submit" name="btn1" class="hvr-shutter-in-vertical" form="moreaboutorder" value="More...">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+
+                    <div class="banner-dott">
+
+                        <div class="container">
+
+
+                            <div class="slider-info">
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    </li>
+    <div class="clearfix"></div>
+</div>
+<!-- //Slider -->
+<!-- bootstrap-modal-pop-up -->
+
+<!-- //bootstrap-modal-pop-up -->
+<!-- banner-bottom -->
+
+<!-- //banner-bottom -->
+
+<!-- team -->
+
+<!-- //team -->
+
+<!-- Clients -->
+
+<!-- //Clients -->
+
+<!-- //Counter -->
 
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top2">
+<!-- our blog -->
 
-            <div class="banner-dott">
-                <div class="container">
-                     <div class="slider-info">
-                         <div class="col-md-8">
-                        <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </li>
-
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top4">
-            <div class="banner-dott">
-                <div class="container">
-                    <div class="slider-info">
-                        <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </li>
-</ul>
-
+<!-- //our blog -->
 
 <!-- footer -->
 <footer>
@@ -301,5 +461,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //FlexSlider-JavaScript -->
 
 <!-- //js-scripts -->
+
+
+
+
+
+
 </body>
 </html>

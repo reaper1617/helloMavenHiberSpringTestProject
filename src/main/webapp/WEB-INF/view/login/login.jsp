@@ -54,7 +54,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <h1><a href="/index">Logisticon-3000</a></h1>
+            <h1><a href="index.jsp">Logisticon-3000</a></h1>
         </div>
         <div class="top-nav-text">
             <div class="nav-contact-w3ls"><i class="fa fa-phone" aria-hidden="true"></i><p>+0(12) 444 262 399</p></div>
@@ -62,8 +62,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="/login">Login</a></li>
-                <li><a class="hvr-underline-from-center active" href="/index">About</a></li>
+                <li><a class="hvr-underline-from-center active" href="index.jsp">Home</a></li>
+                <li><a class="hvr-underline-from-center active" href="index.jsp">About</a></li>
                 <%--<li><a href="services.html" class="hvr-underline-from-center">Services</a></li>--%>
                 <%--<li><a href="#team" class="hvr-underline-from-center scroll scroll">Team</a></li>--%>
                 <%--<li><a href="gallery.html" class="hvr-underline-from-center">Gallery</a></li>--%>
@@ -82,59 +82,129 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </div>
 <!-- Slider -->
-<%--<div class="slider">--%>
-<%--</div>--%>
+<div class="slider">
+    <div class="callbacks_container">
+        <ul class="rslides" id="slider">
+            <li>
+                <div class="w3layouts-banner-top w3layouts-banner-top1">
+                    <div class="banner-dott">
+                        <div class="container">
+                            <div class="slider-info">
+                                <div class="col-md-8">
+                                    <h2>Auto transport to fill</h2>
+                                    <h4>the truck space</h4>
+                                    <%--<div class="w3ls-button">--%>
+                                    <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+                                    <%--</div>--%>
 
-<%--<div class="callbacks_container">--%>
-<ul class="rslides" id="slider">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="banner-form-agileinfo" align="center">
+                                        <h5> <span>Log in</span></h5>
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top1">
-            <div class="banner-dott">
-                <div class="container">
-                    <div class="slider-info">
-                        <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
+                                        <form action="/login" id="signin" method="post">
+                                            <input type="text" name="userName" form="signin" placeholder="Name" required="required" >
+                                            <input type="text" name="middleName" form="signin" placeholder="Middle name" required="required" >
+                                            <input type="text" name="lastName" form="signin" placeholder="Last name"required="required" >
+                                            <input type="password" class="ramka" name="password" placeholder="Password" required="required">
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Get started">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-        </div>
-    </li>
+            </li>
 
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top2">
+            <%--<li>--%>
+            <%--<div class="w3layouts-banner-top w3layouts-banner-top2">--%>
+            <%--<div class="banner-dott">--%>
+            <%--<div class="container">--%>
+            <%--<div class="slider-info">--%>
+            <%--<div class="col-md-8">--%>
+            <%--<h3>vehicles Transport</h3>--%>
+            <%--<h4>Huge in collection</h4>--%>
+            <%--<div class="w3ls-button">--%>
+            <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="col-md-4">--%>
+            <%--<div class="banner-form-agileinfo">--%>
+            <%--<h5> <span>Log in</span></h5>--%>
 
-            <div class="banner-dott">
-                <div class="container">
-                     <div class="slider-info">
-                         <div class="col-md-8">
-                        <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </li>
+            <%--<form name="login" action="#" method="post">--%>
+            <%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
+            <%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
+            <%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
+            <%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
+            <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
+            <%--</form>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</li>--%>
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top4">
-            <div class="banner-dott">
-                <div class="container">
-                    <div class="slider-info">
-                        <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%--<li>--%>
+            <%--<div class="w3layouts-banner-top w3layouts-banner-top4">--%>
+            <%--<div class="banner-dott">--%>
+            <%--<div class="container">--%>
+            <%--<div class="slider-info">--%>
+            <%--<div class="col-md-8">--%>
+            <%--<h3>Goods Carrying Train</h3>--%>
+            <%--<h4>Truck shipping</h4>--%>
+            <%--<div class="w3ls-button">--%>
+            <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="col-md-4">--%>
+            <%--<div class="banner-form-agileinfo">--%>
+            <%--<h5> <span>Log in</span></h5>--%>
 
-        </div>
-    </li>
-</ul>
+            <%--<form name="login" action="#" method="post">--%>
+            <%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
+            <%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
+            <%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
+            <%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
+            <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
+            <%--</form>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</li>--%>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!-- //Slider -->
+<!-- bootstrap-modal-pop-up -->
 
+<!-- //bootstrap-modal-pop-up -->
+<!-- banner-bottom -->
+
+<!-- //banner-bottom -->
+
+<!-- team -->
+
+<!-- //team -->
+
+<!-- Clients -->
+
+<!-- //Clients -->
+
+<!-- //Counter -->
+
+
+<!-- our blog -->
+
+<!-- //our blog -->
 
 <!-- footer -->
 <footer>
