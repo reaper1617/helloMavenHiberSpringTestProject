@@ -11,6 +11,8 @@ import com.gerasimchuk.enums.DriverState;
 
 import java.util.Collection;
 
+import static com.gerasimchuk.service.UserService.validateName;
+
 public class DriverServiceImpl implements DriverService {
 
     private static UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
@@ -77,14 +79,7 @@ public class DriverServiceImpl implements DriverService {
 
 
 
-    private boolean validateName(String name){
-        if (name == null) return false;
-        if (name.length() > Constants.MAX_NAME_LENGTH) return false;
-        for(int i = 0; i < name.length(); i++){
-            if (Character.isDigit(name.charAt(i))) return false;
-        }
-        return true;
-    }
+
 
     private boolean validateHoursWorked(double hours){
         if (hours < 0) return false;
