@@ -22,6 +22,7 @@ public interface DriverDAO {
                   Truck currentTruckId);
 
     Driver getById(int id);
+
     Collection<Driver> getAll();
     void delete(int id);
 }

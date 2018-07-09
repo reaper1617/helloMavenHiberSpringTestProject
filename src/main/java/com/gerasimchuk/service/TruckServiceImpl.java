@@ -19,11 +19,15 @@ public class TruckServiceImpl implements TruckService {
 
     private static CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
 
+
+
     @Override
     public boolean validateTruckDTOData(TruckDTO truckDTO) {
 
+        if (truckDTO == null) return false;
+
         // check registration num
-        if (!validateRegistrationNumber(truckDTO.getRegistrationNumber())) return false;
+        if (!TruckService.validateRegistrationNumber(truckDTO.getRegistrationNumber())) return false;
 
         // check shift
         if (!checkShift(truckDTO.getShiftVal())) return false;
@@ -35,21 +39,12 @@ public class TruckServiceImpl implements TruckService {
         if (!checkState(truckDTO.getStateVal())) return false;
 
         // check city
-        if (!checkCity(truckDTO.getCurrentCity())) return false;
+        if (!CityService.checkCity(truckDTO.getCurrentCity())) return false;
 
         return true;
     }
 
-    private boolean validateRegistrationNumber(String regNum){
-        if (regNum == null) return false;
-        if (regNum.length()!=7) return false;
 
-        if ( !(Character.isLetter(regNum.charAt(0)) && Character.isLetter(regNum.charAt(1)))) return false;
-        for(int i = 2; i < 7; i++){
-            if (!(Character.isDigit(regNum.charAt(i)))) return false;
-        }
-        return true;
-    }
 
     private boolean checkShift(int shift){
         if (shift<=0) return false;
@@ -67,22 +62,6 @@ public class TruckServiceImpl implements TruckService {
         if (state == null) return false;
         return true;
     }
-
-    private boolean checkCity(String city){
-        Collection<City> cities = cityDAO.getAll();
-
-        if (cities == null) return false;
-
-        for(City c: cities){
-            if (c.getCityName().equals(city)) {
-                if (c.getHasAgency() == CityHasAgency.HAS) return true;
-            }
-        }
-        return false;
-    }
-
-
-
 
 
     @Override

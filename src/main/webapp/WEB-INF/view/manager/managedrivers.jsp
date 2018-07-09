@@ -62,7 +62,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="/managedrivers">Manage drivers</a></li>
+                <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
                 <li><a class="hvr-underline-from-center active" href="/index">Manage orders</a></li>
                 <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
             </ul>
@@ -91,22 +91,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
-                                        <h5> <span>Add new truck</span></h5>
+                                        <h5> <span>Add new driver</span></h5>
 
-                                        <form action="/managetrucks" id="addnewtruck" method="post">
-                                            <input type="text" name="registrationNumber" form="addnewtruck" placeholder="Registration number" required="required" >
-                                            <input type="text" name="shift" form="addnewtruck" placeholder="Shift size" required="required" >
-                                            <input type="text" name="capacity" form="addnewtruck" placeholder="Capacity" required="required" >
+                                        <form action="/managedrivers" id="addnewdriver" method="post">
+                                            <input type="text" name="userName" form="addnewdriver" placeholder="Name" required="required" >
+                                            <input type="text" name="middleName" form="addnewdriver" placeholder="Middle name" required="required" >
+                                            <input type="text" name="lastName" form="addnewdriver" placeholder="Middle name" required="required" >
+                                            <input type="password" class="ramka" name="password" form="addnewdriver" placeholder="Password" required="required" >
+                                            <input type="text"  name="hoursWorked" form="addnewdriver" placeholder="Hours worked" required="required" >
+
                                             <%--<input type="<select name="state" id="tss1"></select>--%>
-                                            <select class="ramka" name="currentCity" id="truckcity" form="addnewtruck">
+                                            <select class="ramka" name="currentCity" id="truckcity" form="addnewdriver">
                                                 <option id="C1" selected>City1</option>
                                                 <option id="C2">City2</option>
                                                 <option id="C3">City3</option>
                                             </select>
 
-                                            <select class="ramka" name="state" id="truckstate" form="addnewtruck">
-                                                <option id="READY">Ready</option>
-                                                <option id="NOT_READY" selected>Not ready</option>
+                                            <select class="ramka" name="currentTruck" id="currenttruckregnum" form="addnewdriver">
+                                                <option id="t1" selected >rr33333</option>
+                                                <option id="t2" >rr33334</option>
+                                                <option id="t3" >rr33335</option>
                                             </select>
                                             <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
                                             <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>

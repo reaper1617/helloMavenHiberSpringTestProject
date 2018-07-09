@@ -2,16 +2,10 @@ package com.gerasimchuk.mvc;
 
 
 import com.gerasimchuk.dao.*;
-import com.gerasimchuk.dto.TruckDTO;
-import com.gerasimchuk.dto.TruckDTOImpl;
-import com.gerasimchuk.dto.UserDTO;
-import com.gerasimchuk.dto.UserDTOImpl;
+import com.gerasimchuk.dto.*;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
-import com.gerasimchuk.service.SignInService;
-import com.gerasimchuk.service.SignInServiceImpl;
-import com.gerasimchuk.service.TruckService;
-import com.gerasimchuk.service.TruckServiceImpl;
+import com.gerasimchuk.service.*;
 import com.gerasimchuk.utils.LoginStateSaver;
 import com.gerasimchuk.utils.LoginStateSaverImpl;
 import org.springframework.stereotype.Controller;
@@ -129,6 +123,22 @@ public class SignUpController {
         boolean success = truckService.addTruckToDatabase(truck);
 
         if (success) return "/manager/addedtrucksuccess";
+        else return "/error/errorpage";
+    }
+
+    @RequestMapping(value = "/managedrivers", method = RequestMethod.GET)
+    public String manageDrivers(){
+        return "/manager/managedrivers";
+    }
+
+    @RequestMapping(value = "/managedrivers", method = RequestMethod.POST)
+    public String manageDriversPOST(DriverDTOImpl driverDTO, BindingResult bindingResult, Model ui ){
+
+
+        DriverService driverService = new DriverServiceImpl();
+        boolean success = driverService.addDriverToDatabase(driverDTO);
+
+        if (success) return "/manager/addeddriversuccess";
         else return "/error/errorpage";
     }
 }

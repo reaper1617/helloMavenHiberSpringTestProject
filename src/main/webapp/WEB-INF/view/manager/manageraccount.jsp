@@ -161,7 +161,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
-                <li><a class="hvr-underline-from-center active" href="/index">Manage drivers</a></li>
+                <li><a class="hvr-underline-from-center active" href="/managedrivers">Manage drivers</a></li>
                 <li><a class="hvr-underline-from-center active" href="/index">Manage orders</a></li>
                 <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
 
