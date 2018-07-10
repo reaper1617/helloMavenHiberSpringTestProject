@@ -60,8 +60,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
-                <li><a class="hvr-underline-from-center active" href="/managecargos">Manage cargos</a></li>
+                <li><a class="hvr-underline-from-center active" href="/managedrivers">Manage drivers</a></li>
                 <li><a class="hvr-underline-from-center active" href="/index">Manage orders</a></li>
                 <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
             </ul>
@@ -90,30 +89,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
-                                        <h5> <span>Add new driver</span></h5>
+                                        <h5> <span>Add new cargo</span></h5>
 
-                                        <form action="/managedrivers" id="addnewdriver" method="post">
-                                            <input type="text" name="userName" form="addnewdriver" placeholder="Name" required="required" >
-                                            <input type="text" name="middleName" form="addnewdriver" placeholder="Middle name" required="required" >
-                                            <input type="text" name="lastName" form="addnewdriver" placeholder="Middle name" required="required" >
-                                            <input type="password" class="ramka" name="password" form="addnewdriver" placeholder="Password" required="required" >
-                                            <input type="text"  name="hoursWorked" form="addnewdriver" placeholder="Hours worked" required="required" >
+                                        <form action="/managecargos" id="addnewcargo" method="post">
+                                            <input type="text" name="name" form="addnewcargo" placeholder="Cargo name" required="required" >
+                                            <input type="text" name="weight" form="addnewcargo" placeholder="Weight" required="required" >
 
-                                            <%--<input type="<select name="state" id="tss1"></select>--%>
-                                            <select class="ramka" name="currentCity" id="truckcity" form="addnewdriver">
-                                                <option id="C1" selected>City1</option>
+                                            <select class="ramka" name="state" id="cargostate" form="addnewcargo">
+                                                <option id="DEFAULT" hidden>Choose cargo state</option>
+                                                <option id="PREPARED" >Prepared</option>
+                                                <option id="SHIPPED" >Shipped</option>
+                                                <option id="DELIVERED" >Delivered</option>
+                                            </select>
+
+                                            <select class="ramka" name="loadpoint" id="loadpoint" form="addnewcargo">
+                                                <option id="Cdefault" hidden>Choose load point city</option>
+                                                <option id="C1">City1</option>
                                                 <option id="C2">City2</option>
                                                 <option id="C3">City3</option>
                                             </select>
 
-                                            <select class="ramka" name="currentTruck" id="currenttruckregnum" form="addnewdriver">
-                                                <option id="t1" selected >rr33333</option>
-                                                <option id="t2" >rr33334</option>
-                                                <option id="t3" >rr33335</option>
+                                            <select class="ramka" name="unloadpoint" id="unloadpoint" form="addnewcargo">
+                                                <option id="Cdefault2" selected>Choose unload point city</option>
+                                                <option id="C1_2">City1</option>
+                                                <option id="C2_2">City2</option>
+                                                <option id="C3_3">City3</option>
                                             </select>
+
+
                                             <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
                                             <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>
-                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new truck!">
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new cargo!">
                                         </form>
                                     </div>
                                 </div>

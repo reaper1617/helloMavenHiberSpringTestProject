@@ -141,4 +141,9 @@ public class SignUpController {
         if (success) return "/manager/addeddriversuccess";
         else return "/error/errorpage";
     }
+
+    @RequestMapping(value = "/managecargos", method = RequestMethod.GET)
+    public String manageCargos(){
+        return "/manager/managecargos";
+    }
 }
