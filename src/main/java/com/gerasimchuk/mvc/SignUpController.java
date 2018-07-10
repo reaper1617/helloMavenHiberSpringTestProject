@@ -146,4 +146,17 @@ public class SignUpController {
     public String manageCargos(){
         return "/manager/managecargos";
     }
+
+    @RequestMapping(value = "/managecargos", method = RequestMethod.POST)
+    public String manageCargosPOST(CargoDTOImpl cargoDTO, BindingResult bindingResult, Model ui ){
+
+
+        CargoService cargoService = new CargoServiceImpl();
+        boolean success = cargoService.addCargoToDatabase(cargoDTO);
+
+
+        if (success) return "/manager/addedcargosuccess";
+        else return "/error/errorpage";
+    }
+
 }

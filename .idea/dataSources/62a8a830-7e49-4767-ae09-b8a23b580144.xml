@@ -975,7 +975,6 @@
     <column id="251" parent="237" name="assigned_order_id">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="252" parent="237" name="load_point_id">

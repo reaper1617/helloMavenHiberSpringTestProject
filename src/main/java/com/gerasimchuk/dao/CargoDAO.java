@@ -11,7 +11,6 @@ public interface CargoDAO {
     Cargo create(String cargoName,
                  double weight,
                  CargoStatus status,
-                 Order assignedOrder,
                  RoutePoint loadPoint,
                  RoutePoint unloadPoint);
 

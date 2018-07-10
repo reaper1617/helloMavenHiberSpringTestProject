@@ -32,13 +32,12 @@ public class CargoDAOImpl implements  CargoDAO{
     }
 
     @Override
-    public Cargo create(String cargoName, double weight, CargoStatus status, Order assignedOrder, RoutePoint loadPoint, RoutePoint unloadPoint) {
+    public Cargo create(String cargoName, double weight, CargoStatus status, RoutePoint loadPoint, RoutePoint unloadPoint) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Cargo cargo = new Cargo(cargoName,
                                 weight,
                                 status,
-                                assignedOrder,
                                 loadPoint,
                                 unloadPoint);
 

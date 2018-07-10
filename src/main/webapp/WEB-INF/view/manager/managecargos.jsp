@@ -95,21 +95,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             <input type="text" name="name" form="addnewcargo" placeholder="Cargo name" required="required" >
                                             <input type="text" name="weight" form="addnewcargo" placeholder="Weight" required="required" >
 
-                                            <select class="ramka" name="state" id="cargostate" form="addnewcargo">
+                                            <select class="ramka" name="status" id="cargostate" form="addnewcargo">
                                                 <option id="DEFAULT" hidden>Choose cargo state</option>
                                                 <option id="PREPARED" >Prepared</option>
                                                 <option id="SHIPPED" >Shipped</option>
                                                 <option id="DELIVERED" >Delivered</option>
                                             </select>
 
-                                            <select class="ramka" name="loadpoint" id="loadpoint" form="addnewcargo">
+                                            <select class="ramka" name="loadPoint" id="loadpoint" form="addnewcargo">
                                                 <option id="Cdefault" hidden>Choose load point city</option>
                                                 <option id="C1">City1</option>
                                                 <option id="C2">City2</option>
                                                 <option id="C3">City3</option>
                                             </select>
 
-                                            <select class="ramka" name="unloadpoint" id="unloadpoint" form="addnewcargo">
+                                            <select class="ramka" name="unloadPoint" id="unloadpoint" form="addnewcargo">
                                                 <option id="Cdefault2" selected>Choose unload point city</option>
                                                 <option id="C1_2">City1</option>
                                                 <option id="C2_2">City2</option>

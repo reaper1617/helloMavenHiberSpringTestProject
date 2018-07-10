@@ -18,11 +18,11 @@ public class Cargo {
     public Cargo() {
     }
 
-    public Cargo(String cargoName, double weight, CargoStatus status, Order assignedOrder, RoutePoint loadPoint, RoutePoint unloadPoint) {
+    public Cargo(String cargoName, double weight, CargoStatus status, RoutePoint loadPoint, RoutePoint unloadPoint) {
         this.cargoName = cargoName;
         this.weight = weight;
         this.status = status;
-        this.assignedOrder = assignedOrder;
+        this.assignedOrder = null;
         this.loadPoint = loadPoint;
         this.unloadPoint = unloadPoint;
     }
