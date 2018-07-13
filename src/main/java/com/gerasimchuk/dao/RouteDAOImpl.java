@@ -61,6 +61,21 @@ public class RouteDAOImpl implements RouteDAO {
     }
 
     @Override
+    public Route getByCities(City cityFrom, City cityTo) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Collection<Route> routes = session.createQuery("from Route", Route.class).getResultList();
+
+        Route foundedRoute = null;
+        for(Route r: routes){
+            if (r.getDepartureCity().equals(cityFrom) && r.getDestinationCity().equals(cityTo)) foundedRoute = r;
+        }
+        transaction.commit();
+        if (session.isOpen()) session.close();
+        return foundedRoute;
+    }
+
+    @Override
     public Collection<Route> getAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

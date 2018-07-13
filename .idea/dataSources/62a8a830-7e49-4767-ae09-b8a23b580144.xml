@@ -1157,7 +1157,6 @@
     <column id="283" parent="242" name="assigned_truck_id">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="284" parent="242" name="order_id_UNIQUE">

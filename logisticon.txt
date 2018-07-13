@@ -14,6 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema logisticon
 -- -----------------------------------------------------
+DROP schema if exists `logisticon`;
 CREATE SCHEMA IF NOT EXISTS `logisticon` DEFAULT CHARACTER SET utf8 ;
 USE `logisticon` ;
 
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `logisticon`.`orders` (
   `order_state` ENUM('PREPARED', 'SHIPPED', 'DELIVERED') NOT NULL DEFAULT 'PREPARED',
   `order_description` VARCHAR(45) NOT NULL,
   `order_date` DATETIME NOT NULL,
-  `assigned_truck_id` INT NOT NULL,
+  `assigned_truck_id` INT NULL,
   PRIMARY KEY (`order_id`),
   UNIQUE INDEX `order_id_UNIQUE` (`order_id` ASC),
   INDEX `assigned_truck_id_fk_idx` (`assigned_truck_id` ASC),
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `logisticon`.`cargos` (
   `cargo_name` VARCHAR(50) NOT NULL,
   `weight` DOUBLE NOT NULL,
   `status` ENUM('PREPARED', 'SHIPPED', 'DELIVERED') NOT NULL DEFAULT 'PREPARED',
-  `assigned_order_id` INT NOT NULL,
+  `assigned_order_id` INT NULL,
   `load_point_id` INT NOT NULL,
   `unload_point_id` INT NOT NULL,
   PRIMARY KEY (`id`),

@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -60,6 +61,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
                 <li><a class="hvr-underline-from-center active" href="/managedrivers">Manage drivers</a></li>
                 <li><a class="hvr-underline-from-center active" href="/managecargos">Manage cargos</a></li>
                 <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
@@ -80,35 +82,51 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
-                                    <h2>Auto transport to fill</h2>
-                                    <h4>the truck space</h4>
-                                    <%--<div class="w3ls-button">--%>
+
+                                    <select  class="ramka" form="addneworder"  size="10" multiple name = "cargos" required="true">
+                                        <option hidden value="0">Choose cargos to include in order</option>
+                                        <option value="16">Cargo</option>
+                                        <option value="19">CargoNew</option>
+                                        <option value="3">option3</option>
+                                        <option value="4">option4</option>
+                                        <option value="5">option5</option>
+                                        <option value="6">option6</option>
+                                        <option value="7">option7</option>
+                                        <option value="8">option8</option>
+                                        <option value="9">option9</option>
+                                        <option value="10">option10</option>
+                                        <option value="11">option11</option>
+                                        <option value="12">option12</option>
+                                        <option value="13">option13</option>
+                                    </select>
+                                    <%--<h2>Auto transport to fill</h2>--%>
+                                    <%--<h4>the truck space</h4>--%>
+                                        <%--<form:select multiple="true" path="cargos">--%>
+                                        <%--<form:options items="${cargos}" itemValue="name" itemLabel="name"/>--%>
+                                        <%--</form:select>--%>
+
+
+
+                                        <%--<div class="w3ls-button">--%>
                                     <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
                                     <%--</div>--%>
 
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
-                                        <h5> <span>Add new truck</span></h5>
+                                        <h5> <span>Add new order</span></h5>
 
-                                        <form action="/managetrucks" id="addnewtruck" method="post">
-                                            <input type="text" name="registrationNumber" form="addnewtruck" placeholder="Registration number" required="required" >
-                                            <input type="text" name="shift" form="addnewtruck" placeholder="Shift size" required="required" >
-                                            <input type="text" name="capacity" form="addnewtruck" placeholder="Capacity" required="required" >
-                                            <%--<input type="<select name="state" id="tss1"></select>--%>
-                                            <select class="ramka" name="currentCity" id="truckcity" form="addnewtruck">
-                                                <option id="C1" selected>City1</option>
-                                                <option id="C2">City2</option>
-                                                <option id="C3">City3</option>
-                                            </select>
-
-                                            <select class="ramka" name="state" id="truckstate" form="addnewtruck">
-                                                <option id="READY">Ready</option>
-                                                <option id="NOT_READY" selected>Not ready</option>
-                                            </select>
+                                        <form action="/manageorders"  id="addneworder" method="post">
+                                            <input type="text" name="description" form="addneworder" placeholder="Order description" required="required" >
+                                            <input type="text" name="date" form="addneworder" placeholder="order date" required="required" >
                                             <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
                                             <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>
-                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new truck!">
+
+
+
+
+
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Go forward to assign truck!">
                                         </form>
                                     </div>
                                 </div>

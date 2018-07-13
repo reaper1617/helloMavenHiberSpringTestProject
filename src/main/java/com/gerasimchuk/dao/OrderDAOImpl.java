@@ -65,6 +65,21 @@ public class OrderDAOImpl implements OrderDAO{
     }
 
     @Override
+    public Order getByDescription(String description) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Order findedOrder = null;
+        Collection<Order> orders = session.createQuery("from Orders", Order.class).getResultList();
+        if (orders == null) return null;
+        for(Order o: orders){
+            if (o.getOrderDescription().equals(description)) findedOrder = o;
+        }
+        transaction.commit();
+        if (session.isOpen()) session.close();
+        return findedOrder;
+    }
+
+    @Override
     public Collection<Order> getAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

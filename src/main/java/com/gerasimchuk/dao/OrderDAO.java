@@ -20,6 +20,7 @@ public interface OrderDAO {
                  Truck assignedTruck);
 
     Order getById(int id);
+    Order getByDescription(String description);
     Collection<Order> getAll();
     void delete(int id);
 }

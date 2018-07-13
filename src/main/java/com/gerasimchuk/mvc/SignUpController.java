@@ -6,7 +6,6 @@ import com.gerasimchuk.dto.*;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
 import com.gerasimchuk.service.*;
-import com.gerasimchuk.utils.LoginStateSaver;
 import com.gerasimchuk.utils.LoginStateSaverImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SignUpController {
 
+
+    @RequestMapping(value = "/manageraccount", method = RequestMethod.GET)
+    public String managerAccount(){
+
+
+        //return "/dark-login-form/23-dark-login-form/index";
+        return "/manager/manageraccount";
+    }
 
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -67,40 +74,10 @@ public class SignUpController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginPost(UserDTOImpl user, BindingResult bindingResult, Model ui){
 
-//        CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
-//        City c = cityDAO.create("PTZ", CityHasAgency.HAS);
-//
-//        TruckDAO truckDAO= TruckDAOImpl.getTruckDAOInstance();
-//        Truck t = truckDAO.create("r33rg", 5,10, TruckState.NOTREADY, c);
-//
-//        DriverDAO driverDAO = DriverDAOImpl.getDriverDAOInstance();
-//        Driver d = driverDAO.createDriver(10,DriverState.RESTING,c,t );
-////
-//        UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
-//        User u = userDAO.createDriver(user.getUserName(), user.getMiddleName(), user.getLastName(),user.getPassword(),d );
-//
-//            ui.addAttribute("createdUserFirstName", u.getUserName() );
-//            ui.addAttribute("createdUserMiddleName", u.getMiddleName());
-//            ui.addAttribute("createdUserLastname", u.getLastName());
-
-//        LoginStateSaver loginState = LoginStateSaverImpl.getInstance();
-//        if (loginState!=null){
-//            if (loginState.isLoggedIn()) {
-//                if (LoginStateSaverImpl.getLoggedUser() != null){
-//                    if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER)return "/driver/driveraccount";
-//                    if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.MANAGER)return "/manager/manageraccount";
-//                }
-//            }
-//        }
-
-
-
         if (LoginStateSaverImpl.getInstance().isLoggedIn()){
             if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.MANAGER) return "/manager/manageraccount";
             if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) return "/driver/driveraccount";
         }
-
-
         SignInService s = new SignInServiceImpl(UserDAOImpl.getUserDAOInstance());
         User signedUser = s.signIn(user);
         LoginStateSaverImpl.setLoggedUser(signedUser);
@@ -122,7 +99,10 @@ public class SignUpController {
         TruckService truckService = new TruckServiceImpl();
         boolean success = truckService.addTruckToDatabase(truck);
 
-        if (success) return "/manager/addedtrucksuccess";
+        if (success) {
+            ui.addAttribute("addActionSuccess", "Truck successfully added!");
+            return "/manager/manageractionsuccess";
+        }
         else return "/error/errorpage";
     }
 
@@ -158,5 +138,61 @@ public class SignUpController {
         if (success) return "/manager/addedcargosuccess";
         else return "/error/errorpage";
     }
+
+    @RequestMapping(value = "/manageorders", method = RequestMethod.GET)
+    public String manageOrders(){
+        return "/manager/manageorders";
+    }
+
+
+
+    @RequestMapping(value = "/manageorders", method = RequestMethod.POST)
+    public String manageOrdersPost(OrderDTOImpl orderDTO, BindingResult bindingResult, Model ui){
+
+
+
+        OrderService orderService = new OrderServiceImpl();
+        orderService.addOrderToDatabase(orderDTO);
+        ui.addAttribute("orderDescr", orderDTO.getDescription());
+//        ui.addAttribute("orderDate", orderDTO.getDate());
+//        ui.addAttribute("orderCargos", orderDTO.getCargos());
+
+
+        return "/manager/addtrucktoorder";
+    }
+
+    @RequestMapping(value = "/addtrucktoorder", method = RequestMethod.GET )
+    public String addTruckToOrder(){
+
+
+
+
+        return "/manager/addtrucktoorder";
+    }
+
+
+    @RequestMapping(value = "/addtrucktoorder",method = RequestMethod.POST)
+    public String addTruckToOrderPost(TruckToOrderDTOimpl truckToOrderDTO, BindingResult bindingResult, Model ui){
+
+//        ui.addAttribute("descr", orderDTO.getDescription());
+//        ui.addAttribute("date", orderDTO.getDate());
+//        ui.addAttribute("truck", orderDTO.getAssignedTruck());
+//        ui.addAttribute("cargos", orderDTO.getCargos());
+//
+//        int [] cargos = orderDTO.getCargos();
+//        if (cargos.length == 0) System.out.println("zero");
+//        for( int i = 0; i < cargos.length; i++){
+//            System.out.println(cargos[i]);
+//        }
+
+
+        OrderService orderService = new OrderServiceImpl();
+        boolean success = orderService.addTruckToOrder(truckToOrderDTO);
+
+        if (!success) return "/error/errorpage";
+        return "/manager/addedordersuccess";
+    }
+
+
 
 }

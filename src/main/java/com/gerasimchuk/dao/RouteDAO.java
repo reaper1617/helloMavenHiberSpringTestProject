@@ -13,6 +13,8 @@ public interface RouteDAO {
     Route update(int id, City departureCity, City destinationCity, double distance);
 
     Route getById(int id);
+
+    Route getByCities(City cityFrom, City cityTo);
     Collection<Route> getAll();
     void delete(int id);
 }

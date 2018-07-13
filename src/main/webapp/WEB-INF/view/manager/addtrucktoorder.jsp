@@ -61,8 +61,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
+                <li><a class="hvr-underline-from-center active" href="/managedrivers">Manage drivers</a></li>
                 <li><a class="hvr-underline-from-center active" href="/managecargos">Manage cargos</a></li>
-                <li><a class="hvr-underline-from-center active" href="/manageorders">Manage orders</a></li>
                 <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
             </ul>
         </div>
@@ -81,8 +81,50 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
-                                    <h2>Auto transport to fill</h2>
-                                    <h4>the truck space</h4>
+                                    <select name="truckRegNum" class="ramka" form="addtrucktoorder">
+                                        <option hidden>Choose truck for this cargo</option>
+                                        <option>rr88888</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+                                        <option>num1</option>
+                                        <option>num2</option>
+                                        <option>num3</option>
+
+                                    </select>
+
+
+                                    <%--<h2>Auto transport to fill</h2>--%>
+                                    <%--<h4>the truck space</h4>--%>
                                     <%--<div class="w3ls-button">--%>
                                     <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
                                     <%--</div>--%>
@@ -90,30 +132,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
-                                        <h5> <span>Add new driver</span></h5>
+                                        <h5> <span>Assign truck to order</span></h5>
 
-                                        <form action="/managedrivers" id="addnewdriver" method="post">
-                                            <input type="text" name="userName" form="addnewdriver" placeholder="Name" required="required" >
-                                            <input type="text" name="middleName" form="addnewdriver" placeholder="Middle name" required="required" >
-                                            <input type="text" name="lastName" form="addnewdriver" placeholder="Middle name" required="required" >
-                                            <input type="password" class="ramka" name="password" form="addnewdriver" placeholder="Password" required="required" >
-                                            <input type="text"  name="hoursWorked" form="addnewdriver" placeholder="Hours worked" required="required" >
-
-                                            <%--<input type="<select name="state" id="tss1"></select>--%>
-                                            <select class="ramka" name="currentCity" id="truckcity" form="addnewdriver">
-                                                <option id="C1" selected>City1</option>
-                                                <option id="C2">City2</option>
-                                                <option id="C3">City3</option>
-                                            </select>
-
-                                            <select class="ramka" name="currentTruck" id="currenttruckregnum" form="addnewdriver">
-                                                <option id="t1" selected >rr33333</option>
-                                                <option id="t2" >rr33334</option>
-                                                <option id="t3" >rr33335</option>
-                                            </select>
-                                            <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
-                                            <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>
-                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new truck!">
+                                        <form action="/addtrucktoorder" id="addtrucktoorder" method="post">
+                                            <input hidden type="text" name="orderDescription" form="addtrucktoorder"  value="${orderDescr}" >
+                                            <%--<input hidden type="text" name="date" form="addtrucktoorder"  value="${orderDate}" >--%>
+                                            <%--<input hidden type="number" name="cargos" form="addtrucktoorder"  value="${orderCargos}" >--%>
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Assign truck!">
                                         </form>
                                     </div>
                                 </div>

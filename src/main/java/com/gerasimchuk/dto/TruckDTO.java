@@ -6,28 +6,28 @@ import com.gerasimchuk.enums.TruckState;
 
 public interface TruckDTO {
 
-    public String getRegistrationNumber();
+     String getRegistrationNumber();
 
-    public void setRegistrationNumber(String registrationNumber);
+     void setRegistrationNumber(String registrationNumber);
 
-    public String getShift() ;
+     String getShift() ;
 
-    public int getShiftVal();
-    public void setShift(String shift);
+     int getShiftVal();
+     void setShift(String shift);
 
-    public String getCapacity() ;
+     String getCapacity() ;
 
-    public double getCapacityVal();
+     double getCapacityVal();
 
-    public void setCapacity(String capacity);
+    void setCapacity(String capacity);
 
-    public String getState() ;
+     String getState() ;
 
-    public TruckState getStateVal();
+     TruckState getStateVal();
 
-    public void setState(String state) ;
+     void setState(String state) ;
 
-    public String getCurrentCity() ;
+     String getCurrentCity() ;
 
-    public void setCurrentCity(String currentCity) ;
+     void setCurrentCity(String currentCity) ;
 }
