@@ -8,6 +8,8 @@ public interface TruckService {
 
     boolean addTruckToDatabase(TruckDTO truckDTO);
 
+    boolean changeTruckInDatabase(TruckDTO truckDTO);
+
     static boolean validateRegistrationNumber(String regNum){
         if (regNum == null) return false;
         if (regNum.length()!=7) return false;

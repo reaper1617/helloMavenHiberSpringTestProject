@@ -4,6 +4,7 @@ import com.gerasimchuk.enums.DriverState;
 import com.gerasimchuk.enums.TruckState;
 
 public class TruckDTOImpl implements TruckDTO {
+    private String truckId;
     private String registrationNumber;
     private String shift;
     private String capacity;
@@ -19,6 +20,36 @@ public class TruckDTOImpl implements TruckDTO {
         this.capacity = capacityVal;
         this.state = stateVal;
         this.currentCity = currentCityVal;
+    }
+
+    public TruckDTOImpl(String truckId, String registrationNumber, String shift, String capacity, String state, String currentCity) {
+        this.truckId = truckId;
+        this.registrationNumber = registrationNumber;
+        this.shift = shift;
+        this.capacity = capacity;
+        this.state = state;
+        this.currentCity = currentCity;
+    }
+
+    @Override
+    public String getTruckId() {
+        return truckId;
+    }
+
+    public int getTruckIdVal(){
+        int id = 0;
+        try{
+            id = Integer.parseInt(truckId);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    @Override
+    public void setTruckId(String truckId) {
+        this.truckId = truckId;
     }
 
     @Override

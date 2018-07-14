@@ -3,19 +3,55 @@ package com.gerasimchuk.mvc;
 
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.dto.*;
+import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
 import com.gerasimchuk.service.*;
+import com.gerasimchuk.utils.LoginStateSaver;
 import com.gerasimchuk.utils.LoginStateSaverImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class SignUpController {
 
+    private TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
+    private TruckService truckService = new TruckServiceImpl();
+
+    @RequestMapping(value = "/changetrucks", method = RequestMethod.GET)
+    public String changeTruckGet(){
+
+
+        //return "/dark-login-form/23-dark-login-form/index";
+        return "/manager/changetrucks";
+    }
+
+
+    @RequestMapping(value = "/changetrucks", method = RequestMethod.POST)
+    public String changeTruckPost(TruckDTOImpl truck, BindingResult bindingResult, Model ui){
+
+        boolean success = truckService.changeTruckInDatabase(truck);
+        if (success) {
+            ui.addAttribute("addActionSuccess", "Truck attributes successfully changed!");
+            return "/manager/manageractionsuccess";
+        }
+        else {
+            ui.addAttribute("errorMessage", "failed to change truck attributes");
+            return "/error/errorpage";
+        }
+
+        //return "/dark-login-form/23-dark-login-form/index";
+
+    }
 
     @RequestMapping(value = "/manageraccount", method = RequestMethod.GET)
     public String managerAccount(){
@@ -25,6 +61,13 @@ public class SignUpController {
         return "/manager/manageraccount";
     }
 
+    @RequestMapping(value = "/manageractionsuccess", method = RequestMethod.GET)
+    public String managerActionSuccess(){
+
+
+        //return "/dark-login-form/23-dark-login-form/index";
+        return "/manager/manageractionsuccess";
+    }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String indexGet(){
@@ -87,23 +130,46 @@ public class SignUpController {
         return "/error/errorpage";
     }
 
+
     @RequestMapping(value = "/managetrucks", method = RequestMethod.GET)
-    public String manageTrucks(){
+    public String manageTrucks(Model ui){
+
+        if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
+        if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
+
+
+        List<Truck> trucks = (ArrayList)truckDAO.getAll();
+
+        ui.addAttribute("currentTrucksList", trucks);
+
         return "/manager/managetrucks";
     }
 
 
-    @RequestMapping(value = "/managetrucks", method = RequestMethod.POST)
-    public String manageTrucksPOST(TruckDTOImpl truck, BindingResult bindingResult, Model ui ){
+    @RequestMapping(value = "/managetrucks/{id}", method = RequestMethod.POST)
+    public String manageTrucksPOST(@PathVariable("id") int id, TruckDTOImpl truck, BindingResult bindingResult, Model ui ){
 
-        TruckService truckService = new TruckServiceImpl();
-        boolean success = truckService.addTruckToDatabase(truck);
+        if (id == 0) {
+            TruckService truckService = new TruckServiceImpl();
+            boolean success = truckService.addTruckToDatabase(truck);
 
-        if (success) {
-            ui.addAttribute("addActionSuccess", "Truck successfully added!");
+            if (success) {
+                ui.addAttribute("addActionSuccess", "Truck successfully added!");
+                return "/manager/manageractionsuccess";
+            } else return "/error/errorpage";
+        }
+        if (id == 1){
+            ui.addAttribute("changedTruckRegNum", truckDAO.getById(truck.getTruckIdVal()).getRegistrationNumber());
+
+           return "/manager/changetrucks";
+           // return "/manager/manageractionsuccess";
+        }
+        if (id == 2){
+            ui.addAttribute("addActionSuccess", "Truck deleting!");
             return "/manager/manageractionsuccess";
         }
-        else return "/error/errorpage";
+
+        return "/error/errorpage";
     }
 
     @RequestMapping(value = "/managedrivers", method = RequestMethod.GET)
@@ -192,6 +258,7 @@ public class SignUpController {
         if (!success) return "/error/errorpage";
         return "/manager/addedordersuccess";
     }
+
 
 
 

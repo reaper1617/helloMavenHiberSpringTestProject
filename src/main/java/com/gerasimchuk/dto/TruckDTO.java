@@ -6,6 +6,12 @@ import com.gerasimchuk.enums.TruckState;
 
 public interface TruckDTO {
 
+     String getTruckId();
+
+     int getTruckIdVal();
+
+     void setTruckId(String truckId);
+
      String getRegistrationNumber();
 
      void setRegistrationNumber(String registrationNumber);

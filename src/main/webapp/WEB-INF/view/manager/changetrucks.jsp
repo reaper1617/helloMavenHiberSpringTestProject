@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -60,7 +62,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
                 <li><a class="hvr-underline-from-center active" href="/managedrivers">Manage drivers</a></li>
                 <li><a class="hvr-underline-from-center active" href="/managecargos">Manage cargos</a></li>
                 <li><a class="hvr-underline-from-center active" href="/manageorders">Manage orders</a></li>
@@ -82,17 +83,32 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
-                                    <h2>${addActionSuccess}</h2>
-                                    <h4></h4>
-                                    <%--<div class="w3ls-button">--%>
-                                    <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
-                                    <%--</div>--%>
+
+                                    <h2>Manager change truck:</h2>
 
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
-                                        <form action="/manageraccount" method="get">
-                                            <input type="submit" formmethod="get" class="hvr-shutter-in-vertical" value="Go to main">
+                                        <h5> <span>Change truck ${changedTruckRegNum}</span></h5>
+
+                                        <form action="/changetrucks" id="changetruck" method="post">
+                                            <input hidden type="text" name="registrationNumber" form="changetruck" value="${changedTruckRegNum}" >
+                                            <input type="text" name="shift" form="changetruck" placeholder="Shift size" >
+                                            <input type="text" name="capacity" form="changetruck" placeholder="Capacity" >
+                                            <%--<input type="<select name="state" id="tss1"></select>--%>
+                                            <select class="ramka" name="currentCity" id="truckcity" form="changetruck">
+                                                <option id="C1" selected>City1</option>
+                                                <option id="C2">City2</option>
+                                                <option id="C3">City3</option>
+                                            </select>
+
+                                            <select class="ramka" name="state" id="truckstate" form="changetruck">
+                                                <option id="READY">Ready</option>
+                                                <option id="NOT_READY" selected>Not ready</option>
+                                            </select>
+                                            <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
+                                            <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Change truck!">
                                         </form>
                                     </div>
                                 </div>
@@ -259,14 +275,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!-- js-scripts -->
 <!-- js -->
-<script type="text/javascript" src="resources/web/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="resources/web/js/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap -->
+<script type="text/javascript" src="../resources/web/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../resources/web/js/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap -->
 <!-- //js -->
 
 <!-- start-smoth-scrolling -->
 <script src="resources/web/js/SmoothScroll.min.js"></script>
-<script type="text/javascript" src="resources/web/js/move-top.js"></script>
-<script type="text/javascript" src="resources/web/js/easing.js"></script>
+<script type="text/javascript" src="../resources/web/js/move-top.js"></script>
+<script type="text/javascript" src="../resources/web/js/easing.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $(".scroll").click(function(event){
@@ -295,7 +311,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- start-smoth-scrolling -->
 
 <!-- Baneer-js -->
-<script src="resources/web/js/responsiveslides.min.js"></script>
+<script src="../resources/web/js/responsiveslides.min.js"></script>
 <script>
     $(function () {
         $("#slider").responsiveSlides({
@@ -316,7 +332,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //Baneer-js -->
 
 <!-- banner bottom video script -->
-<script src="resources/web/js/simplePlayer.js"></script>
+<script src="../resources/web/js/simplePlayer.js"></script>
 <script>
     $("document").ready(function() {
         $("#video").simplePlayer();
@@ -325,8 +341,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //banner bottom video script -->
 
 <!-- Stats-Number-Scroller-Animation-JavaScript -->
-<script src="resources/web/js/waypoints.min.js"></script>
-<script src="resources/web/js/counterup.min.js"></script>
+<script src="../resources/web/js/waypoints.min.js"></script>
+<script src="../resources/web/js/counterup.min.js"></script>
 <script>
     jQuery(document).ready(function( $ ) {
         $('.counter').counterUp({
@@ -339,7 +355,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 <!-- FlexSlider-JavaScript -->
-<script defer src="resources/web/js/jquery.flexslider.js"></script>
+<script defer src="../resources/web/js/jquery.flexslider.js"></script>
 <script type="text/javascript">
     $(function(){
         SyntaxHighlighter.all();

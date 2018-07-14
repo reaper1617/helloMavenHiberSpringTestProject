@@ -16,7 +16,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--// Meta tag Keywords -->
 
-    <link rel="stylesheet" href="resources/web/css/flexslider.css" type="text/css" media="all" /><!-- for testimonials -->
+    <link rel="stylesheet" href="../resources/web/css/flexslider.css" type="text/css" media="all" /><!-- for testimonials -->
 
     <!-- css files -->
     <link rel="stylesheet" href="resources/web/css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
@@ -95,6 +95,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="slider-info">
                         <div class="col-md-8">
                             <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
+                            <h2>Error message: ${errorMessage}</h2>
                         </div>
                     </div>
                 </div>

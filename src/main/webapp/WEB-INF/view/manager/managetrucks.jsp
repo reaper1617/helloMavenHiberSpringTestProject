@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -81,18 +83,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
-                                    <h2>Auto transport to fill</h2>
-                                    <h4>the truck space</h4>
-                                    <%--<div class="w3ls-button">--%>
-                                    <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
-                                    <%--</div>--%>
+
+                                    <form  action="/managetrucks/1" id="changeordeletetruck" method="post">
+                                        <select  class="ramka"  size="20" name = "truckId" form="changeordeletetruck">
+
+                                            <c:forEach items="${currentTrucksList}" var="cell">
+                                                <option value="${cell.id}">${cell.registrationNumber}</option>
+                                            </c:forEach>
+
+                                        </select>
+                                        <div class="banner-form-agileinfo ramka">
+                                            <table>
+                                                <tr>
+                                                    <td><input type="submit"  formmethod="post" class="hvr-shutter-in-vertical" value="Change"></td>
+                                                    <%--<td><input type="submit" formaction="/managetrucks/2" formmethod="post" class="hvr-shutter-in-vertical" value="Delete"></td>--%>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </form>
 
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
                                         <h5> <span>Add new truck</span></h5>
 
-                                        <form action="/managetrucks" id="addnewtruck" method="post">
+                                        <form action="/managetrucks/0" id="addnewtruck" method="post">
                                             <input type="text" name="registrationNumber" form="addnewtruck" placeholder="Registration number" required="required" >
                                             <input type="text" name="shift" form="addnewtruck" placeholder="Shift size" required="required" >
                                             <input type="text" name="capacity" form="addnewtruck" placeholder="Capacity" required="required" >
