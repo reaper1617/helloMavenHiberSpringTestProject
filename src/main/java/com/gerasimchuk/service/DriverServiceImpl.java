@@ -77,8 +77,29 @@ public class DriverServiceImpl implements DriverService {
         return true;
     }
 
-
-
+    @Override
+    public boolean changeDriverInDatabase(DriverDTO driverDTO) {
+        if (!validateDriverDTOData(driverDTO)) return false;
+        User user = userDAO.getById(driverDTO.getDriverIdVal());
+        Driver d = user.getDriver();
+        String newUserName = user.getUserName();
+        String newMiddleName = user.getMiddleName();
+        String newLastName = user.getLastName();
+        String newPassword = user.getPassword();
+        double newHoursWorked = d.getHoursWorked();
+        City newCity = d.getCurrentCity();
+        Truck newTruck = d.getCurrentTruck();
+        if (driverDTO.getUserName() != null) newUserName = driverDTO.getUserName();
+        if (driverDTO.getMiddleName() != null) newMiddleName = driverDTO.getMiddleName();
+        if (driverDTO.getLastName() != null) newLastName = driverDTO.getLastName();
+        if (driverDTO.getPassword() != null) newPassword = driverDTO.getPassword();
+        if (driverDTO.getHoursWorked() != null) newHoursWorked = driverDTO.getHouseWorkedVal();
+        if (driverDTO.getCurrentCity() != null) newCity = cityDAO.getByName(driverDTO.getCurrentCity());
+        if (driverDTO.getCurrentTruck()!= null) newTruck = truckDAO.getById(driverDTO.getCurrentTruckId());
+        driverDAO.update(d.getId(),newHoursWorked,d.getState(),newCity, newTruck);
+        userDAO.updateDriver(d.getId(),newUserName,newMiddleName,newLastName,newPassword, d);
+        return true;
+    }
 
 
     private boolean validateHoursWorked(double hours){

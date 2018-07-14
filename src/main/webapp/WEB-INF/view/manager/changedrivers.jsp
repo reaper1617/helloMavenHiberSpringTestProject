@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -56,24 +57,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </button>
             <h1><a href="/index">Logisticon-3000</a></h1>
         </div>
-        <div class="top-nav-text">
-            <div class="nav-contact-w3ls"><i class="fa fa-phone" aria-hidden="true"></i><p>+0(12) 444 262 399</p></div>
-        </div>
+
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hvr-underline-from-center active" href="/login">Login</a></li>
-                <li><a class="hvr-underline-from-center active" href="/index">About</a></li>
-                <%--<li><a href="services.html" class="hvr-underline-from-center">Services</a></li>--%>
-                <%--<li><a href="#team" class="hvr-underline-from-center scroll scroll">Team</a></li>--%>
-                <%--<li><a href="gallery.html" class="hvr-underline-from-center">Gallery</a></li>--%>
-                <%--<li><a href="#" data-toggle="dropdown"><span data-hover="ShortCodes">Short Codes</span><span class="caret"></span></a>--%>
-                <%--<ul class="dropdown-menu">--%>
-                <%--<li><a href="icons.html"><span data-hover="Icons">Icons</span></a></li>--%>
-                <%--<li><a href="typography.html"><span data-hover="Typograpghy">Typograpghy</span></a></li>--%>
-                <%--</ul>--%>
-                <%--</li>	--%>
-                <%--<li><a href="contact.html" class="hvr-underline-from-center">Contact</a>--%>
+                <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
+                <li><a class="hvr-underline-from-center active" href="/managecargos">Manage cargos</a></li>
+                <li><a class="hvr-underline-from-center active" href="/manageorders">Manage orders</a></li>
+                <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
             </ul>
         </div>
 
@@ -82,62 +73,147 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </div>
 <!-- Slider -->
-<%--<div class="slider">--%>
-<%--</div>--%>
+<div class="slider">
+    <div class="callbacks_container">
+        <ul class="rslides" id="slider">
+            <li>
+                <div class="w3layouts-banner-top w3layouts-banner-top1">
+                    <div class="banner-dott">
+                        <div class="container">
+                            <div class="slider-info">
+                                <div class="col-md-8">
 
-<%--<div class="callbacks_container">--%>
-<ul class="rslides" id="slider">
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top1">
-            <div class="banner-dott">
-                <div class="container">
-                    <div class="slider-info">
-                        <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                            <h2>Error message: ${errorMessage}</h2>
+                                    <%--<h2>Auto transport to fill</h2>--%>
+                                    <%--<h4>the truck space</h4>--%>
+                                    <%--<div class="w3ls-button">--%>
+                                    <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+                                    <%--</div>--%>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="banner-form-agileinfo" align="center">
+                                        <h5> <span>Add new driver</span></h5>
+
+                                        <form action="/managedrivers/0" id="addnewdriver" method="post">
+                                            <input type="text" name="userName" form="addnewdriver" placeholder="Name" required="required" >
+                                            <input type="text" name="middleName" form="addnewdriver" placeholder="Middle name" required="required" >
+                                            <input type="text" name="lastName" form="addnewdriver" placeholder="Middle name" required="required" >
+                                            <input type="password" class="ramka" name="password" form="addnewdriver" placeholder="Password" required="required" >
+                                            <input type="text"  name="hoursWorked" form="addnewdriver" placeholder="Hours worked" required="required" >
+
+                                            <%--<input type="<select name="state" id="tss1"></select>--%>
+                                            <select class="ramka" name="currentCity" id="truckcity" form="addnewdriver">
+                                                <c:forEach items="${currentCitiesListChange}" var="cell">
+                                                    <option value="${cell.id}">${cell.cityName}</option>
+                                                </c:forEach>
+                                            </select>
+
+                                            <select class="ramka" name="currentTruck" id="currenttruckregnum" form="addnewdriver">
+                                                <c:forEach items="${currentTrucksListChange}" var="cell">
+                                                    <option value="${cell.id}">${cell.registrationNumber}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
+                                            <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new truck!">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-        </div>
-    </li>
+            </li>
 
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top2">
+            <%--<li>--%>
+            <%--<div class="w3layouts-banner-top w3layouts-banner-top2">--%>
+            <%--<div class="banner-dott">--%>
+            <%--<div class="container">--%>
+            <%--<div class="slider-info">--%>
+            <%--<div class="col-md-8">--%>
+            <%--<h3>vehicles Transport</h3>--%>
+            <%--<h4>Huge in collection</h4>--%>
+            <%--<div class="w3ls-button">--%>
+            <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="col-md-4">--%>
+            <%--<div class="banner-form-agileinfo">--%>
+            <%--<h5> <span>Log in</span></h5>--%>
 
-            <div class="banner-dott">
-                <div class="container">
-                     <div class="slider-info">
-                         <div class="col-md-8">
-                             <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                             <h2>Error message: ${errorMessage}</h2>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </li>
+            <%--<form name="login" action="#" method="post">--%>
+            <%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
+            <%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
+            <%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
+            <%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
+            <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
+            <%--</form>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</li>--%>
 
-    <li>
-        <div class="w3layouts-banner-top w3layouts-banner-top4">
-            <div class="banner-dott">
-                <div class="container">
-                    <div class="slider-info">
-                        <div class="col-md-8">
-                            <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                            <h2>Error message: ${errorMessage}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%--<li>--%>
+            <%--<div class="w3layouts-banner-top w3layouts-banner-top4">--%>
+            <%--<div class="banner-dott">--%>
+            <%--<div class="container">--%>
+            <%--<div class="slider-info">--%>
+            <%--<div class="col-md-8">--%>
+            <%--<h3>Goods Carrying Train</h3>--%>
+            <%--<h4>Truck shipping</h4>--%>
+            <%--<div class="w3ls-button">--%>
+            <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="col-md-4">--%>
+            <%--<div class="banner-form-agileinfo">--%>
+            <%--<h5> <span>Log in</span></h5>--%>
 
-        </div>
-    </li>
-</ul>
+            <%--<form name="login" action="#" method="post">--%>
+            <%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
+            <%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
+            <%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
+            <%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
+            <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
+            <%--</form>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</li>--%>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!-- //Slider -->
+<!-- bootstrap-modal-pop-up -->
 
+<!-- //bootstrap-modal-pop-up -->
+<!-- banner-bottom -->
+
+<!-- //banner-bottom -->
+
+<!-- team -->
+
+<!-- //team -->
+
+<!-- Clients -->
+
+<!-- //Clients -->
+
+<!-- //Counter -->
+
+
+<!-- our blog -->
+
+<!-- //our blog -->
 
 <!-- footer -->
 <footer>
@@ -212,7 +288,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //js -->
 
 <!-- start-smoth-scrolling -->
-<script src="resources/web/js/SmoothScroll.min.js"></script>
+<script src="../resources/web/js/SmoothScroll.min.js"></script>
 <script type="text/javascript" src="../resources/web/js/move-top.js"></script>
 <script type="text/javascript" src="../resources/web/js/easing.js"></script>
 <script type="text/javascript">
@@ -264,7 +340,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //Baneer-js -->
 
 <!-- banner bottom video script -->
-<script src="../urces/web/js/simplePlayer.js"></script>
+<script src="../resources/web/js/simplePlayer.js"></script>
 <script>
     $("document").ready(function() {
         $("#video").simplePlayer();

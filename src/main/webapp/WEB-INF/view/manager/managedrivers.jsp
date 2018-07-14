@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -81,8 +82,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
-                                    <h2>Auto transport to fill</h2>
-                                    <h4>the truck space</h4>
+                                    <form  id="changeordeletedriver" method="post">
+                                        <select  class="ramka"  size="24" name = "driverId" form="changeordeletedriver">
+                                            <c:forEach items="${currentDriversList}" var="cell">
+                                                <option value="${cell.id}">${cell.userName} ${cell.middleName} ${cell.lastName}</option>
+                                            </c:forEach>
+
+                                        </select>
+                                        <div class="banner-form-agileinfo ramka" align="center">
+                                            <table>
+                                                <tr>
+                                                    <td><input type="submit"  formaction="/managedrivers/1" formmethod="post" class="hvr-shutter-in-vertical" value="Change"></td>
+                                                    <td> <h2>or</h2></td>
+                                                    <td><input type="submit" formaction="/managedrivers/2" formmethod="post" class="hvr-shutter-in-vertical" value="Delete"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </form>
+
+                                    <%--<h2>Auto transport to fill</h2>--%>
+                                    <%--<h4>the truck space</h4>--%>
                                     <%--<div class="w3ls-button">--%>
                                     <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
                                     <%--</div>--%>
@@ -92,7 +111,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <div class="banner-form-agileinfo" align="center">
                                         <h5> <span>Add new driver</span></h5>
 
-                                        <form action="/managedrivers" id="addnewdriver" method="post">
+                                        <form action="/managedrivers/0" id="addnewdriver" method="post">
                                             <input type="text" name="userName" form="addnewdriver" placeholder="Name" required="required" >
                                             <input type="text" name="middleName" form="addnewdriver" placeholder="Middle name" required="required" >
                                             <input type="text" name="lastName" form="addnewdriver" placeholder="Middle name" required="required" >
@@ -101,15 +120,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                                             <%--<input type="<select name="state" id="tss1"></select>--%>
                                             <select class="ramka" name="currentCity" id="truckcity" form="addnewdriver">
-                                                <option id="C1" selected>City1</option>
-                                                <option id="C2">City2</option>
-                                                <option id="C3">City3</option>
+                                                <c:forEach items="${currentCitiesList}" var="cell">
+                                                    <option value="${cell.id}">${cell.cityName}</option>
+                                                </c:forEach>
                                             </select>
 
                                             <select class="ramka" name="currentTruck" id="currenttruckregnum" form="addnewdriver">
-                                                <option id="t1" selected >rr33333</option>
-                                                <option id="t2" >rr33334</option>
-                                                <option id="t3" >rr33335</option>
+                                                <c:forEach items="${currentTrucksList}" var="cell">
+                                                    <option value="${cell.id}">${cell.registrationNumber}</option>
+                                                </c:forEach>
                                             </select>
                                             <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
                                             <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>

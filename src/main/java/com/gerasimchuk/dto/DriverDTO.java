@@ -2,6 +2,11 @@ package com.gerasimchuk.dto;
 
 public interface DriverDTO {
 
+
+     String getDriverId();
+     int getDriverIdVal();
+     int getCurrentTruckId();
+     void setDriverId(String driverId);
      String getUserName();
      void setUserName(String userName);
      String getMiddleName();

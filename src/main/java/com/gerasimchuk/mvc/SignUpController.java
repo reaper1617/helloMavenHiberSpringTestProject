@@ -3,6 +3,7 @@ package com.gerasimchuk.mvc;
 
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.dto.*;
+import com.gerasimchuk.entities.City;
 import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
@@ -21,11 +22,48 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.gerasimchuk.dao.CityDAOImpl.getCityDAOInstance;
+
 @Controller
 public class SignUpController {
 
     private TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
     private TruckService truckService = new TruckServiceImpl();
+
+
+    @RequestMapping(value = "/changedrivers", method = RequestMethod.GET)
+    public String changeDriversGet(Model ui){
+
+        // cities list
+        List<City> cities =  (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+        ui.addAttribute("currentCitiesListChange", cities);
+        // trucks list
+        List<Truck> trucks = (ArrayList)TruckDAOImpl.getTruckDAOInstance().getAll();
+        ui.addAttribute("currentTrucksListChange", trucks);
+        //return "/dark-login-form/23-dark-login-form/index";
+
+
+        return "/manager/changedrivers";
+    }
+
+    @RequestMapping(value = "/changedrivers", method = RequestMethod.POST)
+    public String changeDriversPost(DriverDTOImpl driverDTO, BindingResult bindingResult, Model ui){
+        if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
+        if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
+
+        DriverService driverService = new DriverServiceImpl();
+        boolean success = driverService.changeDriverInDatabase(driverDTO);
+        if (success) {
+            ui.addAttribute("addActionSuccess", "Driver updated successfully!");
+            return "/manager/manageractionsuccess";
+        }
+        else {
+            ui.addAttribute("errorMessage", "Cannot update driver!");
+            return "/error/errorpage";
+        }
+
+    }
+
 
     @RequestMapping(value = "/changetrucks", method = RequestMethod.GET)
     public String changeTruckGet(){
@@ -173,19 +211,52 @@ public class SignUpController {
     }
 
     @RequestMapping(value = "/managedrivers", method = RequestMethod.GET)
-    public String manageDrivers(){
+    public String manageDrivers(Model ui){
+        if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
+        if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
+
+
+        List<User> drivers = new UserServiceImpl().getDrivers();
+        ui.addAttribute("currentDriversList", drivers);
+
+        List<City> cities = (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+        ui.addAttribute("currentCitiesList", cities);
+
+        List<Truck> trucks = (ArrayList)truckDAO.getAll();
+        ui.addAttribute("currentTrucksList", trucks);
+
         return "/manager/managedrivers";
     }
 
-    @RequestMapping(value = "/managedrivers", method = RequestMethod.POST)
-    public String manageDriversPOST(DriverDTOImpl driverDTO, BindingResult bindingResult, Model ui ){
+    @RequestMapping(value = "/managedrivers/{id}", method = RequestMethod.POST)
+    public String manageDriversPOST(@PathVariable("id") int id, DriverDTOImpl driverDTO, BindingResult bindingResult, Model ui ){
 
+        if (id == 0) {
 
-        DriverService driverService = new DriverServiceImpl();
-        boolean success = driverService.addDriverToDatabase(driverDTO);
+            DriverService driverService = new DriverServiceImpl();
+            boolean success = driverService.addDriverToDatabase(driverDTO);
 
-        if (success) return "/manager/addeddriversuccess";
-        else return "/error/errorpage";
+            if (success) return "/manager/addeddriversuccess";
+            else return "/error/errorpage";
+        }
+        if (id == 1){
+            // change driver
+            List<City> cities =  (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+            ui.addAttribute("currentCitiesListChange", cities);
+            // trucks list
+            List<Truck> trucks = (ArrayList)TruckDAOImpl.getTruckDAOInstance().getAll();
+            ui.addAttribute("currentTrucksListChange", trucks);
+            //return "/dark-login-form/23-dark-login-form/index";
+
+            ui.addAttribute("changedDriverId", driverDTO.getDriverId());
+            return "/manager/changedrivers";
+        }
+        if (id == 2){
+            // delete driver
+            ui.addAttribute("addActionSuccess", "Not really deleted but success )))");
+            return "/manager/manageractionsuccess";
+        }
+        return "/error/errorpage";
     }
 
     @RequestMapping(value = "/managecargos", method = RequestMethod.GET)

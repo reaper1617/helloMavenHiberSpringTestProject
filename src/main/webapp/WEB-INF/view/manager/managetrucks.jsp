@@ -84,9 +84,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="slider-info">
                                 <div class="col-md-8">
 
-                                    <form  action="/managetrucks/1" id="changeordeletetruck" method="post">
+                                    <form  id="changeordeletetruck" method="post">
                                         <select  class="ramka"  size="20" name = "truckId" form="changeordeletetruck">
-
                                             <c:forEach items="${currentTrucksList}" var="cell">
                                                 <option value="${cell.id}">${cell.registrationNumber}</option>
                                             </c:forEach>
@@ -95,8 +94,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         <div class="banner-form-agileinfo ramka">
                                             <table>
                                                 <tr>
-                                                    <td><input type="submit"  formmethod="post" class="hvr-shutter-in-vertical" value="Change"></td>
-                                                    <%--<td><input type="submit" formaction="/managetrucks/2" formmethod="post" class="hvr-shutter-in-vertical" value="Delete"></td>--%>
+                                                    <td><input type="submit"  formaction="/managetrucks/1" formmethod="post" class="hvr-shutter-in-vertical" value="Change"></td>
+                                                    <td><input type="submit" formaction="/managetrucks/2" formmethod="post" class="hvr-shutter-in-vertical" value="Delete"></td>
                                                 </tr>
                                             </table>
                                         </div>

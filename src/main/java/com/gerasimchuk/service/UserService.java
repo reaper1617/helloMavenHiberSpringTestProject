@@ -1,8 +1,15 @@
 package com.gerasimchuk.service;
 
 import com.gerasimchuk.constants.Constants;
+import com.gerasimchuk.entities.Driver;
+import com.gerasimchuk.entities.User;
+
+import java.util.List;
 
 public interface UserService {
+
+
+    List<User> getDrivers();
 
     static boolean validateName(String name){
         if (name == null) return false;

@@ -9,4 +9,6 @@ public interface DriverService {
 
     boolean addDriverToDatabase(DriverDTO driverDTO);
 
+    boolean changeDriverInDatabase(DriverDTO driverDTO);
+
 }

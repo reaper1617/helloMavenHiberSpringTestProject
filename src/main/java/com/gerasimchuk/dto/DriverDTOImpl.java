@@ -5,6 +5,7 @@ import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.enums.DriverState;
 
 public class DriverDTOImpl implements DriverDTO {
+    private String driverId;
     private String userName;
     private String middleName;
     private String lastName;
@@ -25,6 +26,30 @@ public class DriverDTOImpl implements DriverDTO {
         this.hoursWorked = hoursWorked;
         this.currentCity = currentCity;
         this.currentTruck = currentTruck;
+    }
+
+
+
+    @Override
+    public String getDriverId() {
+        return driverId;
+    }
+
+    @Override
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
+
+    @Override
+    public int getDriverIdVal(){
+        int id = 0;
+        try{
+            id = Integer.parseInt(driverId);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return id;
     }
 
     @Override
@@ -102,6 +127,18 @@ public class DriverDTOImpl implements DriverDTO {
     @Override
     public String getCurrentTruck() {
         return currentTruck;
+    }
+
+    @Override
+    public int getCurrentTruckId(){
+        int id =0;
+        try {
+            id = Integer.parseInt(currentTruck);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return id;
     }
 
     @Override
