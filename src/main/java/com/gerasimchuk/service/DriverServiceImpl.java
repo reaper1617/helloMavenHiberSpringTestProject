@@ -33,10 +33,10 @@ public class DriverServiceImpl implements DriverService {
         if (!validateHoursWorked(driverDTO.getHouseWorkedVal())) return false;
 
         // validate current city
-        if (!CityService.checkCity(driverDTO.getCurrentCity())) return false;
+        if (!CityService.checkCityById(driverDTO.getCurrentCityId())) return false;
 
         // validate current truck
-        if (!TruckService.validateRegistrationNumber(driverDTO.getCurrentTruck())) return false;
+        if (!TruckService.validateTruckById(driverDTO.getCurrentTruckId())) return false;
 
         return true;
     }
@@ -63,8 +63,8 @@ public class DriverServiceImpl implements DriverService {
             }
         }
 
-        City city = cityDAO.getByName(driverDTO.getCurrentCity());
-        Truck truck = truckDAO.getByRegistrationNumber(driverDTO.getCurrentTruck());
+        City city = cityDAO.getById(driverDTO.getCurrentCityId());
+        Truck truck = truckDAO.getById(driverDTO.getCurrentTruckId());
 
 
         Driver driver = driverDAO.createDriver(driverDTO.getHouseWorkedVal(),DriverState.RESTING, city,truck);
@@ -89,15 +89,15 @@ public class DriverServiceImpl implements DriverService {
         double newHoursWorked = d.getHoursWorked();
         City newCity = d.getCurrentCity();
         Truck newTruck = d.getCurrentTruck();
-        if (driverDTO.getUserName() != null) newUserName = driverDTO.getUserName();
-        if (driverDTO.getMiddleName() != null) newMiddleName = driverDTO.getMiddleName();
-        if (driverDTO.getLastName() != null) newLastName = driverDTO.getLastName();
-        if (driverDTO.getPassword() != null) newPassword = driverDTO.getPassword();
-        if (driverDTO.getHoursWorked() != null) newHoursWorked = driverDTO.getHouseWorkedVal();
-        if (driverDTO.getCurrentCity() != null) newCity = cityDAO.getByName(driverDTO.getCurrentCity());
-        if (driverDTO.getCurrentTruck()!= null) newTruck = truckDAO.getById(driverDTO.getCurrentTruckId());
+        if (driverDTO.getUserName() != null && driverDTO.getUserName().length()!=0 ) newUserName = driverDTO.getUserName();
+        if (driverDTO.getMiddleName() != null && driverDTO.getMiddleName().length()!=0) newMiddleName = driverDTO.getMiddleName();
+        if (driverDTO.getLastName() != null && driverDTO.getLastName().length()!=0 ) newLastName = driverDTO.getLastName();
+        if (driverDTO.getPassword() != null && driverDTO.getPassword().length()!=0) newPassword = driverDTO.getPassword();
+        if (driverDTO.getHoursWorked() != null && driverDTO.getHoursWorked().length()!=0) newHoursWorked = driverDTO.getHouseWorkedVal();
+        if (driverDTO.getCurrentCity() != null && driverDTO.getCurrentCity().length()!=0) newCity = cityDAO.getById(driverDTO.getCurrentCityId());
+        if (driverDTO.getCurrentTruck()!= null && driverDTO.getCurrentTruck().length()!=0) newTruck = truckDAO.getById(driverDTO.getCurrentTruckId());
         driverDAO.update(d.getId(),newHoursWorked,d.getState(),newCity, newTruck);
-        userDAO.updateDriver(d.getId(),newUserName,newMiddleName,newLastName,newPassword, d);
+        userDAO.updateDriver(user.getId(),newUserName,newMiddleName,newLastName,newPassword, d);
         return true;
     }
 

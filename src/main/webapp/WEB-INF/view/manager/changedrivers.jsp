@@ -93,30 +93,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
-                                        <h5> <span>Add new driver</span></h5>
+                                        <h5> <span>Change driver ${changedDriver}</span></h5>
 
-                                        <form action="/managedrivers/0" id="addnewdriver" method="post">
-                                            <input type="text" name="userName" form="addnewdriver" placeholder="Name" required="required" >
-                                            <input type="text" name="middleName" form="addnewdriver" placeholder="Middle name" required="required" >
-                                            <input type="text" name="lastName" form="addnewdriver" placeholder="Middle name" required="required" >
-                                            <input type="password" class="ramka" name="password" form="addnewdriver" placeholder="Password" required="required" >
-                                            <input type="text"  name="hoursWorked" form="addnewdriver" placeholder="Hours worked" required="required" >
-
+                                        <form  id="changedriver" method="post">
+                                            <input type="text" name="userName" form="changedriver" placeholder="Name"  >
+                                            <input type="text" name="middleName" form="changedriver" placeholder="Middle name"  >
+                                            <input type="text" name="lastName" form="changedriver" placeholder="Last name"  >
+                                            <input type="password" class="ramka" name="password" form="changedriver" placeholder="Password"  >
+                                            <input type="text"  name="hoursWorked" form="changedriver" placeholder="Hours worked"  >
+                                            <input hidden type="text" name="driverId" form="changedriver" placeholder="Name" value="${changedDriverId}" >
                                             <%--<input type="<select name="state" id="tss1"></select>--%>
-                                            <select class="ramka" name="currentCity" id="truckcity" form="addnewdriver">
+                                            <select class="ramka" name="currentCity" id="truckcity" form="changedriver">
                                                 <c:forEach items="${currentCitiesListChange}" var="cell">
                                                     <option value="${cell.id}">${cell.cityName}</option>
                                                 </c:forEach>
                                             </select>
 
-                                            <select class="ramka" name="currentTruck" id="currenttruckregnum" form="addnewdriver">
+                                            <select class="ramka" name="currentTruck" id="currenttruckregnum" form="changedriver">
                                                 <c:forEach items="${currentTrucksListChange}" var="cell">
                                                     <option value="${cell.id}">${cell.registrationNumber}</option>
                                                 </c:forEach>
                                             </select>
                                             <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
                                             <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>
-                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new truck!">
+                                            <input type="submit" formaction="/changedrivers" formmethod="post" class="hvr-shutter-in-vertical" value="Change driver!">
                                         </form>
                                     </div>
                                 </div>

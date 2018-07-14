@@ -142,6 +142,18 @@ public class DriverDTOImpl implements DriverDTO {
     }
 
     @Override
+    public int getCurrentCityId() {
+        int id = 0;
+        try {
+            id = Integer.parseInt(currentCity);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    @Override
     public void setCurrentTruck(String currentTruck) {
         this.currentTruck = currentTruck;
     }

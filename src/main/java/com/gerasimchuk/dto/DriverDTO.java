@@ -6,6 +6,7 @@ public interface DriverDTO {
      String getDriverId();
      int getDriverIdVal();
      int getCurrentTruckId();
+     int getCurrentCityId();
      void setDriverId(String driverId);
      String getUserName();
      void setUserName(String userName);

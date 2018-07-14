@@ -1,8 +1,15 @@
 package com.gerasimchuk.service;
 
+import com.gerasimchuk.dao.TruckDAO;
+import com.gerasimchuk.dao.TruckDAOImpl;
 import com.gerasimchuk.dto.TruckDTO;
+import com.gerasimchuk.entities.Truck;
+
+import java.util.Collection;
 
 public interface TruckService {
+
+    TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
 
     boolean validateTruckDTOData(TruckDTO truckDTO);
 
@@ -19,5 +26,15 @@ public interface TruckService {
             if (!(Character.isDigit(regNum.charAt(i)))) return false;
         }
         return true;
+    }
+
+    static boolean validateTruckById(int id){
+        if (id <= 0) return false;
+        Collection<Truck> trucks = truckDAO.getAll();
+        if (trucks == null) return false;
+        for(Truck t: trucks){
+            if (t.getId() == id) return true;
+        }
+        return false;
     }
 }

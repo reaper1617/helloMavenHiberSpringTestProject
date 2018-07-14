@@ -8,10 +8,7 @@ import com.gerasimchuk.dao.TruckDAOImpl;
 import com.gerasimchuk.dto.TruckDTO;
 import com.gerasimchuk.entities.City;
 import com.gerasimchuk.entities.Truck;
-import com.gerasimchuk.enums.CityHasAgency;
 import com.gerasimchuk.enums.TruckState;
-
-import java.util.Collection;
 
 public class TruckServiceImpl implements TruckService {
 
@@ -40,7 +37,7 @@ public class TruckServiceImpl implements TruckService {
         if (!checkState(truckDTO.getStateVal())) return false;
 
         // check city
-        if (!CityService.checkCity(truckDTO.getCurrentCity())) return false;
+        if (!CityService.checkCityByName(truckDTO.getCurrentCity())) return false;
 
         return true;
     }
@@ -91,7 +88,7 @@ public class TruckServiceImpl implements TruckService {
         // check state
         if (!checkState(truckDTO.getStateVal())) return false;
         // check city
-        if (!CityService.checkCity(truckDTO.getCurrentCity())) return false;
+        if (!CityService.checkCityByName(truckDTO.getCurrentCity())) return false;
 
 
         Truck t =truckDAO.getByRegistrationNumber(truckDTO.getRegistrationNumber());
