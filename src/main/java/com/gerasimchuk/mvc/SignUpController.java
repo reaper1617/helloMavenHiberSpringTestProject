@@ -3,6 +3,7 @@ package com.gerasimchuk.mvc;
 
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.dto.*;
+import com.gerasimchuk.entities.Cargo;
 import com.gerasimchuk.entities.City;
 import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.entities.User;
@@ -260,21 +261,77 @@ public class SignUpController {
     }
 
     @RequestMapping(value = "/managecargos", method = RequestMethod.GET)
-    public String manageCargos(){
+    public String manageCargos(Model ui){
+        if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
+        if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
+
+        List<Cargo> cargos = (ArrayList)CargoDAOImpl.getCargoDAOInstance().getAll();
+
+        ui.addAttribute("currentCargosList", cargos);
+
+        List<City> cities = (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+        ui.addAttribute("currentCitiesList", cities);
+
         return "/manager/managecargos";
     }
 
-    @RequestMapping(value = "/managecargos", method = RequestMethod.POST)
-    public String manageCargosPOST(CargoDTOImpl cargoDTO, BindingResult bindingResult, Model ui ){
+    @RequestMapping(value = "/managecargos/{id}", method = RequestMethod.POST)
+    public String manageCargosPOST(@PathVariable("id") int id,CargoDTOImpl cargoDTO, BindingResult bindingResult, Model ui ){
 
+        if (id == 0) {
 
-        CargoService cargoService = new CargoServiceImpl();
-        boolean success = cargoService.addCargoToDatabase(cargoDTO);
+            CargoService cargoService = new CargoServiceImpl();
+            boolean success = cargoService.addCargoToDatabase(cargoDTO);
 
-
-        if (success) return "/manager/addedcargosuccess";
+            if (success) return "/manager/addedcargosuccess";
+            else {
+                ui.addAttribute("errorMessage", "Can't add cargo!");
+                return "/error/errorpage";
+            }
+        }
+        if (id == 1){
+            ui.addAttribute("changedCargoId", cargoDTO.getCargoId());
+            List<Cargo> cargos = (ArrayList)CargoDAOImpl.getCargoDAOInstance().getAll();
+            ui.addAttribute("currentCargosList", cargos);
+            List<City> cities = (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+            ui.addAttribute("currentCitiesList", cities);
+            return "/manager/changecargos";
+        }
+        if (id == 2){
+            ui.addAttribute("addActionSuccess", "No actual delete but success!");
+            return "/manager/manageractionsuccess";
+        }
         else return "/error/errorpage";
     }
+
+    @RequestMapping(value = "/changecargos", method = RequestMethod.GET)
+    public String changeCargoGet(Model ui){
+
+        List<Cargo> cargos = (ArrayList)CargoDAOImpl.getCargoDAOInstance().getAll();
+
+        ui.addAttribute("currentCargosList", cargos);
+
+        List<City> cities = (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+        ui.addAttribute("currentCitiesList", cities);
+        return "/manager/changecargos";
+    }
+
+    @RequestMapping(value = "/changecargos", method = RequestMethod.POST)
+    public String changeCargoPost(CargoDTOImpl cargoDTO,BindingResult bindingResult, Model ui){
+
+        CargoService cargoService = new CargoServiceImpl();
+        boolean success = cargoService.changeCargoInDatabase(cargoDTO);
+
+        if (success){
+            ui.addAttribute("addActionSuccess", "Cargo changed successfully!");
+            return "/manager/manageractionsuccess";
+        }
+        else {
+            ui.addAttribute("errorMessage", "Can not change cargo(");
+            return "/error/errorpage";
+        }
+    }
+
 
     @RequestMapping(value = "/manageorders", method = RequestMethod.GET)
     public String manageOrders(){

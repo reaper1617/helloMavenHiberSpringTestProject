@@ -27,4 +27,14 @@ public interface CargoDTO {
      String getUnloadPoint() ;
 
      void setUnloadPoint(String unloadPoint) ;
+
+     int getLoadPointId();
+
+     int getUnloadPointId();
+
+
+     String getCargoId();
+
+     void setCargoId(String cargoId);
+     int getCargoIdVal();
 }

@@ -16,6 +16,7 @@ public interface RoutepointDAO {
 
     RoutePoint getById(int id);
     RoutePoint getByNameAndType(String name,RoutePointType type);
+    RoutePoint getByCityId(int id);
     Collection<RoutePoint> getAll();
     void delete(int id);
 }

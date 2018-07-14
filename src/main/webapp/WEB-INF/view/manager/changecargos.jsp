@@ -83,25 +83,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="slider-info">
                                 <div class="col-md-8">
 
-                                    <form  id="changeordeletecargo" method="post">
-                                        <select  class="ramka"  size="19" name = "cargoId" form="changeordeletecargo">
-                                            <c:forEach items="${currentCargosList}" var="cell">
-                                                <option value="${cell.id}">${cell.cargoName}</option>
-                                            </c:forEach>
 
-                                        </select>
-                                        <div class="banner-form-agileinfo ramka" align="center">
-                                            <table>
-                                                <tr>
-                                                    <td><input type="submit"  formaction="/managecargos/1" formmethod="post" class="hvr-shutter-in-vertical" value="Change"></td>
-                                                    <td> <h2>or</h2></td>
-                                                    <td><input type="submit" formaction="/managecargos/2" formmethod="post" class="hvr-shutter-in-vertical" value="Delete"></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </form>
-
-                                    <%--<h2>Auto transport to fill</h2>--%>
+                                    <h2>Changing cargo</h2>
                                     <%--<h4>the truck space</h4>--%>
                                     <%--<div class="w3ls-button">--%>
                                     <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
@@ -110,25 +93,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
-                                        <h5> <span>Add new cargo</span></h5>
+                                        <h5> <span>Change cargo ${changedCargoId}</span></h5>
 
-                                        <form action="/managecargos/0" id="addnewcargo" method="post">
-                                            <input type="text" name="name" form="addnewcargo" placeholder="Cargo name" required="required" >
-                                            <input type="text" name="weight" form="addnewcargo" placeholder="Weight" required="required" >
-
-                                            <select class="ramka" name="status" id="cargostate" form="addnewcargo">
+                                        <form action="/changecargos" id="changecargo" method="post">
+                                            <input type="text" name="name" form="changecargo" placeholder="Cargo name"  >
+                                            <input type="text" name="weight" form="changecargo" placeholder="Weight"  >
+                                            <input hidden type="text" name="cargoId" value="${changedCargoId}">
+                                            <select class="ramka" name="status" id="cargostate" form="changecargo">
                                                 <option selected id="PREPARED" >Prepared</option>
                                                 <option id="SHIPPED" >Shipped</option>
                                                 <option id="DELIVERED" >Delivered</option>
                                             </select>
 
-                                            <select class="ramka" name="loadPoint" id="truckcity1" form="addnewcargo">
+                                            <select class="ramka" name="loadPoint" id="truckcity1" form="changecargo">
                                                 <c:forEach items="${currentCitiesList}" var="cell">
                                                     <option value="${cell.id}">${cell.cityName}</option>
                                                 </c:forEach>
                                             </select>
 
-                                            <select class="ramka" name="unloadPoint" id="truckcity2" form="addnewcargo">
+                                            <select class="ramka" name="unloadPoint" id="truckcity2" form="changecargo">
                                                 <c:forEach items="${currentCitiesList}" var="cell">
                                                     <option value="${cell.id}">${cell.cityName}</option>
                                                 </c:forEach>

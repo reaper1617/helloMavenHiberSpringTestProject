@@ -80,6 +80,22 @@ public class RoutepointDAOImpl implements RoutepointDAO {
     }
 
     @Override
+    public RoutePoint getByCityId(int id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Collection<RoutePoint> routePoints = session.createQuery("from RoutePoint", RoutePoint.class).getResultList();
+        RoutePoint res = null;
+        if (routePoints!=null){
+            for(RoutePoint rp: routePoints){
+                if (rp.getCity().getId() == id) res = rp;
+            }
+        }
+        transaction.commit();
+        if (session.isOpen()) session.close();
+        return res;
+    }
+
+    @Override
     public Collection<RoutePoint> getAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

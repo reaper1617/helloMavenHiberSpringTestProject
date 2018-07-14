@@ -2,8 +2,11 @@ package com.gerasimchuk.service;
 
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.dto.CargoDTO;
+import com.gerasimchuk.entities.Cargo;
 import com.gerasimchuk.entities.City;
+import com.gerasimchuk.entities.Order;
 import com.gerasimchuk.entities.RoutePoint;
+import com.gerasimchuk.enums.CargoStatus;
 import com.gerasimchuk.enums.RoutePointType;
 
 import java.util.Collection;
@@ -24,17 +27,57 @@ public class CargoServiceImpl implements CargoService {
         //validate status
         if (!CargoService.validateCargoStatus(cargoDTO.getStatus())) return false;
         // validate routepoints
-        if (!validateRoutePoints(cargoDTO.getLoadPoint(), cargoDTO.getUnloadPoint())) return false;
+        //if (!validateRoutePoints(cargoDTO.getLoadPoint(), cargoDTO.getUnloadPoint())) return false;
+        if (!validateRoutePointsByIDs(cargoDTO.getLoadPointId(),cargoDTO.getUnloadPointId())) return false;
         return true;
     }
 
     @Override
     public boolean addCargoToDatabase(CargoDTO cargoDTO) {
         if (!validateCargoDTOData(cargoDTO)) return false;
-        RoutePoint from = routepointDAO.getByNameAndType(cargoDTO.getLoadPoint(), RoutePointType.LOADING);
-        RoutePoint to = routepointDAO.getByNameAndType(cargoDTO.getUnloadPoint(), RoutePointType.UNLOADING);
+        RoutePoint from = routepointDAO.getByCityId(cargoDTO.getLoadPointId());
+        RoutePoint to = routepointDAO.getByCityId(cargoDTO.getUnloadPointId());
         if (from == null || to == null) return false;
         cargoDAO.create(cargoDTO.getName(),cargoDTO.getWeightVal(),cargoDTO.getStatusVal(),from, to);
+        return true;
+    }
+
+    @Override
+    public boolean changeCargoInDatabase(CargoDTO cargoDTO) {
+        //if (!validateCargoDTOData(cargoDTO)) return false;
+        if (cargoDTO.getName()!=null && cargoDTO.getName().length()!=0)
+            if(!CargoService.validateCargoName(cargoDTO.getName()))return false;
+
+        if (cargoDTO.getWeight()!= null && cargoDTO.getWeight().length()!=0)
+            if(!CargoService.validateCargoWeight(cargoDTO.getWeightVal())) return false;
+
+        if (cargoDTO.getStatus()!=null && cargoDTO.getStatus().length()!=0)
+            if (!CargoService.validateCargoStatus(cargoDTO.getStatus())) return false;
+
+        if (cargoDTO.getLoadPoint()!=null && cargoDTO.getLoadPoint().length()!=0)
+            if (!validateRoutePointId(cargoDTO.getLoadPointId()))return false;
+
+        if (cargoDTO.getUnloadPoint()!=null && cargoDTO.getUnloadPoint().length()!=0)
+            if (!validateRoutePointId(cargoDTO.getUnloadPointId())) return false;
+
+        Cargo cargo = cargoDAO.getById(cargoDTO.getCargoIdVal());
+        if (cargo == null) return false;
+        String newName = cargo.getCargoName();
+        double newWeight = cargo.getWeight();
+        CargoStatus newStatus = cargo.getStatus();
+        RoutePoint newLoadPoint = cargo.getLoadPoint();
+        RoutePoint newUnloadPoint = cargo.getUnloadPoint();
+        Order order = cargo.getAssignedOrder();
+
+        if (cargoDTO.getName()!=null && cargoDTO.getName().length()!=0) newName = cargoDTO.getName();
+        if (cargoDTO.getWeight()!=null && cargoDTO.getName().length()!=0) newWeight = cargoDTO.getWeightVal();
+        if (cargoDTO.getStatus()!= null && cargoDTO.getStatus().length()!=0) newStatus = cargoDTO.getStatusVal();
+        if (cargoDTO.getLoadPoint()!=null && cargoDTO.getLoadPoint().length()!=0) newLoadPoint = routepointDAO.getByCityId(cargoDTO.getLoadPointId());
+        if (cargoDTO.getUnloadPoint()!=null && cargoDTO.getUnloadPoint().length()!=0) newUnloadPoint = routepointDAO.getByCityId(cargoDTO.getUnloadPointId());
+
+        if (newLoadPoint == newUnloadPoint) return false;
+
+        cargoDAO.update(cargo.getId(),newName,newWeight,newStatus,order, newLoadPoint, newUnloadPoint);
         return true;
     }
 
@@ -65,10 +108,30 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
+    public boolean validateRoutePointId(int id) {
+        if (id == 0) return false;
+        Collection<RoutePoint> routePoints = routepointDAO.getAll();
+        if (routePoints != null){
+            for(RoutePoint r : routePoints){
+                if (r.getCity().getId() == id) return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean validateRoutePoints(String routepointFrom, String routepointTo) {
         if (!validateRoutePoint(routepointFrom, RoutePointType.LOADING)) return false;
         if (!validateRoutePoint(routepointTo, RoutePointType.UNLOADING)) return false;
         if (routepointFrom.equals(routepointTo)) return false;
+        return true;
+    }
+
+    @Override
+    public boolean validateRoutePointsByIDs(int routepointIdFrom, int routepointIdTo) {
+        if (routepointIdFrom == routepointIdTo) return false;
+        if (!validateRoutePointId(routepointIdFrom)) return false;
+        if (!validateRoutePointId(routepointIdTo)) return false;
         return true;
     }
 }
