@@ -35,6 +35,7 @@ public interface UserDAO {
                        Driver driver);
 
     User getById(int id);
+    User getByFullName(String name, String middleName, String lastName);
     Collection<User> getAll();
     void delete(int id);
 

@@ -3,7 +3,6 @@ package com.gerasimchuk.dto;
 import com.gerasimchuk.service.OrderService;
 
 import java.sql.Timestamp;
-import java.util.Map;
 
 public class OrderDTOImpl implements OrderDTO {
 

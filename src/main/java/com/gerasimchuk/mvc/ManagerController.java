@@ -25,10 +25,10 @@ public class ManagerController {
     private  TruckDAO truckDAO;
     private  CityDAO cityDAO ;
     private  CargoDAO cargoDAO;
-    private  OrderService orderService;
-    private  CargoService cargoService;
-    private  UserService userService;
-    private  TruckService truckService;
+    private OrderService orderService;
+    private CargoService cargoService;
+    private UserService userService;
+    private TruckService truckService;
     private DriverService driverService;
 
     @Autowired

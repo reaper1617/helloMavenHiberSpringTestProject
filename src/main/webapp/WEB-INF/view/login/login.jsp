@@ -43,6 +43,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         }
     </style>
 
+
+    <script type="text/javascript">
+        function fillHiddenForm() {
+            var hiddenform = document.getElementById('uhiddenform');
+            hiddenform.value = '';
+            var name = document.getElementById('uname').valueOf().toString();
+            var middlename = document.getElementById("umiddlename").valueOf().toString();
+            var lastname = document.getElementById('ulastname').valueOf.toString();
+            hiddenform.value += name + ' ' + middlename + ' ' + lastname;
+        }
+    </script>
 </head>
 <body>
 <div class="header">
@@ -103,11 +114,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         <h5> <span>Log in</span></h5>
 
                                         <form action="/login" id="signin" method="post">
-                                            <input type="text" name="userName" form="signin" placeholder="Name" required="required" >
-                                            <input type="text" name="middleName" form="signin" placeholder="Middle name" required="required" >
-                                            <input type="text" name="lastName" form="signin" placeholder="Last name"required="required" >
+                                            <input type="text" name="userName" form="signin" placeholder="Name" required="required" id="uname">
+                                            <input type="text" name="middleName" form="signin" placeholder="Middle name" required="required" id="umiddlename">
+                                            <input type="text" name="lastName" form="signin" placeholder="Last name"required="required" id="ulastname">
                                             <input type="password" class="ramka" name="password" placeholder="Password" required="required">
-                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Get started">
+                                            <input hidden type="text" id="uhiddenform" >
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Get started" onclick="fillHiddenForm()">
                                         </form>
                                     </div>
                                 </div>

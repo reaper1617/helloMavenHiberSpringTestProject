@@ -9,6 +9,7 @@ import com.gerasimchuk.entities.Manager;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -20,11 +21,13 @@ public class ManagerServiceImpl implements ManagerService {
 
     private  ManagerDAO managerDAO;
     private  UserDAO userDAO;
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
-    public ManagerServiceImpl(ManagerDAO managerDAO, UserDAO userDAO) {
+    public ManagerServiceImpl(ManagerDAO managerDAO, UserDAO userDAO, BCryptPasswordEncoder encoder) {
         this.managerDAO = managerDAO;
         this.userDAO = userDAO;
+        this.encoder = encoder;
     }
 
     @Override
@@ -62,7 +65,7 @@ public class ManagerServiceImpl implements ManagerService {
         User user = userDAO.createManager(managerDTO.getUserName(),
                     managerDTO.getMiddleName(),
                     managerDTO.getLastName(),
-                    managerDTO.getPassword(),
+                    encoder.encode(managerDTO.getPassword()),
                     manager);
         return true;
     }

@@ -1,21 +1,5 @@
 package com.gerasimchuk;
 
-import com.gerasimchuk.dao.*;
-import com.gerasimchuk.dto.DriverDTO;
-import com.gerasimchuk.dto.DriverDTOImpl;
-import com.gerasimchuk.dto.OrderDTO;
-import com.gerasimchuk.dto.OrderDTOImpl;
-import com.gerasimchuk.entities.*;
-import com.gerasimchuk.enums.*;
-import com.gerasimchuk.service.DriverService;
-import com.gerasimchuk.service.DriverServiceImpl;
-import com.gerasimchuk.service.OrderService;
-import com.gerasimchuk.service.OrderServiceImpl;
-
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
-
 public class MainApp {
 
 

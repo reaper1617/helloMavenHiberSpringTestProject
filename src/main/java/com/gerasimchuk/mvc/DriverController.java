@@ -1,11 +1,10 @@
 package com.gerasimchuk.mvc;
 
-import com.gerasimchuk.dao.UserDAO;
-import com.gerasimchuk.dao.UserDAOImpl;
 import com.gerasimchuk.dto.DriverStateDTOImpl;
 import com.gerasimchuk.entities.*;
 import com.gerasimchuk.enums.*;
-import com.gerasimchuk.service.*;
+import com.gerasimchuk.service.DriverService;
+import com.gerasimchuk.service.OrderService;
 import com.gerasimchuk.utils.LoginStateSaverImpl;
 import com.gerasimchuk.utils.ParamsSetterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DriverController {
 
 
-    private  OrderService orderService;
-    private  DriverService driverService;
+    private OrderService orderService;
+    private DriverService driverService;
     private ParamsSetterUtils paramsSetterUtils;
 
     @Autowired

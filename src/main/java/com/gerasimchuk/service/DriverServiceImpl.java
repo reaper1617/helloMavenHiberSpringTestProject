@@ -10,6 +10,7 @@ import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.DriverState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -25,15 +26,23 @@ public class DriverServiceImpl implements DriverService {
     private  TruckDAO truckDAO;
     private CityService cityService;
     private TruckService truckService;
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
-    public DriverServiceImpl(UserDAO userDAO, DriverDAO driverDAO, CityDAO cityDAO, TruckDAO truckDAO, CityService cityService, TruckService truckService) {
+    public DriverServiceImpl(UserDAO userDAO,
+                             DriverDAO driverDAO,
+                             CityDAO cityDAO,
+                             TruckDAO truckDAO,
+                             CityService cityService,
+                             TruckService truckService,
+                             BCryptPasswordEncoder encoder) {
         this.userDAO = userDAO;
         this.driverDAO = driverDAO;
         this.cityDAO = cityDAO;
         this.truckDAO = truckDAO;
         this.cityService = cityService;
         this.truckService = truckService;
+        this.encoder = encoder;
     }
 
     @Override
@@ -90,7 +99,7 @@ public class DriverServiceImpl implements DriverService {
         userDAO.createDriver(driverDTO.getUserName(),
                             driverDTO.getMiddleName(),
                             driverDTO.getLastName(),
-                            driverDTO.getPassword(),
+                            encoder.encode(driverDTO.getPassword()),
                             driver);
         return true;
     }
