@@ -1064,9 +1064,9 @@
     </column>
     <column id="267" parent="239" name="state">
       <Position>3</Position>
-      <DataType>enum(&apos;DRIVING&apos;, &apos;RESTING&apos;, &apos;SHIFTING&apos;)|0e</DataType>
+      <DataType>enum(&apos;DRIVING&apos;, &apos;SECOND_DRIVER&apos;, &apos;LOAD_UNLOAD_WORKS&apos;, &apos;RESTING&apos;, &apos;FREE&apos;)|0e</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;RESTING&apos;</DefaultExpression>
+      <DefaultExpression>&apos;FREE&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="268" parent="239" name="current_city_id">
@@ -1078,7 +1078,6 @@
     <column id="269" parent="239" name="current_truck_id">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="270" parent="239" name="current_city_id_fk_idx">

@@ -9,6 +9,7 @@ import com.gerasimchuk.entities.RoutePoint;
 import com.gerasimchuk.enums.CargoStatus;
 import com.gerasimchuk.enums.RoutePointType;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class CargoServiceImpl implements CargoService {
@@ -70,7 +71,7 @@ public class CargoServiceImpl implements CargoService {
         Order order = cargo.getAssignedOrder();
 
         if (cargoDTO.getName()!=null && cargoDTO.getName().length()!=0) newName = cargoDTO.getName();
-        if (cargoDTO.getWeight()!=null && cargoDTO.getName().length()!=0) newWeight = cargoDTO.getWeightVal();
+        if (cargoDTO.getWeight()!=null && cargoDTO.getWeight().length()!=0) newWeight = cargoDTO.getWeightVal();
         if (cargoDTO.getStatus()!= null && cargoDTO.getStatus().length()!=0) newStatus = cargoDTO.getStatusVal();
         if (cargoDTO.getLoadPoint()!=null && cargoDTO.getLoadPoint().length()!=0) newLoadPoint = routepointDAO.getByCityId(cargoDTO.getLoadPointId());
         if (cargoDTO.getUnloadPoint()!=null && cargoDTO.getUnloadPoint().length()!=0) newUnloadPoint = routepointDAO.getByCityId(cargoDTO.getUnloadPointId());
@@ -79,6 +80,19 @@ public class CargoServiceImpl implements CargoService {
 
         cargoDAO.update(cargo.getId(),newName,newWeight,newStatus,order, newLoadPoint, newUnloadPoint);
         return true;
+    }
+
+    @Override
+    public Collection<Cargo> getCargosInCity(City city) {
+        if (city == null) return null;
+        Collection<Cargo> allCargos = cargoDAO.getAll();
+        if (allCargos == null) return null;
+        Collection<Cargo> result = new ArrayList<>();
+        for(Cargo c: allCargos){
+            if (c.getLoadPoint().getCity().getCityName().equals(city.getCityName()) ||
+                    c.getUnloadPoint().getCity().getCityName().equals(city.getCityName())) result.add(c);
+        }
+        return result;
     }
 
     @Override
@@ -116,7 +130,12 @@ public class CargoServiceImpl implements CargoService {
                 if (r.getCity().getId() == id) return true;
             }
         }
-        return false;
+        // if there is no routepoint but thete is basic city
+        // creating new routepoints
+        City city = cityDAO.getById(id);
+        routepointDAO.create(RoutePointType.LOADING,city);
+        routepointDAO.create(RoutePointType.UNLOADING, city);
+        return true;
     }
 
     @Override
@@ -133,5 +152,17 @@ public class CargoServiceImpl implements CargoService {
         if (!validateRoutePointId(routepointIdFrom)) return false;
         if (!validateRoutePointId(routepointIdTo)) return false;
         return true;
+    }
+
+    @Override
+    public Collection<Cargo> getCargosWithoutAssignedOrder() {
+        Collection<Cargo> cargos = cargoDAO.getAll();
+        Collection<Cargo> result = new ArrayList<>();
+        if (cargos!= null){
+            for(Cargo c: cargos){
+                if (c.getAssignedOrder() == null) result.add(c);
+            }
+        }
+        return result;
     }
 }

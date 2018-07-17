@@ -5,6 +5,7 @@ import com.gerasimchuk.dao.CargoDAO;
 import com.gerasimchuk.dao.CargoDAOImpl;
 import com.gerasimchuk.dto.CargoDTO;
 import com.gerasimchuk.entities.Cargo;
+import com.gerasimchuk.entities.City;
 import com.gerasimchuk.enums.RoutePointType;
 
 import java.util.Collection;
@@ -17,6 +18,8 @@ public interface CargoService {
     boolean addCargoToDatabase(CargoDTO cargoDTO);
 
     boolean changeCargoInDatabase(CargoDTO cargoDTO);
+
+    Collection<Cargo> getCargosInCity(City city);
 
     static boolean validateCargoName(String name){
         if (name == null) return false;
@@ -52,4 +55,6 @@ public interface CargoService {
 
     boolean validateRoutePoints(String routepointFrom, String routepointTo);
     boolean validateRoutePointsByIDs(int routepointIdFrom, int routepointIdTo);
+
+    Collection<Cargo> getCargosWithoutAssignedOrder();
 }

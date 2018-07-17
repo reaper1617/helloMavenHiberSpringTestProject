@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -82,44 +83,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="slider-info">
                                 <div class="col-md-8">
                                     <select name="truckRegNum" class="ramka" form="addtrucktoorder">
-                                        <option hidden>Choose truck for this cargo</option>
-                                        <option>rr88888</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-                                        <option>num1</option>
-                                        <option>num2</option>
-                                        <option>num3</option>
-
+                                        <c:forEach items="${truckListFitsToOrder}" var="cell">
+                                            <option value="${cell.registrationNumber}">${cell.registrationNumber} Current city: ${cell.currentCity.cityName}</option>
+                                        </c:forEach>
                                     </select>
 
 

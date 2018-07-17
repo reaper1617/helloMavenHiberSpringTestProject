@@ -12,5 +12,7 @@ public class Constants {
     public static final int MAX_CARGO_WEIGHT = MAX_TRUCK_CAPACITY_SIZE * 1000;
     public static final int MAX_ORDER_DESCRIPTION_LENGTH = 50;
     public static final int MIN_PAROLE_LENGTH = 7;
+    public static final int MAX_WORK_TIME_LIMIT_FOR_DRIVER_PER_MONTH = 176;
+
 
 }

@@ -33,7 +33,9 @@ public interface TruckDTO {
 
      void setState(String state) ;
 
-     String getCurrentCity() ;
+     String getCurrentCity();
+
+     int  getCurrentCityId();
 
      void setCurrentCity(String currentCity) ;
 }

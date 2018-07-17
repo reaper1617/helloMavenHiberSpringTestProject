@@ -112,9 +112,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             <input type="text" name="capacity" form="addnewtruck" placeholder="Capacity" required="required" >
                                             <%--<input type="<select name="state" id="tss1"></select>--%>
                                             <select class="ramka" name="currentCity" id="truckcity" form="addnewtruck">
-                                                <option id="C1" selected>City1</option>
-                                                <option id="C2">City2</option>
-                                                <option id="C3">City3</option>
+                                                <c:forEach items="${citiesList}" var="cell">
+                                                    <option value="${cell.id}">${cell.cityName}</option>
+                                                </c:forEach>
                                             </select>
 
                                             <select class="ramka" name="state" id="truckstate" form="addnewtruck">

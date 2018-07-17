@@ -1,9 +1,13 @@
 package com.gerasimchuk.service;
 
+import com.gerasimchuk.dto.DriverStateDTO;
+import com.gerasimchuk.dto.DriversToOrderDTO;
 import com.gerasimchuk.dto.OrderDTO;
 import com.gerasimchuk.dto.TruckToOrderDTO;
-import com.gerasimchuk.entities.City;
+import com.gerasimchuk.entities.*;
+import com.gerasimchuk.enums.OrderState;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface OrderService {
@@ -14,7 +18,23 @@ public interface OrderService {
 
     boolean addTruckToOrder(TruckToOrderDTO truckToOrderDTO);
 
-    public List<City> makeOrderRoute(OrderDTO orderDTO);
+    //List<City> makeOrderRoute(OrderDTO orderDTO);
+
+    Collection<Truck> getTrucksFitsToOrder(OrderDTO orderDTO);
+
+    boolean addDriversToOrder(DriversToOrderDTO driversToOrderDTO);
+
+    Order findCurrentOrder(Driver d);
+
+    //List<City> makeOrderRoute(Order order);
+
+    List<User> getDriverAssistantsForCurrentOrder(Order currentOrder, User currentDriver);
+
+    List<Cargo> updateCargosStateInOrder(DriverStateDTO driverStateDTO);
+    List<City> makeRoute(Order order);
+    List<City> makeRoute(OrderDTO orderDTO);
+
+    boolean updateOrderState(Order order, OrderState newState);
 
     static boolean validateDate(String date){
         // format: dd.mm.yyyy

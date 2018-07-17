@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -84,20 +85,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <div class="col-md-8">
 
                                     <select  class="ramka" form="addneworder"  size="10" multiple name = "cargos" required="true">
-                                        <option hidden value="0">Choose cargos to include in order</option>
-                                        <option value="16">Cargo</option>
-                                        <option value="19">CargoNew</option>
-                                        <option value="3">option3</option>
-                                        <option value="4">option4</option>
-                                        <option value="5">option5</option>
-                                        <option value="6">option6</option>
-                                        <option value="7">option7</option>
-                                        <option value="8">option8</option>
-                                        <option value="9">option9</option>
-                                        <option value="10">option10</option>
-                                        <option value="11">option11</option>
-                                        <option value="12">option12</option>
-                                        <option value="13">option13</option>
+                                        <c:forEach items="${cargosWithoutAssignedOrders}" var="cell">
+                                            <option value="${cell.id}">${cell.cargoName}: ${cell.weight} kg </option>
+                                        </c:forEach>
                                     </select>
                                     <%--<h2>Auto transport to fill</h2>--%>
                                     <%--<h4>the truck space</h4>--%>

@@ -3,11 +3,8 @@ package com.gerasimchuk.mvc;
 
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.dto.*;
-import com.gerasimchuk.entities.Cargo;
-import com.gerasimchuk.entities.City;
-import com.gerasimchuk.entities.Truck;
-import com.gerasimchuk.entities.User;
-import com.gerasimchuk.enums.UserRole;
+import com.gerasimchuk.entities.*;
+import com.gerasimchuk.enums.*;
 import com.gerasimchuk.service.*;
 import com.gerasimchuk.utils.LoginStateSaver;
 import com.gerasimchuk.utils.LoginStateSaverImpl;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,7 +28,41 @@ public class SignUpController {
 
     private TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
     private TruckService truckService = new TruckServiceImpl();
+    private OrderDAO orderDAO = OrderDAOImpl.getOrderDAOInstance();
+    private UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
+    private UserService userService = new UserServiceImpl();
+    private OrderService orderService = new OrderServiceImpl();
+    private CargoService cargoService = new CargoServiceImpl();
+    private DriverService driverService = new DriverServiceImpl();
 
+    private boolean setParamsForDriverAccountPage(Model ui, User user){
+        User loggedUser = userDAO.getById(user.getId());
+        if (loggedUser == null) return false;
+        ui.addAttribute("driverID", loggedUser.getDriver().getId());
+        ui.addAttribute("driverName", loggedUser.getUserName());
+        ui.addAttribute("middleName", loggedUser.getMiddleName());
+        ui.addAttribute("lastName", loggedUser.getLastName());
+        ui.addAttribute("driverStatus", loggedUser.getDriver().getState());
+        ui.addAttribute("currentCity", loggedUser.getDriver().getCurrentCity());
+        if (loggedUser.getDriver().getCurrentTruck() == null) ui.addAttribute("currentTruck", new Truck("No truck",1,1, TruckState.NOTREADY, new City()));
+        else ui.addAttribute("currentTruck", loggedUser.getDriver().getCurrentTruck());
+        Order order = orderService.findCurrentOrder(loggedUser.getDriver());
+        if (order == null) ui.addAttribute("currentOrder", new Order(OrderState.PREPARED,"No order", new Timestamp(0),null));
+        else ui.addAttribute("currentOrder", order);
+        List<City> cities = orderService.makeRoute(order);
+        if (cities == null) cities=new ArrayList<>();
+        if (cities.size() == 0) cities.add(new City("No route", CityHasAgency.HASNOT));
+        ui.addAttribute("orderRoute", cities);
+        List<User> assistants = orderService.getDriverAssistantsForCurrentOrder(order, loggedUser);
+        if (assistants == null ) assistants = new ArrayList<>();
+        if (assistants.size()==0) assistants.add(new User("No", "assistants", "found","0000", UserRole.DRIVER, new Driver()));
+        ui.addAttribute("Assistants", assistants);
+        List<Cargo> cargos = (ArrayList)cargoService.getCargosInCity(loggedUser.getDriver().getCurrentCity());
+        if (cargos == null) cargos = new ArrayList<>();
+        if (cargos.size() == 0) cargos.add(new Cargo("No cargos found",1,CargoStatus.PREPARED, new RoutePoint(),new RoutePoint()));
+        ui.addAttribute("cargosInCurrentCity", cargos);
+        return true;
+    }
 
     @RequestMapping(value = "/changedrivers", method = RequestMethod.GET)
     public String changeDriversGet(Model ui){
@@ -67,9 +99,12 @@ public class SignUpController {
 
 
     @RequestMapping(value = "/changetrucks", method = RequestMethod.GET)
-    public String changeTruckGet(){
+    public String changeTruckGet(Model ui){
 
 
+        List<City> cities = (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+
+        ui.addAttribute("citiesForChoose", cities);
         //return "/dark-login-form/23-dark-login-form/index";
         return "/manager/changetrucks";
     }
@@ -93,8 +128,11 @@ public class SignUpController {
     }
 
     @RequestMapping(value = "/manageraccount", method = RequestMethod.GET)
-    public String managerAccount(){
+    public String managerAccount(Model ui){
 
+
+        List<Order> orders = (ArrayList)orderDAO.getAll();
+        ui.addAttribute("ordersList", orders);
 
         //return "/dark-login-form/23-dark-login-form/index";
         return "/manager/manageraccount";
@@ -117,15 +155,42 @@ public class SignUpController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(){
+    public String login(Model ui){
         if (LoginStateSaverImpl.getInstance().isLoggedIn()){
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.MANAGER) return "/manager/manageraccount";
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) return "/driver/driveraccount";
+            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.MANAGER) {
+
+                List<Order> orders = (ArrayList)orderDAO.getAll();
+                ui.addAttribute("ordersList", orders);
+                return "/manager/manageraccount";
+            }
+            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) {
+
+
+                User user = LoginStateSaverImpl.getLoggedUser();
+                Driver d = user.getDriver();
+                setParamsForDriverAccountPage(ui,user);
+
+
+                return "/driver/driveraccount";
+            }
         }
         //return "/dark-login-form/23-dark-login-form/index";
         return "/login/login";
     }
 
+    @RequestMapping(value = "/driveraccount", method = RequestMethod.GET)
+    public String driverAccountGet(Model ui){
+        if (LoginStateSaverImpl.getInstance().isLoggedIn()){
+            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) {
+                User signedUser = LoginStateSaverImpl.getLoggedUser();
+               setParamsForDriverAccountPage(ui,signedUser);
+
+                return "/driver/driveraccount";
+            }
+        }
+        ui.addAttribute("errorMessage", "You must be driver to open this page");
+        return "/error/errorpage";
+    }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(){
@@ -138,13 +203,13 @@ public class SignUpController {
 
 
 
-    @RequestMapping(value = "/signupmain", method = RequestMethod.GET)
-    public String indexGetSignUp(){
-
-
-        //return "/dark-login-form/23-dark-login-form/index";
-        return "/signup/signupmanager";
-    }
+//    @RequestMapping(value = "/signupmain", method = RequestMethod.GET)
+//    public String indexGetSignUp(){
+//
+//
+//        //return "/dark-login-form/23-dark-login-form/index";
+//        return "/signup/signupmanager";
+//    }
 
     @RequestMapping(value = "/addcargoview", method = RequestMethod.GET)
     public String indexGetAddCargoView(){
@@ -157,15 +222,30 @@ public class SignUpController {
     public String loginPost(UserDTOImpl user, BindingResult bindingResult, Model ui){
 
         if (LoginStateSaverImpl.getInstance().isLoggedIn()){
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.MANAGER) return "/manager/manageraccount";
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) return "/driver/driveraccount";
+            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.MANAGER) {
+                List<Order> orders = (ArrayList)orderDAO.getAll();
+                ui.addAttribute("ordersList", orders);
+                return "/manager/manageraccount";
+            }
+            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) {
+                User u = LoginStateSaverImpl.getLoggedUser();
+               setParamsForDriverAccountPage(ui,u);
+            }
         }
         SignInService s = new SignInServiceImpl(UserDAOImpl.getUserDAOInstance());
         User signedUser = s.signIn(user);
         LoginStateSaverImpl.setLoggedUser(signedUser);
         if (signedUser == null) return "/error/errorpage";
-        if (signedUser.getRole() == UserRole.DRIVER) return "/driver/driveraccount";
-        if (signedUser.getRole() == UserRole.MANAGER) return "/manager/manageraccount";
+        if (signedUser.getRole() == UserRole.DRIVER) {
+            User u = LoginStateSaverImpl.getLoggedUser();
+            setParamsForDriverAccountPage(ui,u);
+            return "/driver/driveraccount";
+        }
+        if (signedUser.getRole() == UserRole.MANAGER){
+            List<Order> orders = (ArrayList)orderDAO.getAll();
+            ui.addAttribute("ordersList", orders);
+            return "/manager/manageraccount";
+        }
         return "/error/errorpage";
     }
 
@@ -178,8 +258,10 @@ public class SignUpController {
 
 
         List<Truck> trucks = (ArrayList)truckDAO.getAll();
-
         ui.addAttribute("currentTrucksList", trucks);
+
+        List<City> cities = (ArrayList)getCityDAOInstance().getAll();
+        ui.addAttribute("citiesList", cities);
 
         return "/manager/managetrucks";
     }
@@ -199,7 +281,8 @@ public class SignUpController {
         }
         if (id == 1){
             ui.addAttribute("changedTruckRegNum", truckDAO.getById(truck.getTruckIdVal()).getRegistrationNumber());
-
+            List<City> cities = (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+            ui.addAttribute("citiesForChoose", cities);
            return "/manager/changetrucks";
            // return "/manager/manageractionsuccess";
         }
@@ -334,7 +417,12 @@ public class SignUpController {
 
 
     @RequestMapping(value = "/manageorders", method = RequestMethod.GET)
-    public String manageOrders(){
+    public String manageOrders(Model ui){
+
+
+       List<Cargo> cargos = (ArrayList)new CargoServiceImpl().getCargosWithoutAssignedOrder();
+       ui.addAttribute("cargosWithoutAssignedOrders",cargos);
+
         return "/manager/manageorders";
     }
 
@@ -348,6 +436,10 @@ public class SignUpController {
         OrderService orderService = new OrderServiceImpl();
         orderService.addOrderToDatabase(orderDTO);
         ui.addAttribute("orderDescr", orderDTO.getDescription());
+
+        List<Truck> truckList = (ArrayList)orderService.getTrucksFitsToOrder(orderDTO);
+
+        ui.addAttribute("truckListFitsToOrder", truckList);
 //        ui.addAttribute("orderDate", orderDTO.getDate());
 //        ui.addAttribute("orderCargos", orderDTO.getCargos());
 
@@ -384,10 +476,69 @@ public class SignUpController {
         boolean success = orderService.addTruckToOrder(truckToOrderDTO);
 
         if (!success) return "/error/errorpage";
-        return "/manager/addedordersuccess";
+
+        ui.addAttribute("chosenTruck", truckToOrderDTO.getTruckRegNum());
+        ui.addAttribute("createdOrder", truckToOrderDTO.getOrderDescription());
+//        List<User> drivers = userService.getDrivers();
+       List<User> drivers = (ArrayList)((OrderServiceImpl) orderService).getDriversFitToTruckAndOrder(truckToOrderDTO);
+        ui.addAttribute("driversList",drivers);
+
+        return "/manager/adddriverstoorder";
+    }
+
+
+    @RequestMapping(value = "/adddriversoorder",method = RequestMethod.GET)
+    public String addDriversToOrderGet(Model ui) {
+
+
+        List<User> drivers = userService.getDrivers();
+        ui.addAttribute("driversList",drivers);
+
+        return "/manager/adddriverstoorder";
+    }
+
+        @RequestMapping(value = "/adddriverstoorder",method = RequestMethod.POST)
+    public String addDriversToOrderPost(DriversToOrderDTOImpl driversToOrderDTO, BindingResult bindingResult, Model ui) {
+
+
+
+        ui.addAttribute("addActionSuccess", "no actual drivers assign ut success");
+        return "/manager/manageractionsuccess";
     }
 
 
 
+
+    @RequestMapping(value = "/driveraccount/{id}", method = RequestMethod.POST)
+    public String changeDriverStatePost(@PathVariable("id") int id, DriverStateDTOImpl driverStateDTO, BindingResult bindingResult,Model ui){
+        if (id == 1){
+            User u = LoginStateSaverImpl.getLoggedUser();
+            driverService.updateDriverState(driverStateDTO,u.getDriver());
+           // ui.addAttribute("addActionSuccess", "tmp: State refresh success");
+           // return "/manager/manageractionsuccess";
+            setParamsForDriverAccountPage(ui,u);
+            ui.addAttribute("stateUpdateSuccess", "State update successfully");
+        }
+        if (id == 2){
+            User u = LoginStateSaverImpl.getLoggedUser();
+            orderService.updateCargosStateInOrder(driverStateDTO);
+            setParamsForDriverAccountPage(ui,u);
+//            ui.addAttribute("addActionSuccess", "tmp: Cargo state refresh success");
+//            return "/manager/manageractionsuccess";
+            ui.addAttribute("cargosStateUpdateSuccess", "Cargos state updated successfully");
+        }
+        if (id == 3){
+            User u = LoginStateSaverImpl.getLoggedUser();
+            Order order = orderService.findCurrentOrder(u.getDriver());
+            boolean success = orderService.updateOrderState(order, driverStateDTO.getOrderStateVal());
+            if (!success) {
+                ui.addAttribute("errorMessage", "Can not update order status!");
+                return "/error/errorpage";
+            }
+            ui.addAttribute("orderStateUpdateSuccess", "Order state updated successfully!");
+        }
+
+        return "/driver/driveraccount";
+    };
 
 }

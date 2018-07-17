@@ -21,53 +21,53 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        // create
-//        ManagerDAO managerDAO = ManagerDAOImpl.getManagerDAOInstance();
-//        Manager m1 = managerDAO.create(ManagerPosition.JUNIOR);
-////        Manager m2 = managerDAO.create(ManagerPosition.MIDDLE);
-////        Manager m3 = managerDAO.create(ManagerPosition.EXPERT);
-//
-//        CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
-//        City c1 = cityDAO.create("City1", CityHasAgency.HAS);
-//        City c2 = cityDAO.create("City2", CityHasAgency.HAS);
-//        City c3 = cityDAO.create("City3", CityHasAgency.HAS);
-//
+//         create
+        ManagerDAO managerDAO = ManagerDAOImpl.getManagerDAOInstance();
+        Manager m1 = managerDAO.create(ManagerPosition.JUNIOR);
+//        Manager m2 = managerDAO.create(ManagerPosition.MIDDLE);
+//        Manager m3 = managerDAO.create(ManagerPosition.EXPERT);
+
+        CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
+        City c1 = cityDAO.create("Moscow", CityHasAgency.HAS);
+        City c2 = cityDAO.create("Saint-Petersburg", CityHasAgency.HAS);
+        City c3 = cityDAO.create("Petrozavodsk", CityHasAgency.HAS);
+
 //        TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
 //        Truck t1 = truckDAO.create("rr88888",5,20,TruckState.NOTREADY,c2);
-////        Truck t2 = truckDAO.create("num2",6,22,TruckState.READY,c1);
-////        Truck t3 = truckDAO.create("num3",3,12,TruckState.READY,c3);
+//        Truck t2 = truckDAO.create("se84893",6,22,TruckState.READY,c1);
+//        Truck t3 = truckDAO.create("dk39201",3,12,TruckState.READY,c3);
 //
 //        DriverDAO driverDAO = DriverDAOImpl.getDriverDAOInstance();
 //        Driver d1 = driverDAO.createDriver(10,DriverState.RESTING, c1,t1 );
 ////        Driver d2 = driverDAO.createDriver(4,DriverState.DRIVING, c2,t2 );
 ////        Driver d3 = driverDAO.createDriver(22,DriverState.RESTING, c3,t3 );
 //
-//        UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
+        UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
 //        User ud1 = userDAO.createDriver("Max","Max", "Max","Max",d1);
-//        User um1 = userDAO.createManager("Max2","Max2", "Max2","Max2",m1);
+        User um1 = userDAO.createManager("Max2","Max2", "Max2","Max2",m1);
+
+//        int[] cargos = {277, 280};
+//        OrderDTO orderDTO = new OrderDTOImpl("Descr", "12.12.2018",null, cargos);
+
+
+//        OrderService orderService = new OrderServiceImpl();
+//        System.out.println("validate order dto:" + orderService.validateOrderDTO(orderDTO));
+
+
+        // add routes for cities!!!!
+
+        RouteDAO routeDAO = RouteDAOImpl.getRouteDAOInstance();
+//        CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
 //
-////        int[] cargos = {277, 280};
-////        OrderDTO orderDTO = new OrderDTOImpl("Descr", "12.12.2018",null, cargos);
-//
-//
-////        OrderService orderService = new OrderServiceImpl();
-////        System.out.println("validate order dto:" + orderService.validateOrderDTO(orderDTO));
-//
-//
-//        // add routes for cities!!!!
-//
-//        RouteDAO routeDAO = RouteDAOImpl.getRouteDAOInstance();
-////        CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
-//
-////        City c1 = cityDAO.getByName("City1");
-////        City c2 = cityDAO.getByName("City2");
-////        City c3 = cityDAO.getByName("City3");
-//        routeDAO.create(c1,c2, 100);
-//        routeDAO.create(c2,c3, 200);
-//        routeDAO.create(c1,c3, 120);
-//        routeDAO.create(c2,c1, 100);
-//        routeDAO.create(c3,c2, 200);
-//        routeDAO.create(c3,c1, 120);
+//        City cc1 = cityDAO.getByName("Moscow");
+//        City cc2 = cityDAO.getByName("Saint-Petersburg");
+//        City cc3 = cityDAO.getByName("Petrozavodsk");
+        routeDAO.create(c1,c2, 100);
+        routeDAO.create(c2,c3, 200);
+        routeDAO.create(c1,c3, 120);
+        routeDAO.create(c2,c1, 100);
+        routeDAO.create(c3,c2, 200);
+        routeDAO.create(c3,c1, 120);
 
 
 //        List<City> route = orderService.makeOrderRoute(orderDTO);
@@ -80,9 +80,9 @@ public class MainApp {
 //        User ud3 =userDAO.createDriver("User3","MN3", "LN3","pass3",d3);
 //        User um1 =userDAO.createManager("Manager1", "sdg","dfhg","dafh",m2);
 
-//        CargoDAO cargoDAO = CargoDAOImpl.getCargoDAOInstance();
+       CargoDAO cargoDAO = CargoDAOImpl.getCargoDAOInstance();
 //
-//        OrderDAO orderDAO = OrderDAOImpl.getOrderDAOInstance();
+        OrderDAO orderDAO = OrderDAOImpl.getOrderDAOInstance();
 //        Order order1 = orderDAO.create(OrderState.PREPARED,"Order1", new Timestamp(1000), t1);
 //        Order order2 = orderDAO.create(OrderState.PREPARED,"Order2", new Timestamp(1022), t2);
 //        Order order3 = orderDAO.create(OrderState.PREPARED,"Order3", new Timestamp(1023), t3);
@@ -194,11 +194,11 @@ public class MainApp {
 
 
 
-        DriverDTO driverDTO = new DriverDTOImpl("Maxim","Max","Max","Max","10", "Resting","1","2");
-
-        driverDTO.setDriverId("3");
-        DriverService driverService = new DriverServiceImpl();
-        driverService.changeDriverInDatabase(driverDTO);
+//        DriverDTO driverDTO = new DriverDTOImpl("Maxim","Max","Max","Max","10", "Resting","1","2");
+//
+//        driverDTO.setDriverId("3");
+//        DriverService driverService = new DriverServiceImpl();
+//        driverService.changeDriverInDatabase(driverDTO);
 
 
 

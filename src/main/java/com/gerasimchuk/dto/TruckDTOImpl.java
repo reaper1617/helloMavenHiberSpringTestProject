@@ -116,6 +116,18 @@ public class TruckDTOImpl implements TruckDTO {
     }
 
     @Override
+    public int getCurrentCityId() {
+        int id = 0;
+        try{
+            id = Integer.parseInt(currentCity);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    @Override
     public void setCurrentCity(String currentCity) {
         this.currentCity = currentCity;
     }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -16,12 +17,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--// Meta tag Keywords -->
 
-    <link rel="stylesheet" href="resources/web/css/flexslider.css" type="text/css" media="all" /><!-- for testimonials -->
+    <link rel="stylesheet" href="../resources/web/css/flexslider.css" type="text/css" media="all" /><!-- for testimonials -->
 
     <!-- css files -->
-    <link rel="stylesheet" href="resources/web/css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
-    <link rel="stylesheet" href="resources/web/css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
-    <link rel="stylesheet" href="resources/web/css/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+    <link rel="stylesheet" href="../resources/web/css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
+    <link rel="stylesheet" href="../resources/web/css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+    <link rel="stylesheet" href="../resources/web/css/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
     <!-- //css files -->
 
     <!-- web-fonts -->
@@ -177,43 +178,52 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <table>
 
                                     <tr>
-                                        <td><label>Your ID:</label></td>
+                                        <td><label>Your ID: ${driverID}</label></td>
                                     </tr>
 
                                     <tr>
-                                        <td><label>Your name:</label></td>
+                                        <td><label>Your name: ${driverName}</label></td>
                                     </tr>
 
                                     <tr>
-                                        <td><label>Your middle name:</label></td>
+                                        <td><label>Your middle name: ${middleName}</label></td>
                                     </tr>
 
                                     <tr>
-                                        <td><label>Your last name:</label></td>
+                                        <td><label>Your last name: ${lastName}</label></td>
                                     </tr>
 
                                     <tr>
-                                        <td><label>Your current status:</label></td>
+                                        <td><label>Your current status: ${driverStatus}</label></td>
                                     </tr>
 
                                     <tr>
-                                        <td><label>Your current order:</label></td>
+                                        <td><label>Your current order: ${currentOrder.orderDescription} id: ${currentOrder.orderId}</label></td>
                                     </tr>
 
                                     <tr>
                                         <td><label>Route points:</label></td>
                                     </tr>
+                                    <c:forEach items="${orderRoute}" var="cell">
+                                        <tr>
+                                            <td>${cell.cityName}</td>
+                                        </tr>
+                                    </c:forEach>
 
                                     <tr>
                                         <td><label>Your assistants: </label></td>
                                     </tr>
-
+                                    <c:forEach items="${Assistants}" var="cell">
+                                        <tr>
+                                            <td>${cell.userName} ${cell.middleName} ${cell.lastName} id : ${cell.driver.id}</td>
+                                        </tr>
+                                    </c:forEach>
                                     <tr>
-                                        <td><label>Your current city:</label></td>
+                                        <td><label>Your current city: ${currentCity.cityName}</label></td>
                                     </tr>
 
                                     <tr>
-                                        <td><label>Your current truck:</label></td>
+                                        <td><label>Your current truck: ${currentTruck.registrationNumber}</label></td>
                                     </tr>
 
 
@@ -221,36 +231,29 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </form>
 
                         </div>
-                        <div align="center">
-                            <div class="banner-form-agileinfo driver-list select-state">
 
-                                <form>
-                                    <label for="drivershift">Set shift state:</label>
-                                    <select class="form-control option-w3ls select-state"  id="drivershift">
-                                        <option hidden> Don't started shift  </option>
-                                        <option> Started shift </option>
-                                        <option> Finished shift </option>
-                                    </select>
-
-
-                                </form>
-
-                            </div>
-                        </div>
 
                         <div align="center">
 
                             <div class="banner-form-agileinfo driver-list select-state" align="center">
 
-                                <form>
+                                <form id="driverstateupdate">
                                     <label for="driverstateselect">Set your state:</label>
-                                    <select class="form-control option-w3ls select-state" id="driverstateselect">
-                                        <option> Resting </option>
-                                        <option> On driving </option>
-                                        <option> Second driver </option>
-                                        <option> Loading/unloading cargos </option>
+                                    <div>
+                                    <select class="form-control option-w3ls select-state" name="driverState" id="driverstateselect" form="driverstateupdate">
+                                        <option id = "s1" selected>Free</option>
+                                        <option id = "s2">Resting</option>
+                                        <option id = "s3">Driving</option>
+                                        <option id = "s4">Second driver</option>
+                                        <option id = "s5">Loading/unloading cargos</option>
                                     </select>
-
+                                    </div>
+                                    <div>
+                                        <input type="submit" value="refresh" formaction="/driveraccount/1" formmethod="post" form="driverstateupdate">
+                                    </div>
+                                    <div>
+                                        <h2>${stateUpdateSuccess}</h2>
+                                    </div>
 
                                 </form>
 
@@ -260,15 +263,39 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div align="center">
                             <div class="banner-form-agileinfo driver-list select-state" align="center">
 
-                                <form>
-                                    <label for="driverorderselect">Set cargo state:</label>
-                                    <select class="form-control option-w3ls select-state" id="driverorderselect">
-                                        <option hidden> Prepared to load </option>
-                                        <option> Loaded </option>
-                                        <option> Unoaded </option>
+                                <form id="cargostateupdate">
+                                    <select class="form-control option-w3ls select-state" name = "cargoForChangeState" multiple required size="5" form="cargostateupdate">
+                                        <c:forEach items="${cargosInCurrentCity}" var="cell">
+                                            <option id = ${cell.id}> ${cell.cargoName}</option>
+                                        </c:forEach>
                                     </select>
+                                    <select class="form-control option-w3ls select-state" name="cargoStateChangeTo" required form="cargostateupdate">
+                                        <option selected hidden>Change cargo status</option>
+                                        <option id="1">Cargo loaded</option>
+                                        <option id="2">Cargo unloaded</option>
+                                    </select>
+                                    <input type="submit" value="change status" formaction="/driveraccount/2" formmethod="post" form="cargostateupdate">
+                                    <div>
+                                        <h3>${cargosStateUpdateSuccess}</h3>
+                                    </div>
+                                </form>
 
+                            </div>
+                        </div>
 
+                        <div align="center">
+                            <div class="banner-form-agileinfo driver-list select-state" align="center">
+
+                                <form id="orderstateupdate">
+                                    <select class="form-control option-w3ls select-state" name="orderStateChangeTo" required form="orderstateupdate">
+                                        <option selected hidden>Change order status</option>
+                                        <option id="o1">Order executing</option>
+                                        <option id="o2">Order executed</option>
+                                    </select>
+                                    <input type="submit" value="change order status" formaction="/driveraccount/3" formmethod="post" form="orderstateupdate">
+                                    <div>
+                                        <h5>${orderStateUpdateSuccess}</h5>
+                                    </div>
                                 </form>
 
                             </div>
@@ -381,14 +408,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!-- js-scripts -->
 <!-- js -->
-<script type="text/javascript" src="resources/web/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="resources/web/js/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap -->
+<script type="text/javascript" src="../resources/web/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../resources/web/js/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap -->
 <!-- //js -->
 
 <!-- start-smoth-scrolling -->
-<script src="resources/web/js/SmoothScroll.min.js"></script>
-<script type="text/javascript" src="resources/web/js/move-top.js"></script>
-<script type="text/javascript" src="resources/web/js/easing.js"></script>
+<script src="../resources/web/js/SmoothScroll.min.js"></script>
+<script type="text/javascript" src="../resources/web/js/move-top.js"></script>
+<script type="text/javascript" src="../resources/web/js/easing.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $(".scroll").click(function(event){
@@ -417,7 +444,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- start-smoth-scrolling -->
 
 <!-- Baneer-js -->
-<script src="resources/web/js/responsiveslides.min.js"></script>
+<script src="../resources/web/js/responsiveslides.min.js"></script>
 <script>
     $(function () {
         $("#slider").responsiveSlides({
@@ -438,7 +465,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //Baneer-js -->
 
 <!-- banner bottom video script -->
-<script src="resources/web/js/simplePlayer.js"></script>
+<script src="../resources/web/js/simplePlayer.js"></script>
 <script>
     $("document").ready(function() {
         $("#video").simplePlayer();
@@ -447,8 +474,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //banner bottom video script -->
 
 <!-- Stats-Number-Scroller-Animation-JavaScript -->
-<script src="resources/web/js/waypoints.min.js"></script>
-<script src="resources/web/js/counterup.min.js"></script>
+<script src="../resources/web/js/waypoints.min.js"></script>
+<script src="../resources/web/js/counterup.min.js"></script>
 <script>
     jQuery(document).ready(function( $ ) {
         $('.counter').counterUp({
@@ -461,7 +488,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 <!-- FlexSlider-JavaScript -->
-<script defer src="resources/web/js/jquery.flexslider.js"></script>
+<script defer src="../resources/web/js/jquery.flexslider.js"></script>
 <script type="text/javascript">
     $(function(){
         SyntaxHighlighter.all();

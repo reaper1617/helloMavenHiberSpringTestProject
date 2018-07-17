@@ -3,6 +3,7 @@ package com.gerasimchuk.service;
 import com.gerasimchuk.constants.Constants;
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.dto.DriverDTO;
+import com.gerasimchuk.dto.DriverStateDTO;
 import com.gerasimchuk.entities.City;
 import com.gerasimchuk.entities.Driver;
 import com.gerasimchuk.entities.Truck;
@@ -36,7 +37,9 @@ public class DriverServiceImpl implements DriverService {
         if (!CityService.checkCityById(driverDTO.getCurrentCityId())) return false;
 
         // validate current truck
-        if (!TruckService.validateTruckById(driverDTO.getCurrentTruckId())) return false;
+        if (driverDTO.getCurrentTruck()!=null )
+            if (driverDTO.getCurrentTruck().length()!=0)
+                if (!TruckService.validateTruckById(driverDTO.getCurrentTruckId())) return false;
 
         return true;
     }
@@ -67,7 +70,7 @@ public class DriverServiceImpl implements DriverService {
         Truck truck = truckDAO.getById(driverDTO.getCurrentTruckId());
 
 
-        Driver driver = driverDAO.createDriver(driverDTO.getHouseWorkedVal(),DriverState.RESTING, city,truck);
+        Driver driver = driverDAO.createDriver(driverDTO.getHouseWorkedVal(),DriverState.FREE, city,truck);
 
         userDAO.createDriver(driverDTO.getUserName(),
                             driverDTO.getMiddleName(),
@@ -98,6 +101,17 @@ public class DriverServiceImpl implements DriverService {
         if (driverDTO.getCurrentTruck()!= null && driverDTO.getCurrentTruck().length()!=0) newTruck = truckDAO.getById(driverDTO.getCurrentTruckId());
         driverDAO.update(d.getId(),newHoursWorked,d.getState(),newCity, newTruck);
         userDAO.updateDriver(user.getId(),newUserName,newMiddleName,newLastName,newPassword, d);
+        return true;
+    }
+
+    @Override
+    public boolean updateDriverState(DriverStateDTO driverStateDTO, Driver currentDriver) {
+        if (driverStateDTO == null) return false;
+        if (driverStateDTO.getDriverState() == null) return false;
+        if (driverStateDTO.getDriverState().length() == 0) return false;
+        if (currentDriver == null) return false;
+        Driver d = driverDAO.getById(currentDriver.getId());
+        driverDAO.update(d.getId(), d.getHoursWorked(), driverStateDTO.getDriverStateVal(), d.getCurrentCity(), d.getCurrentTruck());
         return true;
     }
 

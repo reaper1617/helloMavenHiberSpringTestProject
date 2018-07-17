@@ -37,7 +37,7 @@ public class TruckServiceImpl implements TruckService {
         if (!checkState(truckDTO.getStateVal())) return false;
 
         // check city
-        if (!CityService.checkCityByName(truckDTO.getCurrentCity())) return false;
+        if (!CityService.checkCityById(truckDTO.getCurrentCityId())) return false;
 
         return true;
     }
@@ -66,7 +66,7 @@ public class TruckServiceImpl implements TruckService {
     public boolean addTruckToDatabase(TruckDTO truckDTO) {
         if (!validateTruckDTOData(truckDTO)) return false;
 
-        City city = cityDAO.getByName(truckDTO.getCurrentCity());
+        City city = cityDAO.getById(truckDTO.getCurrentCityId());
 
         if (truckDAO.getByRegistrationNumber(truckDTO.getRegistrationNumber())!=null) return false;
 
@@ -88,7 +88,7 @@ public class TruckServiceImpl implements TruckService {
         // check state
         if (!checkState(truckDTO.getStateVal())) return false;
         // check city
-        if (!CityService.checkCityByName(truckDTO.getCurrentCity())) return false;
+        if (!CityService.checkCityById(truckDTO.getCurrentCityId())) return false;
 
 
         Truck t =truckDAO.getByRegistrationNumber(truckDTO.getRegistrationNumber());
@@ -98,10 +98,10 @@ public class TruckServiceImpl implements TruckService {
         TruckState newState = t.getState();
         int newShift = t.getShift();
 
-        if (truckDTO.getCapacity()!=null) newCapacity = truckDTO.getCapacityVal();
-        if (truckDTO.getCurrentCity()!=null) newCity = cityDAO.getByName(truckDTO.getCurrentCity());
-        if (truckDTO.getState()!=null) newState = truckDTO.getStateVal();
-        if (truckDTO.getShift()!=null) newShift = truckDTO.getShiftVal();
+        if (truckDTO.getCapacity()!=null && truckDTO.getCapacity().length()!=0) newCapacity = truckDTO.getCapacityVal();
+        if (truckDTO.getCurrentCity()!=null && truckDTO.getCurrentCity().length()!=0) newCity = cityDAO.getById(truckDTO.getCurrentCityId());
+        if (truckDTO.getState()!=null && truckDTO.getState().length()!=0) newState = truckDTO.getStateVal();
+        if (truckDTO.getShift()!=null && truckDTO.getShift().length()!=0) newShift = truckDTO.getShiftVal();
 
         truckDAO.update(t.getId(), t.getRegistrationNumber(), newShift, newCapacity, newState, newCity);
         return true;

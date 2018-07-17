@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -45,12 +44,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         }
     </style>
 
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            alert('gnfgn');
-        }  )
-    </script>
 </head>
 <body>
 <div class="header">
@@ -68,9 +61,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- navbar-header -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                <li><a class="hvr-underline-from-center active" href="/managetrucks">Manage trucks</a></li>
                 <li><a class="hvr-underline-from-center active" href="/managedrivers">Manage drivers</a></li>
                 <li><a class="hvr-underline-from-center active" href="/managecargos">Manage cargos</a></li>
-                <li><a class="hvr-underline-from-center active" href="/manageorders">Manage orders</a></li>
                 <li><a class="hvr-underline-from-center active" href="/logout">Log out</a></li>
             </ul>
         </div>
@@ -89,33 +82,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
+                                    <select name="driverId" class="ramka" multiple form="adddriverstoorder">
+                                        <c:forEach items="${driversList}" var="cell">
+                                            <option value="${cell.id}">${cell.userName} ${cell.middleName} ${cell.lastName} Current city: ${cell.driver.currentCity.cityName}</option>
+                                        </c:forEach>
+                                    </select>
 
-                                    <form  id="changeorder" method="post">
-                                        <select  class="ramka"  size="20" name = "orderId" form="changeorder" >
-                                            <c:forEach items="${ordersList}" var="cell">
-                                                <option value="${cell.orderId}" onclick="function x() {
-                                                  alert('bvgv');
-                                                }">${cell.orderDescription}</option>
-                                            </c:forEach>
 
-                                        </select>
-                                        <div class="banner-form-agileinfo ramka">
-                                            <table>
-                                                <tr>
-                                                    <td><input type="submit"  formaction="/manageraccount/1" formmethod="post" class="hvr-shutter-in-vertical" value="Change"></td>
-                                                    <td><h5>or</h5></td>
-                                                    <td><input type="submit" formaction="/manageraccount/2" formmethod="post" class="hvr-shutter-in-vertical" value="Delete"></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </form>
+                                    <%--<h2>Auto transport to fill</h2>--%>
+                                    <%--<h4>the truck space</h4>--%>
+                                    <%--<div class="w3ls-button">--%>
+                                    <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
+                                    <%--</div>--%>
 
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
+                                        <h5> <span>Assign drivers to order</span></h5>
 
-
-
+                                        <form action="/adddriverstoorder" id="adddriverstoorder" method="post">
+                                            <input hidden type="text" name="orderDescription" form="adddriverstoorder"  value="${createdOrder}" >
+                                            <input hidden type="text" name="truckRegNum" form="adddriverstoorder"  value="${chosenTruck}" >
+                                            <%--<input hidden type="text" name="date" form="addtrucktoorder"  value="${orderDate}" >--%>
+                                            <%--<input hidden type="number" name="cargos" form="addtrucktoorder"  value="${orderCargos}" >--%>
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Assign drivers!">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
