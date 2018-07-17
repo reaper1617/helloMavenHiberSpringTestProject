@@ -208,6 +208,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/gerasimchuk/mvc/DriverController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/gerasimchuk/mvc/LoginController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/gerasimchuk/mvc/ManagerController.java">
           <value>
             <set />

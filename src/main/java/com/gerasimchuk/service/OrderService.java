@@ -18,7 +18,7 @@ public interface OrderService {
 
     boolean addTruckToOrder(TruckToOrderDTO truckToOrderDTO);
 
-    //List<City> makeOrderRoute(OrderDTO orderDTO);
+
 
     Collection<Truck> getTrucksFitsToOrder(OrderDTO orderDTO);
 
@@ -33,7 +33,7 @@ public interface OrderService {
     List<Cargo> updateCargosStateInOrder(DriverStateDTO driverStateDTO);
     List<City> makeRoute(Order order);
     List<City> makeRoute(OrderDTO orderDTO);
-
+    Collection<User> getDriversFitToTruckAndOrder(TruckToOrderDTO truckToOrderDTO);
     boolean updateOrderState(Order order, OrderState newState);
 
     static boolean validateDate(String date){

@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService{
 //    }
 
 
-
+    @Override
     public Collection<User> getDriversFitToTruckAndOrder(TruckToOrderDTO truckToOrderDTO){
         Truck t = truckDAO.getByRegistrationNumber(truckToOrderDTO.getTruckRegNum());
         if (t == null) return null;
@@ -187,6 +187,7 @@ public class OrderServiceImpl implements OrderService{
             if (u == null) return false;
             if (u.getDriver().getCurrentCity() != t.getCurrentCity()) return false;
             if (u.getDriver().getState()!=DriverState.FREE) return false;
+            if (u.getDriver().getCurrentTruck()!=null) return false;
             users.add(u);
         }
 
