@@ -5,13 +5,22 @@ import com.gerasimchuk.dao.UserDAOImpl;
 import com.gerasimchuk.entities.Driver;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
-    private UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
+
+    private UserDAO userDAO;
+
+    @Autowired
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public List<User> getDrivers() {

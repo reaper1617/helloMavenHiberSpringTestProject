@@ -8,27 +8,21 @@ import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
+@Repository
 public class RoutepointDAOImpl implements RoutepointDAO {
 
-    private static SessionFactory sessionFactory;
-    private static RoutepointDAOImpl instance;
+    private  SessionFactory sessionFactory;
 
-
-    private RoutepointDAOImpl(SessionFactory sessionFactory){
-        RoutepointDAOImpl.sessionFactory = sessionFactory;
+    @Autowired
+    public RoutepointDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public static RoutepointDAOImpl getRoutepointDAOInstance(){
-        if (instance == null){
-            synchronized (RoutepointDAOImpl.class){
-                instance = new RoutepointDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
-    }
     @Override
     public RoutePoint create(RoutePointType type, City city) {
         Session session = sessionFactory.openSession();

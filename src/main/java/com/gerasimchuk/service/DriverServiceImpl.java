@@ -9,17 +9,32 @@ import com.gerasimchuk.entities.Driver;
 import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.DriverState;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 import static com.gerasimchuk.service.UserService.validateName;
 
+@Service
 public class DriverServiceImpl implements DriverService {
 
-    private static UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
-    private static DriverDAO driverDAO = DriverDAOImpl.getDriverDAOInstance();
-    private static CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
-    private static TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
+    private  UserDAO userDAO;
+    private  DriverDAO driverDAO;
+    private  CityDAO cityDAO;
+    private  TruckDAO truckDAO;
+    private CityService cityService;
+    private TruckService truckService;
+
+    @Autowired
+    public DriverServiceImpl(UserDAO userDAO, DriverDAO driverDAO, CityDAO cityDAO, TruckDAO truckDAO, CityService cityService, TruckService truckService) {
+        this.userDAO = userDAO;
+        this.driverDAO = driverDAO;
+        this.cityDAO = cityDAO;
+        this.truckDAO = truckDAO;
+        this.cityService = cityService;
+        this.truckService = truckService;
+    }
 
     @Override
     public boolean validateDriverDTOData(DriverDTO driverDTO) {
@@ -34,12 +49,12 @@ public class DriverServiceImpl implements DriverService {
         if (!validateHoursWorked(driverDTO.getHouseWorkedVal())) return false;
 
         // validate current city
-        if (!CityService.checkCityById(driverDTO.getCurrentCityId())) return false;
+        if (!cityService.checkCityById(driverDTO.getCurrentCityId())) return false;
 
         // validate current truck
         if (driverDTO.getCurrentTruck()!=null )
             if (driverDTO.getCurrentTruck().length()!=0)
-                if (!TruckService.validateTruckById(driverDTO.getCurrentTruckId())) return false;
+                if (!truckService.validateTruckById(driverDTO.getCurrentTruckId())) return false;
 
         return true;
     }

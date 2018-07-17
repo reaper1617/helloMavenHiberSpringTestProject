@@ -1,5 +1,6 @@
 package com.gerasimchuk.service;
 
+import com.gerasimchuk.constants.Constants;
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.dto.CargoDTO;
 import com.gerasimchuk.entities.Cargo;
@@ -8,20 +9,31 @@ import com.gerasimchuk.entities.Order;
 import com.gerasimchuk.entities.RoutePoint;
 import com.gerasimchuk.enums.CargoStatus;
 import com.gerasimchuk.enums.RoutePointType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+
+@Service
 public class CargoServiceImpl implements CargoService {
-    private static CargoDAO cargoDAO = CargoDAOImpl.getCargoDAOInstance();
-    private static CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
-    private static RoutepointDAO routepointDAO = RoutepointDAOImpl.getRoutepointDAOInstance();
+    private CargoDAO cargoDAO;
+    private  CityDAO cityDAO;
+    private  RoutepointDAO routepointDAO;
+
+    @Autowired
+    public CargoServiceImpl(CargoDAO cargoDAO, CityDAO cityDAO, RoutepointDAO routepointDAO) {
+        this.cargoDAO = cargoDAO;
+        this.cityDAO = cityDAO;
+        this.routepointDAO = routepointDAO;
+    }
 
     @Override
     public boolean validateCargoDTOData(CargoDTO cargoDTO) {
         if (cargoDTO == null) return false;
         // validate name
-        if (!CargoService.validateCargoName(cargoDTO.getName())) return false;
+        if (!validateCargoName(cargoDTO.getName())) return false;
         // validate weight
         if (!CargoService.validateCargoWeight(cargoDTO.getWeightVal())) return false;
 
@@ -44,10 +56,27 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
+    public boolean validateCargoName(String name){
+        if (name == null) return false;
+        if (name.length() > Constants.MAX_CARGO_NAME_LENGTH) return false;
+        for(int i = 0; i < name.length(); i++){
+            if (Character.isDigit(name.charAt(i))) return false;
+        }
+        // check if name unique
+        Collection<Cargo> cargos = cargoDAO.getAll();
+        if (cargos!=null){
+            for(Cargo c: cargos){
+                if (c.getCargoName().equals(name)) return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public boolean changeCargoInDatabase(CargoDTO cargoDTO) {
         //if (!validateCargoDTOData(cargoDTO)) return false;
         if (cargoDTO.getName()!=null && cargoDTO.getName().length()!=0)
-            if(!CargoService.validateCargoName(cargoDTO.getName()))return false;
+            if(!validateCargoName(cargoDTO.getName()))return false;
 
         if (cargoDTO.getWeight()!= null && cargoDTO.getWeight().length()!=0)
             if(!CargoService.validateCargoWeight(cargoDTO.getWeightVal())) return false;

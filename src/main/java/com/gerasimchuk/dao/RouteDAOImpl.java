@@ -6,25 +6,20 @@ import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
+@Repository
 public class RouteDAOImpl implements RouteDAO {
-    private static SessionFactory sessionFactory;
-    private static RouteDAOImpl instance;
+    private  SessionFactory sessionFactory;
 
+    @Autowired
+    public RouteDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-    private RouteDAOImpl(SessionFactory sessionFactory){
-        RouteDAOImpl.sessionFactory = sessionFactory;
-    }
-    public static RouteDAOImpl getRouteDAOInstance(){
-        if (instance == null){
-            synchronized (RouteDAOImpl.class){
-                instance = new RouteDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
-    }
     @Override
     public Route create(City departureCity, City destinationCity, double distance) {
         Session session = sessionFactory.openSession();

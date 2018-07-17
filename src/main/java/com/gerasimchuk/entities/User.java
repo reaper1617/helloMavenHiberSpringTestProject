@@ -1,8 +1,10 @@
 package com.gerasimchuk.entities;
 
 import com.gerasimchuk.enums.UserRole;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+
 
 @Entity(name = "Users")
 @Table(name = "users",schema = "logisticon", catalog = "")
@@ -18,6 +20,7 @@ public class User {
 
     public User() {
     }
+
 
     public User(String userName,
                 String middleName,

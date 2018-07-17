@@ -9,15 +9,35 @@ import com.gerasimchuk.dto.TruckDTO;
 import com.gerasimchuk.entities.City;
 import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.enums.TruckState;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
+@Service
 public class TruckServiceImpl implements TruckService {
 
+    private  TruckDAO truckDAO ;
+    private  CityDAO cityDAO ;
+    private CityService cityService;
 
-    private static TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
+    @Autowired
+    public TruckServiceImpl(TruckDAO truckDAO, CityDAO cityDAO, CityService cityService) {
+        this.truckDAO = truckDAO;
+        this.cityDAO = cityDAO;
+        this.cityService = cityService;
+    }
 
-    private static CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
-
-
+    @Override
+    public boolean validateTruckById(int id){
+        if (id <= 0) return false;
+        Collection<Truck> trucks = truckDAO.getAll();
+        if (trucks == null) return false;
+        for(Truck t: trucks){
+            if (t.getId() == id) return true;
+        }
+        return false;
+    }
 
     @Override
     public boolean validateTruckDTOData(TruckDTO truckDTO) {
@@ -37,7 +57,7 @@ public class TruckServiceImpl implements TruckService {
         if (!checkState(truckDTO.getStateVal())) return false;
 
         // check city
-        if (!CityService.checkCityById(truckDTO.getCurrentCityId())) return false;
+        if (!cityService.checkCityById(truckDTO.getCurrentCityId())) return false;
 
         return true;
     }
@@ -88,7 +108,7 @@ public class TruckServiceImpl implements TruckService {
         // check state
         if (!checkState(truckDTO.getStateVal())) return false;
         // check city
-        if (!CityService.checkCityById(truckDTO.getCurrentCityId())) return false;
+        if (!cityService.checkCityById(truckDTO.getCurrentCityId())) return false;
 
 
         Truck t =truckDAO.getByRegistrationNumber(truckDTO.getRegistrationNumber());

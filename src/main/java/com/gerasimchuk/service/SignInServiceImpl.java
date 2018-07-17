@@ -4,21 +4,25 @@ import com.gerasimchuk.dao.UserDAO;
 import com.gerasimchuk.dto.UserDTO;
 import com.gerasimchuk.dto.UserDTOImpl;
 import com.gerasimchuk.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class SignInServiceImpl implements SignInService {
 
 
-    private static UserDAO userDAO;
+    private UserDAO userDAO;
 
+
+    @Autowired
     public SignInServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
     @Override
     public UserDTO validate(UserDTO u) {
-
         // TODO: add some logic
         return null;
     }

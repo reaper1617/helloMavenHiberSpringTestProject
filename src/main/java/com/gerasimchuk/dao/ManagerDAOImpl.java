@@ -6,26 +6,20 @@ import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
 
+@Repository
 public class ManagerDAOImpl implements ManagerDAO {
-    private static SessionFactory sessionFactory;
-    private static ManagerDAOImpl instance;
+    private  SessionFactory sessionFactory;
 
 
-    private ManagerDAOImpl(SessionFactory sessionFactory){
-        ManagerDAOImpl.sessionFactory = sessionFactory;
-    }
-
-    public static ManagerDAOImpl getManagerDAOInstance(){
-        if (instance == null){
-            synchronized (ManagerDAOImpl.class){
-                instance = new ManagerDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
+    @Autowired
+    public ManagerDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override

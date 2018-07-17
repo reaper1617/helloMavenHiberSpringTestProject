@@ -7,25 +7,19 @@ import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
+@Repository
 public class TruckDAOImpl implements TruckDAO{
-    private static SessionFactory sessionFactory;
-    private static TruckDAOImpl instance;
+    private  SessionFactory sessionFactory;
 
 
-    private TruckDAOImpl(SessionFactory sessionFactory){
-        TruckDAOImpl.sessionFactory = sessionFactory;
-    }
-
-    public static TruckDAOImpl getTruckDAOInstance(){
-        if (instance == null){
-            synchronized (TruckDAOImpl.class){
-                instance = new TruckDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
+    @Autowired
+    public TruckDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override

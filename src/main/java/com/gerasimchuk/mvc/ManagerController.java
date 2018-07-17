@@ -6,6 +6,7 @@ import com.gerasimchuk.entities.*;
 import com.gerasimchuk.enums.UserRole;
 import com.gerasimchuk.service.*;
 import com.gerasimchuk.utils.LoginStateSaverImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,14 +21,31 @@ import java.util.List;
 @Controller
 public class ManagerController {
 
-    private static OrderDAO orderDAO = OrderDAOImpl.getOrderDAOInstance();
-    private static TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
-    private static CityDAO cityDAO = CityDAOImpl.getCityDAOInstance();
-    private static CargoDAO cargoDAO = CargoDAOImpl.getCargoDAOInstance();
-    private static OrderService orderService = new OrderServiceImpl();
-    private static CargoService cargoService = new CargoServiceImpl();
-    private static UserService userService = new UserServiceImpl();
-    private static TruckService truckService = new TruckServiceImpl();
+    private  OrderDAO orderDAO;
+    private  TruckDAO truckDAO;
+    private  CityDAO cityDAO ;
+    private  CargoDAO cargoDAO;
+    private  OrderService orderService;
+    private  CargoService cargoService;
+    private  UserService userService;
+    private  TruckService truckService;
+    private DriverService driverService;
+
+    @Autowired
+    public ManagerController(OrderDAO orderDAO, TruckDAO truckDAO, CityDAO cityDAO, CargoDAO cargoDAO, OrderService orderService, CargoService cargoService, UserService userService, TruckService truckService, DriverService driverService) {
+        this.orderDAO = orderDAO;
+        this.truckDAO = truckDAO;
+        this.cityDAO = cityDAO;
+        this.cargoDAO = cargoDAO;
+        this.orderService = orderService;
+        this.cargoService = cargoService;
+        this.userService = userService;
+        this.truckService = truckService;
+        this.driverService = driverService;
+    }
+
+
+
 
     @RequestMapping(value = "/manageraccount", method = RequestMethod.GET)
     public String managerAccount(Model ui){
@@ -51,9 +69,7 @@ public class ManagerController {
     @RequestMapping(value = "/managetrucks/{id}", method = RequestMethod.POST)
     public String manageTrucksPOST(@PathVariable("id") int id, TruckDTOImpl truck, BindingResult bindingResult, Model ui ){
         if (id == 0) {
-            TruckService truckService = new TruckServiceImpl();
             boolean success = truckService.addTruckToDatabase(truck);
-
             if (success) {
                 ui.addAttribute("addActionSuccess", "Truck successfully added!");
                 return "/manager/manageractionsuccess";
@@ -61,7 +77,7 @@ public class ManagerController {
         }
         if (id == 1){
             ui.addAttribute("changedTruckRegNum", truckDAO.getById(truck.getTruckIdVal()).getRegistrationNumber());
-            List<City> cities = (ArrayList)CityDAOImpl.getCityDAOInstance().getAll();
+            List<City> cities = (ArrayList)cityDAO.getAll();
             ui.addAttribute("citiesForChoose", cities);
             return "/manager/changetrucks";
             // return "/manager/manageractionsuccess";
@@ -77,7 +93,7 @@ public class ManagerController {
     public String manageDrivers(Model ui){
         if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
         if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
-        List<User> drivers = new UserServiceImpl().getDrivers();
+        List<User> drivers = userService.getDrivers();
         ui.addAttribute("currentDriversList", drivers);
         List<City> cities = (ArrayList)cityDAO.getAll();
         ui.addAttribute("currentCitiesList", cities);
@@ -89,7 +105,6 @@ public class ManagerController {
     @RequestMapping(value = "/managedrivers/{id}", method = RequestMethod.POST)
     public String manageDriversPOST(@PathVariable("id") int id, DriverDTOImpl driverDTO, BindingResult bindingResult, Model ui ){
         if (id == 0) {
-            DriverService driverService = new DriverServiceImpl();
             boolean success = driverService.addDriverToDatabase(driverDTO);
             if (success) return "/manager/addeddriversuccess";
             else return "/error/errorpage";
@@ -133,7 +148,6 @@ public class ManagerController {
     @RequestMapping(value = "/managecargos/{id}", method = RequestMethod.POST)
     public String manageCargosPOST(@PathVariable("id") int id, CargoDTOImpl cargoDTO, BindingResult bindingResult, Model ui ){
         if (id == 0) {
-            CargoService cargoService = new CargoServiceImpl();
             boolean success = cargoService.addCargoToDatabase(cargoDTO);
             if (success) return "/manager/addedcargosuccess";
             else {
@@ -167,7 +181,6 @@ public class ManagerController {
 
     @RequestMapping(value = "/changecargos", method = RequestMethod.POST)
     public String changeCargoPost(CargoDTOImpl cargoDTO,BindingResult bindingResult, Model ui){
-        CargoService cargoService = new CargoServiceImpl();
         boolean success = cargoService.changeCargoInDatabase(cargoDTO);
         if (success){
             ui.addAttribute("addActionSuccess", "Cargo changed successfully!");
@@ -192,7 +205,6 @@ public class ManagerController {
     public String changeDriversPost(DriverDTOImpl driverDTO, BindingResult bindingResult, Model ui){
         if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
         if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
-        DriverService driverService = new DriverServiceImpl();
         boolean success = driverService.changeDriverInDatabase(driverDTO);
         if (success) {
             ui.addAttribute("addActionSuccess", "Driver updated successfully!");

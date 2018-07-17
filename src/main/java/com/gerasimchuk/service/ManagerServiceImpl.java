@@ -8,15 +8,24 @@ import com.gerasimchuk.dto.ManagerDTO;
 import com.gerasimchuk.entities.Manager;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 import static com.gerasimchuk.service.UserService.validateName;
 
+@Service
 public class ManagerServiceImpl implements ManagerService {
 
-    private static ManagerDAO managerDAO = ManagerDAOImpl.getManagerDAOInstance();
-    private static UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
+    private  ManagerDAO managerDAO;
+    private  UserDAO userDAO;
+
+    @Autowired
+    public ManagerServiceImpl(ManagerDAO managerDAO, UserDAO userDAO) {
+        this.managerDAO = managerDAO;
+        this.userDAO = userDAO;
+    }
 
     @Override
     public boolean validateManagerDTOData(ManagerDTO managerDTO) {

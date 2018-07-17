@@ -4,30 +4,22 @@ import com.gerasimchuk.entities.Driver;
 import com.gerasimchuk.entities.Manager;
 import com.gerasimchuk.entities.User;
 import com.gerasimchuk.enums.UserRole;
-import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
+@Repository
 public class UserDAOImpl implements UserDAO {
 
-    private static SessionFactory sessionFactory;
-    private static UserDAOImpl instance;
+    private SessionFactory sessionFactory;
 
-
-    private UserDAOImpl(SessionFactory sessionFactory){
-        UserDAOImpl.sessionFactory = sessionFactory;
-    }
-
-    public static UserDAOImpl getUserDAOInstance(){
-        if (instance == null){
-            synchronized (UserDAOImpl.class){
-                instance = new UserDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
+    @Autowired
+    public UserDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override

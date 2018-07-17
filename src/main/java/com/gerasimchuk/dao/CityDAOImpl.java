@@ -2,29 +2,24 @@ package com.gerasimchuk.dao;
 
 import com.gerasimchuk.entities.City;
 import com.gerasimchuk.enums.CityHasAgency;
-import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
+@Repository
 public class CityDAOImpl implements CityDAO {
-    private static SessionFactory sessionFactory;
-    private static CityDAOImpl instance;
+    private SessionFactory sessionFactory;
 
 
-    private CityDAOImpl(SessionFactory sessionFactory){
-        CityDAOImpl.sessionFactory = sessionFactory;
+    @Autowired
+    public CityDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
-    public static CityDAOImpl getCityDAOInstance(){
-        if (instance == null){
-            synchronized (CityDAOImpl.class){
-                instance = new CityDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
-    }
+
     @Override
     public City create(String cityName, CityHasAgency hasAgency) {
         Session session = sessionFactory.openSession();

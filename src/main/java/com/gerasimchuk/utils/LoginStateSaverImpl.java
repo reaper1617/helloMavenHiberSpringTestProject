@@ -4,10 +4,11 @@ import com.gerasimchuk.dao.UserDAO;
 import com.gerasimchuk.dao.UserDAOImpl;
 import com.gerasimchuk.entities.User;
 
+
 public class LoginStateSaverImpl implements LoginStateSaver{
 
-    private static UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
-    private static User loggedUser;
+    private static UserDAO userDAO = new UserDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
+    private static User loggedUser = null;
     private static LoginStateSaverImpl ourInstance = new LoginStateSaverImpl();
 
     public static LoginStateSaverImpl getInstance() {

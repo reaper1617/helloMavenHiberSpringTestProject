@@ -8,27 +8,20 @@ import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-
+@Repository
 public class CargoDAOImpl implements  CargoDAO{
 
-    private static SessionFactory sessionFactory;
-    private static CargoDAOImpl instance;
 
+    private SessionFactory sessionFactory;
 
-    private CargoDAOImpl(SessionFactory sessionFactory){
-        CargoDAOImpl.sessionFactory = sessionFactory;
-    }
-
-    public static CargoDAOImpl getCargoDAOInstance(){
-        if (instance == null){
-            synchronized (CargoDAOImpl.class){
-                instance = new CargoDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
+    @Autowired
+    public CargoDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override

@@ -8,19 +8,33 @@ import com.gerasimchuk.enums.CargoStatus;
 import com.gerasimchuk.enums.DriverState;
 import com.gerasimchuk.enums.OrderState;
 import com.gerasimchuk.enums.TruckState;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.*;
 
+@Service
 public class OrderServiceImpl implements OrderService{
 
-    private static TruckDAO truckDAO = TruckDAOImpl.getTruckDAOInstance();
-    private static CargoDAO cargoDAO = CargoDAOImpl.getCargoDAOInstance();
-    private static RouteDAO routeDAO = RouteDAOImpl.getRouteDAOInstance();
-    private static OrderDAO orderDAO = OrderDAOImpl.getOrderDAOInstance();
-    private static UserDAO userDAO = UserDAOImpl.getUserDAOInstance();
-    private static DriverDAO driverDAO = DriverDAOImpl.getDriverDAOInstance();
-    private static UserService userService = new UserServiceImpl();
+    private  TruckDAO truckDAO;
+    private  CargoDAO cargoDAO;
+    private  RouteDAO routeDAO ;
+    private  OrderDAO orderDAO ;
+    private  UserDAO userDAO;
+    private  DriverDAO driverDAO;
+    private  UserService userService;
+
+    @Autowired
+    public OrderServiceImpl(TruckDAO truckDAO, CargoDAO cargoDAO, RouteDAO routeDAO, OrderDAO orderDAO, UserDAO userDAO, DriverDAO driverDAO, UserService userService) {
+        this.truckDAO = truckDAO;
+        this.cargoDAO = cargoDAO;
+        this.routeDAO = routeDAO;
+        this.orderDAO = orderDAO;
+        this.userDAO = userDAO;
+        this.driverDAO = driverDAO;
+        this.userService = userService;
+    }
 
     @Override
     public boolean validateOrderDTO(OrderDTO orderDTO) {

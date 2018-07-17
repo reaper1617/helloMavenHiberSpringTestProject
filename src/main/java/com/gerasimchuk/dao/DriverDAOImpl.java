@@ -8,27 +8,20 @@ import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
+@Repository
 public class DriverDAOImpl implements DriverDAO {
-    private static SessionFactory sessionFactory;
-    private static DriverDAOImpl instance;
+    private SessionFactory sessionFactory;
 
 
-    private DriverDAOImpl(SessionFactory sessionFactory){
-        DriverDAOImpl.sessionFactory = sessionFactory;
+    @Autowired
+    public DriverDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
-
-    public static DriverDAOImpl getDriverDAOInstance(){
-        if (instance == null){
-            synchronized (DriverDAOImpl.class){
-                instance = new DriverDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
-    }
-
 
     @Override
     public Driver createDriver(double hoursWorked, DriverState state, City currentCity, Truck currentTruck) {

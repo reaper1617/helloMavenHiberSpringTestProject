@@ -7,25 +7,19 @@ import com.gerasimchuk.utils.SessionFactorySingleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.Collection;
 
+@Repository
 public class OrderDAOImpl implements OrderDAO{
-    private static SessionFactory sessionFactory;
-    private static OrderDAOImpl instance;
+    private  SessionFactory sessionFactory;
 
-
-    private OrderDAOImpl(SessionFactory sessionFactory){
-        OrderDAOImpl.sessionFactory = sessionFactory;
-    }
-    public static OrderDAOImpl getOrderDAOInstance(){
-        if (instance == null){
-            synchronized (OrderDAOImpl.class){
-                instance = new OrderDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-            }
-        }
-        return instance;
+    @Autowired
+    public OrderDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override

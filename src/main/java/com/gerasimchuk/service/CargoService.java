@@ -13,6 +13,8 @@ import java.util.Collection;
 public interface CargoService {
 
 
+
+
     boolean validateCargoDTOData(CargoDTO cargoDTO);
 
     boolean addCargoToDatabase(CargoDTO cargoDTO);
@@ -21,21 +23,7 @@ public interface CargoService {
 
     Collection<Cargo> getCargosInCity(City city);
 
-    static boolean validateCargoName(String name){
-        if (name == null) return false;
-        if (name.length() > Constants.MAX_CARGO_NAME_LENGTH) return false;
-        for(int i = 0; i < name.length(); i++){
-            if (Character.isDigit(name.charAt(i))) return false;
-        }
-        // check if name unique
-        Collection<Cargo> cargos = CargoDAOImpl.getCargoDAOInstance().getAll();
-        if (cargos!=null){
-            for(Cargo c: cargos){
-                if (c.getCargoName().equals(name)) return false;
-            }
-        }
-        return true;
-    }
+    boolean validateCargoName(String name);
 
     static boolean validateCargoWeight(double weight){
         if (weight <= 0) return false;
