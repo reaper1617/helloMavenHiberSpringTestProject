@@ -12,24 +12,12 @@ import java.util.List;
 
 public interface OrderService {
     boolean validateOrderDTO(OrderDTO orderDTO);
-
     boolean addOrderToDatabase(OrderDTO orderDTO);
-
-
     boolean addTruckToOrder(TruckToOrderDTO truckToOrderDTO);
-
-
-
     Collection<Truck> getTrucksFitsToOrder(OrderDTO orderDTO);
-
     boolean addDriversToOrder(DriversToOrderDTO driversToOrderDTO);
-
     Order findCurrentOrder(Driver d);
-
-    //List<City> makeOrderRoute(Order order);
-
     List<User> getDriverAssistantsForCurrentOrder(Order currentOrder, User currentDriver);
-
     List<Cargo> updateCargosStateInOrder(DriverStateDTO driverStateDTO);
     List<City> makeRoute(Order order);
     List<City> makeRoute(OrderDTO orderDTO);

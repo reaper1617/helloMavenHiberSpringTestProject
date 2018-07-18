@@ -3,7 +3,10 @@ package com.gerasimchuk.dto;
 import com.gerasimchuk.service.OrderService;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class OrderDTOImpl implements OrderDTO {
 
@@ -43,8 +46,26 @@ public class OrderDTOImpl implements OrderDTO {
         int day = (date.charAt(0) - '0' )*10 + (date.charAt(1) - '0');
         int month = (date.charAt(3)-'0')*10 + (date.charAt(4)-'0');
         int year = (date.charAt(6)-'0')*1000 + (date.charAt(7)-'0')*100 + (date.charAt(8)-'0')*10 + (date.charAt(9)-'0');
-        // format: dd.mm.yyyy
-        return new Timestamp(year,month,day, 0,0,0,0);
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC+3:00"));
+
+        switch (month){
+            case 1: calendar.set(year, Calendar.JANUARY ,day); break;
+            case 2: calendar.set(year, Calendar.FEBRUARY ,day); break;
+            case 3: calendar.set(year, Calendar.MARCH ,day); break;
+            case 4: calendar.set(year, Calendar.APRIL ,day); break;
+            case 5: calendar.set(year, Calendar.MAY ,day); break;
+            case 6: calendar.set(year, Calendar.JUNE ,day); break;
+            case 7: calendar.set(year, Calendar.JULY ,day); break;
+            case 8: calendar.set(year, Calendar.AUGUST ,day); break;
+            case 9: calendar.set(year, Calendar.SEPTEMBER ,day); break;
+            case 10: calendar.set(year, Calendar.OCTOBER ,day); break;
+            case 11: calendar.set(year, Calendar.NOVEMBER ,day); break;
+            case 12: calendar.set(year, Calendar.DECEMBER ,day); break;
+        }
+
+        // TODO: add method to get time zone by city
+         Timestamp timestamp = new Timestamp(calendar.getTime().getTime());
+        return timestamp;
     }
 
     @Override

@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         }
 
         .selectWidth{
-            width: 300px;
+            width: 350px;
             color: #d58512;
         }
 
@@ -62,6 +62,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         .tableheadstyle3{
             color: lime;
             font-size: 24px;
+        }
+
+        .buttonstyle{
+            width: 100px;
+            font-size: 10px;
         }
 
     </style>
@@ -98,6 +103,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <li>
                 <div class="w3layouts-banner-top w3layouts-banner-top2">
                     <div align="center">
+                        <form id="adminmainpage" method="post">
                         <table>
                             <tr>
                                 <td>
@@ -120,9 +126,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <td>
 
                                     <div>
-                                        <select size="10" class="ramka selectWidth" >
+                                        <select size="10" name="userId" class="ramka selectWidth" form="adminmainpage" >
                                             <c:forEach items="${users}" var="cell">
-                                                <option value="${cell.id}">id: ${cell.id} ${cell.userName} ${cell.middleName} ${cell.lastName}</option>
+                                                 <option value="${cell.id}">id: ${cell.id} ${cell.userName} ${cell.middleName} ${cell.lastName}  </option>
                                             </c:forEach>
                                         </select>
                                     </div>
@@ -131,7 +137,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                                 <td>
 
-                                    <select size="10" class="ramka selectWidth">
+                                    <select size="10" name="driverId" class="ramka selectWidth" form="adminmainpage">
                                         <c:forEach items="${managers}" var="cell">
                                             <option value="${cell.id}">id: ${cell.id} position: ${cell.managerPosition}</option>
                                         </c:forEach>
@@ -139,7 +145,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <select size="10" class="ramka selectWidth">
+                                    <select size="10" name="managerId" class="ramka selectWidth" form="adminmainpage">
                                         <c:forEach items="${drivers}" var="cell">
                                             <option value="${cell.id}">id: ${cell.id} state: ${cell.state} hours: ${cell.hoursWorked}</option>
                                         </c:forEach>
@@ -149,16 +155,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <tr>
                                 <td>
 
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage" formaction="/adminaccount/1" formmethod="post">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage" formaction="/adminaccount/2" formmethod="post">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete" form="adminmainpage" formaction="/adminaccount/3" formmethod="post">
                                                 </div>
                                             </td>
 
@@ -168,16 +179,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete" form="adminmainpage">
                                                 </div>
                                             </td>
 
@@ -187,16 +203,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete" form="adminmainpage">
                                                 </div>
                                             </td>
 
@@ -226,7 +247,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <tr>
                                 <td>
 
-                                    <select size="10" class="ramka selectWidth">
+                                    <select size="10" class="ramka selectWidth" form="adminmainpage">
                                         <c:forEach items="${orders}" var="cell">
                                             <option value="${cell.orderId}">id: ${cell.orderId} ${cell.orderDescription} ${cell.orderDate}</option>
                                         </c:forEach>
@@ -234,7 +255,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <select size="10" class="ramka selectWidth">
+                                    <select size="10" class="ramka selectWidth" form="adminmainpage">
                                         <c:forEach items="${cargos}" var="cell">
                                             <option value="${cell.id}">id: ${cell.id} ${cell.cargoName}</option>
                                         </c:forEach>
@@ -242,7 +263,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <select size="10" class="ramka selectWidth">
+                                    <select size="10" name="truckId" class="ramka selectWidth" form="adminmainpage">
                                         <c:forEach items="${trucks}" var="cell">
                                             <option value="${cell.id}">id: ${cell.id} ${cell.registrationNumber}</option>
                                         </c:forEach>
@@ -252,16 +273,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <tr>
                                 <td>
 
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete"  form="adminmainpage">
                                                 </div>
                                             </td>
 
@@ -270,16 +296,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </table>
                                 </td>
                                 <td>
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete" form="adminmainpage">
                                                 </div>
                                             </td>
 
@@ -289,16 +320,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete" form="adminmainpage" formaction="/adminaccount/18" formmethod="post">
                                                 </div>
                                             </td>
 
@@ -327,7 +363,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                             <tr>
                                 <td>
-                                    <select size="10" class="ramka selectWidth">
+                                    <select size="10" class="ramka selectWidth" form="adminmainpage">
                                         <c:forEach items="${cities}" var="cell">
                                             <option value="${cell.id}">id: ${cell.id} ${cell.cityName}</option>
                                         </c:forEach>
@@ -335,14 +371,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <select size="10" class="ramka selectWidth">
+                                    <select size="10" class="ramka selectWidth" form="adminmainpage">
                                         <c:forEach items="${routepoints}" var="cell">
                                             <option value="${cell.id}">id: ${cell.id} </option>
                                         </c:forEach>
                                     </select>
                                 </td>
                                 <td>
-                                    <select size="10" class="ramka selectWidth">
+                                    <select size="10" class="ramka selectWidth" form="adminmainpage">
                                         <c:forEach items="${routes}" var="cell">
                                             <option value="${cell.id}">id: ${cell.id} }</option>
                                         </c:forEach>
@@ -352,16 +388,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <tr>
                                 <td>
 
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete" form="adminmainpage">
                                                 </div>
                                             </td>
 
@@ -371,16 +412,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete" form="adminmainpage">
                                                 </div>
                                             </td>
 
@@ -390,16 +436,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                                 <td>
 
-                                    <table align="center">
+                                    <table class="selectWidth" align="center">
                                         <tr>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Change" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Add new" form="adminmainpage">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="banner-form-agileinfo ramka" align="center">
-                                                    <input  type="submit" value="Delete" >
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Change" form="adminmainpage">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="banner-form-agileinfo ramka buttonstyle" align="center">
+                                                    <input  type="submit" value="Delete" form="adminmainpage">
                                                 </div>
                                             </td>
 
@@ -409,6 +460,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </td>
                             </tr>
                         </table>
+                        </form>
                     </div>
                 </div>
             </li>

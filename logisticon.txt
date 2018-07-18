@@ -4,11 +4,9 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema logisticon
+-- Schema logisticon3000
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
@@ -141,9 +139,9 @@ DROP TABLE IF EXISTS `logisticon`.`drivers` ;
 CREATE TABLE IF NOT EXISTS `logisticon`.`drivers` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `hours_worked` DOUBLE NOT NULL,
-  `state` ENUM('DRIVING', 'RESTING', 'SHIFTING') NOT NULL DEFAULT 'RESTING',
+  `state` ENUM('DRIVING','SECOND_DRIVER' , 'LOAD_UNLOAD_WORKS','RESTING', 'FREE') NOT NULL DEFAULT 'FREE',
   `current_city_id` INT NOT NULL,
-  `current_truck_id` INT NOT NULL,
+  `current_truck_id` INT,
   PRIMARY KEY (`id`),
   INDEX `current_city_id_fk_idx` (`current_city_id` ASC),
   INDEX `current_truck_id_fk_idx` (`current_truck_id` ASC),

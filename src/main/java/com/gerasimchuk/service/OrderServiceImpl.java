@@ -141,12 +141,9 @@ public class OrderServiceImpl implements OrderService{
     public Collection<User> getDriversFitToTruckAndOrder(TruckToOrderDTO truckToOrderDTO){
         Truck t = truckDAO.getByRegistrationNumber(truckToOrderDTO.getTruckRegNum());
         if (t == null) return null;
-
         List<User> allUsers = (ArrayList)userDAO.getAll();
-
         if (allUsers == null) return null;
         List<User> result = new ArrayList<>();
-
         for(User u: allUsers){
             Driver d = u.getDriver();
             if (d != null){
@@ -168,19 +165,65 @@ public class OrderServiceImpl implements OrderService{
     public double getTimeOfOrderExecution(TruckToOrderDTO truckToOrderDTO){
 
         // TODO: write real method!!!
-
-
-        // hours to make order
-        return 20;
+        if (truckToOrderDTO == null) return 0;
+        if (truckToOrderDTO.getOrderDescription() == null) return 0;
+        if (truckToOrderDTO.getOrderDescription().length() == 0) return 0;
+        Order order = orderDAO.getByDescription(truckToOrderDTO.getOrderDescription());
+        if (order == null) return 0;
+        List<City> cities = makeRoute(order);
+        if (cities == null) return 0;
+        int size = cities.size();
+        double routeDistance = 0;
+        for(int i = 0; i < size-1; i++){
+            Route r = routeDAO.getByCities(cities.get(i), cities.get(i+1));
+            if (r != null){
+                routeDistance+=r.getDistance();
+            }
+        }
+        return routeDistance/Constants.MAX_AVERAGE_SPEED_LIMIT;
     }
 
 
+    private int howMuchDaysInMonth(int month, int year){
+        GregorianCalendar calendar = new GregorianCalendar();
+        boolean isLeapYear = calendar.isLeapYear(year);
+        int result = 0;
+        switch (month){
+            case 0: result=31;break;
+            case 1: {
+                if (isLeapYear) result=29;
+                else result=28;
+            }break;
+            case 2: result=31;break;
+            case 3: result=30;break;
+            case 4: result=31;break;
+            case 5: result=30;break;
+            case 6: result=31;break;
+            case 7: result=31;break;
+            case 8: result=30;break;
+            case 9: result=31;break;
+            case 10: result=30;break;
+            case 11: result=31;break;
+        }
+        return result;
+    }
+
     public boolean isMonthTransitionWhileOrderExec(TruckToOrderDTO truckToOrderDTO){
+        if (truckToOrderDTO == null) return false;
+        if (truckToOrderDTO.getOrderDescription() == null) return false;
+        if (truckToOrderDTO.getOrderDescription().length()==0) return false;
+        Order order = orderDAO.getByDescription(truckToOrderDTO.getOrderDescription());
+        if (order == null) return false;
+        double hoursWhileOrderExec = getTimeOfOrderExecution(truckToOrderDTO);
+        double daysWhileOrderExec = hoursWhileOrderExec/Constants.HOURS_IN_DAYNIGHT;
+        Timestamp orderDate = order.getOrderDate();
+        int year = orderDate.getYear();
+        int month = orderDate.getMonth();
+        int howMuchDaysInMonth = howMuchDaysInMonth(month, year);
+        int currentDay = orderDate.getDay();
 
-
-        // TODO: make some logic!!
-
-        return false;
+        if (howMuchDaysInMonth-currentDay < daysWhileOrderExec) return true;
+        else return false;
     }
 
     @Override
@@ -330,12 +373,6 @@ public class OrderServiceImpl implements OrderService{
         return orderDTO;
     }
 
-//    @Override
-//    public List<City> makeOrderRoute(Order order){
-//        if (order == null) return null;
-//        OrderDTO orderDTO = convertOrderToDTO(order);
-//        return makeOrderRoute(orderDTO);
-//    }
 
     @Override
     public List<City> makeRoute(Order order){

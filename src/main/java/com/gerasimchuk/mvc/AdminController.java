@@ -6,6 +6,7 @@ import com.gerasimchuk.dto.AdminDTO;
 import com.gerasimchuk.dto.AdminDTOImpl;
 import com.gerasimchuk.entities.*;
 import com.gerasimchuk.enums.*;
+import com.gerasimchuk.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,17 +33,10 @@ public class AdminController {
     private CargoDAO cargoDAO;
     private RoutepointDAO routepointDAO;
     private RouteDAO routeDAO;
+    private AdminService adminService;
 
     @Autowired
-    public AdminController(UserDAO userDAO,
-                           DriverDAO driverDAO,
-                           ManagerDAO managerDAO,
-                           OrderDAO orderDAO,
-                           TruckDAO truckDAO,
-                           CityDAO cityDAO,
-                           CargoDAO cargoDAO,
-                           RoutepointDAO routepointDAO,
-                           RouteDAO routeDAO) {
+    public AdminController(UserDAO userDAO, DriverDAO driverDAO, ManagerDAO managerDAO, OrderDAO orderDAO, TruckDAO truckDAO, CityDAO cityDAO, CargoDAO cargoDAO, RoutepointDAO routepointDAO, RouteDAO routeDAO, AdminService adminService) {
         this.userDAO = userDAO;
         this.driverDAO = driverDAO;
         this.managerDAO = managerDAO;
@@ -52,6 +46,47 @@ public class AdminController {
         this.cargoDAO = cargoDAO;
         this.routepointDAO = routepointDAO;
         this.routeDAO = routeDAO;
+        this.adminService = adminService;
+    }
+
+    private boolean setAddTruckPageParams(Model ui){
+        List<City> cities = (ArrayList)cityDAO.getAll();
+        if (cities==null) return false;
+        if (cities.size()== 0) return false;
+        ui.addAttribute("cities", cities);
+        return true;
+    }
+
+    private boolean setEditTruckPageParams(Model ui){
+        List<City> citiesList = (ArrayList)cityDAO.getAll();
+        if (citiesList==null) return false;
+        if (citiesList.size()== 0) return false;
+        ui.addAttribute("cities", citiesList);
+        return true;
+    }
+
+    private boolean setAddUserDriverPageParams(Model ui){
+        List<City> citiesList = (ArrayList)cityDAO.getAll();
+        if (citiesList==null) return false;
+        if (citiesList.size()== 0) return false;
+        ui.addAttribute("cities", citiesList);
+        List<Truck> trucks = (ArrayList)truckDAO.getAll();
+        if (trucks ==null) trucks = new ArrayList<>();
+        if (trucks.size()==0) trucks.add(new Truck("No available trucks",1,1, TruckState.NOTREADY,null));
+        ui.addAttribute("trucks", trucks);
+        return true;
+    }
+
+    private boolean setEditUserDriverPageParams(Model ui){
+        List<City> citiesList = (ArrayList)cityDAO.getAll();
+        if (citiesList==null) return false;
+        if (citiesList.size()== 0) return false;
+        ui.addAttribute("cities", citiesList);
+        List<Truck> trucks = (ArrayList)truckDAO.getAll();
+        if (trucks ==null) trucks = new ArrayList<>();
+        if (trucks.size()==0) trucks.add(new Truck("No available trucks",1,1, TruckState.NOTREADY,null));
+        ui.addAttribute("trucks", trucks);
+        return true;
     }
 
     private boolean setAdminPageParams(Model ui){
@@ -113,14 +148,26 @@ public class AdminController {
     @RequestMapping(value = "/adminaccount/{id}", method = RequestMethod.POST)
     public String adminMainPagePost(@PathVariable("id") int id, AdminDTOImpl adminDTO, BindingResult bindingResult, Model ui){
         if (id == 1){
-            //User operations
+            ui.addAttribute("addActionSuccess", "Add new user chosen");
+            return "/manager/manageractionsuccess";
         }
         if (id == 2){
-            //Manager operations
+            ui.addAttribute("addActionSuccess", "Edit user chosen");
+            return "/manager/manageractionsuccess";
         }
         if (id == 3){
-            // Driver operations
+
+            boolean success = adminService.deleteUserDriverFromDatabase(adminDTO);
+            if (success) {
+                ui.addAttribute("adminActionSuccess", "User removed successfully!");
+                return  "/admin/adminactionsuccess";
+            }
+            else {
+                ui.addAttribute("errorMessage", "User remove failed");
+                return "/error/errorpage";
+            }
         }
+
         if (id == 4){
             //Order operations
         }
@@ -139,8 +186,86 @@ public class AdminController {
         if (id == 9){
             // Routes operations
         }
+        if (id == 10){
+            //Cargo operations
+        }
+        if (id == 11){
+            // Truck operations
+        }
+        if (id == 12){
+            //Cities operations
+        }
+        if (id == 13){
+            //Routepoints operations
+        }
+        if (id == 14){
+            // Routes operations
+        }
+        if (id == 15){
+            //Cargo operations
+        }
+        if (id == 16){
+            // Truck operations
+        }
+        if (id == 17){
+            //Cities operations
+        }
+        if (id == 18){
+            boolean success = adminService.deleteTruckFromDatabase(adminDTO);
+            if (success){
+                ui.addAttribute("adminActionSuccess", "Truck removed successfully!");
+                return  "/admin/adminactionsuccess";
+            }
+            else {
+                ui.addAttribute("errorMessage", "Truck remove failed");
+                return "/error/errorpage";
+            }
+        }
+        if (id == 19){
+            // Routes operations
+        }
+
         ui.addAttribute("errorMessage", "Can't make action!");
         return "/error/errorpage";
+    }
+
+
+    @RequestMapping(value = "/adminaddtruck", method = RequestMethod.GET)
+    public String adminAddTruckGet(Model ui){
+        boolean setUpSuccess = setAddTruckPageParams(ui);
+        if (!setUpSuccess){
+            ui.addAttribute("errorMessage", "Error whole adding truck!");
+            return "/error/errorpage";
+        }
+        return "/admin/adminaddtruck";
+    }
+
+    @RequestMapping(value = "/adminedittruck", method = RequestMethod.GET)
+    public String adminEditTruckGet(Model ui){
+        boolean setUpSuccess = setEditTruckPageParams(ui);
+        if (!setUpSuccess){
+            ui.addAttribute("errorMessage", "Error whole adding truck!");
+            return "/error/errorpage";
+        }
+        return "/admin/adminedittruck";
+    }
+
+    @RequestMapping(value = "/adminactionsuccess", method = RequestMethod.GET)
+    public String adminActionSuccessGet(Model ui){
+        ui.addAttribute("adminActionSuccess", "Success!");
+        return "/admin/adminactionsuccess";
+    }
+
+    @RequestMapping(value = "/adminadduserdriver", method = RequestMethod.GET)
+    public String adminAddUserDriverGet(Model ui){
+        setAddUserDriverPageParams(ui);
+        return "/admin/adminadduserdriver";
+    }
+
+    @RequestMapping(value = "/adminedituserdriver", method = RequestMethod.GET)
+    public String adminEditUserDriverGet(Model ui){
+        setEditUserDriverPageParams(ui);
+        return "/admin/adminedituserdriver";
     }
 
 }
