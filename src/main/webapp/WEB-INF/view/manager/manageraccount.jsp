@@ -46,11 +46,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </style>
 
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            alert('gnfgn');
-        }  )
-    </script>
 </head>
 <body>
 <div class="header">
@@ -93,9 +88,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <form  id="changeorder" method="post">
                                         <select  class="ramka"  size="20" name = "orderId" form="changeorder" >
                                             <c:forEach items="${ordersList}" var="cell">
-                                                <option value="${cell.orderId}" onclick="function x() {
-                                                  alert('bvgv');
-                                                }">${cell.orderDescription}</option>
+                                                <option value="${cell.orderId}" </option>
                                             </c:forEach>
 
                                         </select>
