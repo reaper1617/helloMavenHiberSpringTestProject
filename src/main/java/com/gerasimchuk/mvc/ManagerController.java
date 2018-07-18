@@ -44,11 +44,25 @@ public class ManagerController {
         this.driverService = driverService;
     }
 
+    private boolean isAccessGranted(Model ui){
+        if (LoginStateSaverImpl.getLoggedUser() == null ){
+            ui.addAttribute("errorMessage", "You must be authorised user to open this page");
+            return false;
+        }
+        if (LoginStateSaverImpl.getLoggedUser().getRole()!= UserRole.MANAGER &&
+                LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.ADMIN){
+            ui.addAttribute("errorMessage", "You must be manager or system administrator to open this page");
+            return false;
+        }
+        return true;
+    }
 
 
 
     @RequestMapping(value = "/manageraccount", method = RequestMethod.GET)
     public String managerAccount(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         List<Order> orders = (ArrayList)orderDAO.getAll();
         ui.addAttribute("ordersList", orders);
         return "/manager/manageraccount";
@@ -57,8 +71,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/managetrucks", method = RequestMethod.GET)
     public String manageTrucks(Model ui){
-        if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
-        if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         List<Truck> trucks = (ArrayList)truckDAO.getAll();
         ui.addAttribute("currentTrucksList", trucks);
         List<City> cities = (ArrayList)cityDAO.getAll();
@@ -68,6 +82,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/managetrucks/{id}", method = RequestMethod.POST)
     public String manageTrucksPOST(@PathVariable("id") int id, TruckDTOImpl truck, BindingResult bindingResult, Model ui ){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         if (id == 0) {
             boolean success = truckService.addTruckToDatabase(truck);
             if (success) {
@@ -91,6 +107,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/managedrivers", method = RequestMethod.GET)
     public String manageDrivers(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
         if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
         List<User> drivers = userService.getDrivers();
@@ -104,6 +122,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/managedrivers/{id}", method = RequestMethod.POST)
     public String manageDriversPOST(@PathVariable("id") int id, DriverDTOImpl driverDTO, BindingResult bindingResult, Model ui ){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         if (id == 0) {
             boolean success = driverService.addDriverToDatabase(driverDTO);
             if (success) return "/manager/addeddriversuccess";
@@ -130,6 +150,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/managecargos", method = RequestMethod.GET)
     public String manageCargos(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
         if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
         List<Cargo> cargos = (ArrayList)cargoDAO.getAll();
@@ -141,12 +163,16 @@ public class ManagerController {
 
     // TODO: delete it later
     @RequestMapping(value = "/addcargoview", method = RequestMethod.GET)
-    public String indexGetAddCargoView(){
+    public String indexGetAddCargoView(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         return "/cargos/addcargoview";
     }
 
     @RequestMapping(value = "/managecargos/{id}", method = RequestMethod.POST)
     public String manageCargosPOST(@PathVariable("id") int id, CargoDTOImpl cargoDTO, BindingResult bindingResult, Model ui ){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         if (id == 0) {
             boolean success = cargoService.addCargoToDatabase(cargoDTO);
             if (success) return "/manager/addedcargosuccess";
@@ -172,6 +198,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/changecargos", method = RequestMethod.GET)
     public String changeCargoGet(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         List<Cargo> cargos = (ArrayList)cargoDAO.getAll();
         ui.addAttribute("currentCargosList", cargos);
         List<City> cities = (ArrayList)cityDAO.getAll();
@@ -181,6 +209,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/changecargos", method = RequestMethod.POST)
     public String changeCargoPost(CargoDTOImpl cargoDTO,BindingResult bindingResult, Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         boolean success = cargoService.changeCargoInDatabase(cargoDTO);
         if (success){
             ui.addAttribute("addActionSuccess", "Cargo changed successfully!");
@@ -194,6 +224,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/changedrivers", method = RequestMethod.GET)
     public String changeDriversGet(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         List<City> cities =  (ArrayList)cityDAO.getAll();
         ui.addAttribute("currentCitiesListChange", cities);
         List<Truck> trucks = (ArrayList)truckDAO.getAll();
@@ -203,6 +235,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/changedrivers", method = RequestMethod.POST)
     public String changeDriversPost(DriverDTOImpl driverDTO, BindingResult bindingResult, Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         if (LoginStateSaverImpl.getLoggedUser() == null) return "/error/errorpage";
         if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.MANAGER) return "/error/errorpage";
         boolean success = driverService.changeDriverInDatabase(driverDTO);
@@ -219,6 +253,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/changetrucks", method = RequestMethod.GET)
     public String changeTruckGet(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         List<City> cities = (ArrayList)cityDAO.getAll();
         ui.addAttribute("citiesForChoose", cities);
         return "/manager/changetrucks";
@@ -227,7 +263,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/changetrucks", method = RequestMethod.POST)
     public String changeTruckPost(TruckDTOImpl truck, BindingResult bindingResult, Model ui){
-
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         boolean success = truckService.changeTruckInDatabase(truck);
         if (success) {
             ui.addAttribute("addActionSuccess", "Truck attributes successfully changed!");
@@ -242,6 +279,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/manageorders", method = RequestMethod.GET)
     public String manageOrders(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         List<Cargo> cargos = (ArrayList)cargoService.getCargosWithoutAssignedOrder();
         ui.addAttribute("cargosWithoutAssignedOrders",cargos);
         return "/manager/manageorders";
@@ -249,6 +288,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/manageorders", method = RequestMethod.POST)
     public String manageOrdersPost(OrderDTOImpl orderDTO, BindingResult bindingResult, Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         orderService.addOrderToDatabase(orderDTO);
         ui.addAttribute("orderDescr", orderDTO.getDescription());
         List<Truck> truckList = (ArrayList)orderService.getTrucksFitsToOrder(orderDTO);
@@ -257,13 +298,17 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/addtrucktoorder", method = RequestMethod.GET )
-    public String addTruckToOrder(){
+    public String addTruckToOrder(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         return "/manager/addtrucktoorder";
     }
 
 
     @RequestMapping(value = "/addtrucktoorder",method = RequestMethod.POST)
     public String addTruckToOrderPost(TruckToOrderDTOimpl truckToOrderDTO, BindingResult bindingResult, Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         boolean success = orderService.addTruckToOrder(truckToOrderDTO);
         if (!success) return "/error/errorpage";
         ui.addAttribute("chosenTruck", truckToOrderDTO.getTruckRegNum());
@@ -275,6 +320,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/adddriverstoorder",method = RequestMethod.GET)
     public String addDriversToOrderGet(Model ui) {
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         // TODO: get only drivers fit to truck!
         List<User> drivers = userService.getDrivers();
         ui.addAttribute("driversList",drivers);
@@ -283,6 +330,8 @@ public class ManagerController {
 
     @RequestMapping(value = "/adddriverstoorder",method = RequestMethod.POST)
     public String addDriversToOrderPost(DriversToOrderDTOImpl driversToOrderDTO, BindingResult bindingResult, Model ui) {
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         // TODO: check how logics works!!!
         boolean success = orderService.addDriversToOrder(driversToOrderDTO);
         if (success) {
@@ -296,7 +345,9 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/manageractionsuccess", method = RequestMethod.GET)
-    public String managerActionSuccess(){
+    public String managerActionSuccess(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         return "/manager/manageractionsuccess";
     }
 }

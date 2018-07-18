@@ -25,52 +25,55 @@ public class LoginController {
     private OrderDAO orderDAO;
     private ParamsSetterUtils paramsSetterUtils;
     private SignInService signInService;
+    private AdminController adminController;
 
     @Autowired
-    public LoginController(OrderDAO orderDAO, ParamsSetterUtils paramsSetterUtils, SignInService signInService) {
+    public LoginController(OrderDAO orderDAO, ParamsSetterUtils paramsSetterUtils, SignInService signInService, AdminController adminController) {
         this.orderDAO = orderDAO;
         this.paramsSetterUtils = paramsSetterUtils;
         this.signInService = signInService;
+        this.adminController = adminController;
+    }
+
+
+
+    private String ifLogged(Model ui){
+        if (LoginStateSaverImpl.getLoggedUser()!=null){
+            UserRole role = LoginStateSaverImpl.getLoggedUser().getRole();
+            if (role == UserRole.MANAGER){
+                List<Order> orders = (ArrayList)orderDAO.getAll();
+                ui.addAttribute("ordersList", orders);
+                return "/manager/manageraccount";
+            }
+            if (role == UserRole.DRIVER){
+                User signedUser = LoginStateSaverImpl.getLoggedUser();
+                paramsSetterUtils.setParamsForDriverAccountPage(ui,signedUser);
+                return "/driver/driveraccount";
+            }
+            if (role == UserRole.ADMIN){
+                adminController.setAdminPageParams(ui);
+                return "/admin/adminaccount";
+            }
+        }
+        return null;
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String indexGet(){
+    public String indexGet(Model ui){
         return "/index";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model ui){
-        if (LoginStateSaverImpl.getInstance().isLoggedIn()){
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.MANAGER) {
-                List<Order> orders = (ArrayList)orderDAO.getAll();
-                ui.addAttribute("ordersList", orders);
-                return "/manager/manageraccount";
-            }
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) {
-                User user = LoginStateSaverImpl.getLoggedUser();
-                Driver d = user.getDriver();
-                paramsSetterUtils.setParamsForDriverAccountPage(ui,user);
-                return "/driver/driveraccount";
-            }
-        }
-        return "/login/login";
+       String redirect = ifLogged(ui);
+       if (redirect!=null) return redirect;
+       return "/login/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginPost(UserDTOImpl user, BindingResult bindingResult, Model ui){
-
-        if (LoginStateSaverImpl.getInstance().isLoggedIn()){
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.MANAGER) {
-                List<Order> orders = (ArrayList)orderDAO.getAll();
-                ui.addAttribute("ordersList", orders);
-                return "/manager/manageraccount";
-            }
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) {
-                User u = LoginStateSaverImpl.getLoggedUser();
-                paramsSetterUtils.setParamsForDriverAccountPage(ui,u);
-            }
-        }
-
+        String redirect = ifLogged(ui);
+        if (redirect!=null) return redirect;
         User signedUser = signInService.signIn(user);
         LoginStateSaverImpl.setLoggedUser(signedUser);
         if (signedUser == null) return "/error/errorpage";
@@ -89,7 +92,7 @@ public class LoginController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(){
-        if (!LoginStateSaverImpl.getInstance().isLoggedIn()) return "/index";
+        if (LoginStateSaverImpl.getLoggedUser() == null) return "/index";
         LoginStateSaverImpl.setLoggedUser(null);
         return "/logout/logout";
     }

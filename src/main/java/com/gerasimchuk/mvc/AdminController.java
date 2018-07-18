@@ -7,6 +7,7 @@ import com.gerasimchuk.dto.AdminDTOImpl;
 import com.gerasimchuk.entities.*;
 import com.gerasimchuk.enums.*;
 import com.gerasimchuk.service.AdminService;
+import com.gerasimchuk.utils.LoginStateSaverImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +50,20 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    private boolean setAddTruckPageParams(Model ui){
+
+    private boolean isAccessGranted(Model ui){
+        if (LoginStateSaverImpl.getLoggedUser() == null ){
+            ui.addAttribute("errorMessage", "You must be authorised user to open this page");
+            return false;
+        }
+        if (LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.ADMIN){
+            ui.addAttribute("errorMessage", "You must be system administrator to open this page");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean setTruckPageParams(Model ui){
         List<City> cities = (ArrayList)cityDAO.getAll();
         if (cities==null) return false;
         if (cities.size()== 0) return false;
@@ -57,15 +71,8 @@ public class AdminController {
         return true;
     }
 
-    private boolean setEditTruckPageParams(Model ui){
-        List<City> citiesList = (ArrayList)cityDAO.getAll();
-        if (citiesList==null) return false;
-        if (citiesList.size()== 0) return false;
-        ui.addAttribute("cities", citiesList);
-        return true;
-    }
 
-    private boolean setAddUserDriverPageParams(Model ui){
+    private boolean setUserDriverPageParams(Model ui){
         List<City> citiesList = (ArrayList)cityDAO.getAll();
         if (citiesList==null) return false;
         if (citiesList.size()== 0) return false;
@@ -77,19 +84,8 @@ public class AdminController {
         return true;
     }
 
-    private boolean setEditUserDriverPageParams(Model ui){
-        List<City> citiesList = (ArrayList)cityDAO.getAll();
-        if (citiesList==null) return false;
-        if (citiesList.size()== 0) return false;
-        ui.addAttribute("cities", citiesList);
-        List<Truck> trucks = (ArrayList)truckDAO.getAll();
-        if (trucks ==null) trucks = new ArrayList<>();
-        if (trucks.size()==0) trucks.add(new Truck("No available trucks",1,1, TruckState.NOTREADY,null));
-        ui.addAttribute("trucks", trucks);
-        return true;
-    }
 
-    private boolean setAdminPageParams(Model ui){
+    boolean setAdminPageParams(Model ui){
         List<User> users = (ArrayList)userDAO.getAll();
         List<Manager> managers = (ArrayList)managerDAO.getAll();
         List<Driver> drivers = (ArrayList)driverDAO.getAll();
@@ -141,12 +137,16 @@ public class AdminController {
 
     @RequestMapping(value = "/adminaccount", method = RequestMethod.GET)
     public String adminMainPageGet(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         setAdminPageParams(ui);
         return "/admin/adminaccount";
     }
 
     @RequestMapping(value = "/adminaccount/{id}", method = RequestMethod.POST)
     public String adminMainPagePost(@PathVariable("id") int id, AdminDTOImpl adminDTO, BindingResult bindingResult, Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         if (id == 1){
             ui.addAttribute("addActionSuccess", "Add new user chosen");
             return "/manager/manageractionsuccess";
@@ -232,7 +232,9 @@ public class AdminController {
 
     @RequestMapping(value = "/adminaddtruck", method = RequestMethod.GET)
     public String adminAddTruckGet(Model ui){
-        boolean setUpSuccess = setAddTruckPageParams(ui);
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
+        boolean setUpSuccess = setTruckPageParams(ui);
         if (!setUpSuccess){
             ui.addAttribute("errorMessage", "Error whole adding truck!");
             return "/error/errorpage";
@@ -242,7 +244,9 @@ public class AdminController {
 
     @RequestMapping(value = "/adminedittruck", method = RequestMethod.GET)
     public String adminEditTruckGet(Model ui){
-        boolean setUpSuccess = setEditTruckPageParams(ui);
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
+        boolean setUpSuccess = setTruckPageParams(ui);
         if (!setUpSuccess){
             ui.addAttribute("errorMessage", "Error whole adding truck!");
             return "/error/errorpage";
@@ -252,19 +256,25 @@ public class AdminController {
 
     @RequestMapping(value = "/adminactionsuccess", method = RequestMethod.GET)
     public String adminActionSuccessGet(Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         ui.addAttribute("adminActionSuccess", "Success!");
         return "/admin/adminactionsuccess";
     }
 
     @RequestMapping(value = "/adminadduserdriver", method = RequestMethod.GET)
     public String adminAddUserDriverGet(Model ui){
-        setAddUserDriverPageParams(ui);
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
+        setUserDriverPageParams(ui);
         return "/admin/adminadduserdriver";
     }
 
     @RequestMapping(value = "/adminedituserdriver", method = RequestMethod.GET)
     public String adminEditUserDriverGet(Model ui){
-        setEditUserDriverPageParams(ui);
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
+        setUserDriverPageParams(ui);
         return "/admin/adminedituserdriver";
     }
 

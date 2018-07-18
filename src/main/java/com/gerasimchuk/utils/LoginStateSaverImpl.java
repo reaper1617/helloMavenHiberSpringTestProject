@@ -20,7 +20,7 @@ public class LoginStateSaverImpl implements LoginStateSaver{
 
 
     public static synchronized User getLoggedUser(){
-        loggedUser = userDAO.getById(loggedUser.getId());
+        if (loggedUser!=null) loggedUser = userDAO.getById(loggedUser.getId());
         return loggedUser;
     }
 

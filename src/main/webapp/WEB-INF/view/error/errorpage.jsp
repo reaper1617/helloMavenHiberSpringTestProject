@@ -41,6 +41,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             color: #fff;
             letter-spacing: 1px;
         }
+
+        .errormessage{
+            color: #ac2925;
+        }
     </style>
 
 </head>
@@ -95,7 +99,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="slider-info">
                         <div class="col-md-8">
                             <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                            <h2>Error message: ${errorMessage}</h2>
+                            <div class="errormessage"><h2>${errorMessage}</h2></div>
                         </div>
                     </div>
                 </div>
@@ -113,7 +117,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                      <div class="slider-info">
                          <div class="col-md-8">
                              <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                             <h2>Error message: ${errorMessage}</h2>
+                             <div class="errormessage"><h2>${errorMessage}</h2></div>
                     </div>
                 </div>
             </div>
@@ -128,7 +132,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="slider-info">
                         <div class="col-md-8">
                             <h3>Oops! Something is wrong.. try again or call system administrator.</h3>
-                            <h2>Error message: ${errorMessage}</h2>
+                            <div class="errormessage"><h2>${errorMessage}</h2></div>
                         </div>
                     </div>
                 </div>

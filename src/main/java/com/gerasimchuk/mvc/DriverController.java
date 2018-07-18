@@ -32,24 +32,34 @@ public class DriverController {
         this.paramsSetterUtils = paramsSetterUtils;
     }
 
+    private boolean isAccessGranted(Model ui){
+        if (LoginStateSaverImpl.getLoggedUser() == null ){
+            ui.addAttribute("errorMessage", "You must be authorised user to open this page");
+            return false;
+        }
+        if (LoginStateSaverImpl.getLoggedUser().getRole()!= UserRole.DRIVER &&
+                LoginStateSaverImpl.getLoggedUser().getRole() != UserRole.ADMIN){
+            ui.addAttribute("errorMessage", "You must be driver or system administrator to open this page");
+            return false;
+        }
+        return true;
+    }
 
 
     @RequestMapping(value = "/driveraccount", method = RequestMethod.GET)
     public String driverAccountGet(Model ui){
-        if (LoginStateSaverImpl.getInstance().isLoggedIn()){
-            if (LoginStateSaverImpl.getLoggedUser().getRole() == UserRole.DRIVER) {
-                User signedUser = LoginStateSaverImpl.getLoggedUser();
-                paramsSetterUtils.setParamsForDriverAccountPage(ui,signedUser);
-                return "/driver/driveraccount";
-            }
-        }
-        ui.addAttribute("errorMessage", "You must be driver to open this page");
-        return "/error/errorpage";
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
+        User signedUser = LoginStateSaverImpl.getLoggedUser();
+        paramsSetterUtils.setParamsForDriverAccountPage(ui,signedUser);
+        return "/driver/driveraccount";
     }
 
 
     @RequestMapping(value = "/driveraccount/{id}", method = RequestMethod.POST)
     public String changeDriverStatePost(@PathVariable("id") int id, DriverStateDTOImpl driverStateDTO, BindingResult bindingResult, Model ui){
+        boolean accessGranted = isAccessGranted(ui);
+        if (!accessGranted) return "/error/errorpage";
         if (id == 1){
             User u = LoginStateSaverImpl.getLoggedUser();
             driverService.updateDriverState(driverStateDTO,u.getDriver());
