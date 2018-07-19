@@ -18,7 +18,7 @@ public class DriverDTOImpl implements DriverDTO {
     public DriverDTOImpl() {
     }
 
-    public DriverDTOImpl(String userName, String middleName, String lastName, String password, String hoursWorked, String state, String currentCity, String currentTruck) {
+    public DriverDTOImpl(String userName, String middleName, String lastName, String password, String hoursWorked, String currentCity, String currentTruck) {
         this.userName = userName;
         this.middleName = middleName;
         this.lastName = lastName;
