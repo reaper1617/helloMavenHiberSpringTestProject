@@ -10,6 +10,7 @@ import com.gerasimchuk.entities.Driver;
 import com.gerasimchuk.entities.Order;
 import com.gerasimchuk.entities.Truck;
 import com.gerasimchuk.entities.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import java.util.Collection;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-
+    private static final Logger log = Logger.getLogger(AdminServiceImpl.class);
 
     private UserDAO userDAO;
     private TruckDAO truckDAO;
@@ -27,18 +28,31 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     public AdminServiceImpl(UserDAO userDAO, TruckDAO truckDAO, DriverDAO driverDAO, OrderDAO orderDAO) {
+        log.info("Initialization of" + AdminServiceImpl.class.getName() + "started.");
         this.userDAO = userDAO;
         this.truckDAO = truckDAO;
         this.driverDAO = driverDAO;
         this.orderDAO = orderDAO;
+        log.info("Initialization of" + AdminServiceImpl.class.getName() + "finished:success.");
     }
 
     @Override
     public boolean validateUserDataInAdminDTO(AdminDTO adminDTO) {
-        if (adminDTO == null) return false;
-        if (adminDTO.getUserId() == 0) return false;
+        log.info("Validation of user data in AdminDTO instance started.");
+        if (adminDTO == null) {
+            log.info("Validation of user data in AdminDTO failed: instance is null.");
+            return false;
+        }
+        if (adminDTO.getUserId() == 0){
+            log.info("Validation of user data in AdminDTO failed: user id value in instanse is 0.");
+            return false;
+        }
         User user = userDAO.getById(adminDTO.getUserId());
-        if (user == null) return false;
+        if (user == null) {
+            log.info("Validation of user data in AdminDTO failed: there is no such user in database.");
+            return false;
+        }
+        log.info("Validation of user data in AdminDTO executed successfully");
         return true;
     }
 
