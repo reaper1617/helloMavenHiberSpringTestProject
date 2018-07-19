@@ -50,7 +50,7 @@ public class ParamsSetterUtils {
         if (assistants == null ) assistants = new ArrayList<>();
         if (assistants.size()==0) assistants.add(new User("No", "assistants", "found","0000", UserRole.DRIVER, new Driver()));
         ui.addAttribute("Assistants", assistants);
-        List<Cargo> cargos = (ArrayList)cargoService.getCargosInCity(loggedUser.getDriver().getCurrentCity());
+        List<Cargo> cargos = (ArrayList)cargoService.getCargosInCityByOrder(loggedUser);
         if (cargos == null) cargos = new ArrayList<>();
         if (cargos.size() == 0) cargos.add(new Cargo("No cargos found",1,CargoStatus.PREPARED, new RoutePoint(),new RoutePoint()));
         ui.addAttribute("cargosInCurrentCity", cargos);

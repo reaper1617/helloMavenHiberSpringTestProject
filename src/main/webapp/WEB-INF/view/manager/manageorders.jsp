@@ -83,7 +83,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
-
+                                    <div>
+                                        <h2>Cargos:</h2>
+                                    </div>
                                     <select  class="ramka" form="addneworder"  size="10" multiple name = "cargos" required="true">
                                         <c:forEach items="${cargosWithoutAssignedOrders}" var="cell">
                                             <option value="${cell.id}">${cell.cargoName}: ${cell.weight} kg </option>

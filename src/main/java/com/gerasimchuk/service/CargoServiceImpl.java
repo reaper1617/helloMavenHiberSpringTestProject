@@ -3,10 +3,7 @@ package com.gerasimchuk.service;
 import com.gerasimchuk.constants.Constants;
 import com.gerasimchuk.dao.*;
 import com.gerasimchuk.dto.CargoDTO;
-import com.gerasimchuk.entities.Cargo;
-import com.gerasimchuk.entities.City;
-import com.gerasimchuk.entities.Order;
-import com.gerasimchuk.entities.RoutePoint;
+import com.gerasimchuk.entities.*;
 import com.gerasimchuk.enums.CargoStatus;
 import com.gerasimchuk.enums.RoutePointType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 @Service
@@ -22,13 +20,17 @@ public class CargoServiceImpl implements CargoService {
     private CargoDAO cargoDAO;
     private  CityDAO cityDAO;
     private  RoutepointDAO routepointDAO;
+    private OrderDAO orderDAO;
 
     @Autowired
-    public CargoServiceImpl(CargoDAO cargoDAO, CityDAO cityDAO, RoutepointDAO routepointDAO) {
+    public CargoServiceImpl(CargoDAO cargoDAO, CityDAO cityDAO, RoutepointDAO routepointDAO, OrderDAO orderDAO) {
         this.cargoDAO = cargoDAO;
         this.cityDAO = cityDAO;
         this.routepointDAO = routepointDAO;
+        this.orderDAO = orderDAO;
     }
+
+
 
     @Override
     public boolean validateCargoDTOData(CargoDTO cargoDTO) {
@@ -113,14 +115,32 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
-    public Collection<Cargo> getCargosInCity(City city) {
-        if (city == null) return null;
-        Collection<Cargo> allCargos = cargoDAO.getAll();
-        if (allCargos == null) return null;
+    public Collection<Cargo> getCargosInCityByOrder(User d) {
+        if (d == null) return null;
+        if (d.getDriver() == null) return null;
+        Truck truck = d.getDriver().getCurrentTruck();
+        if (truck == null) return null;
+        Collection<Order> orders = orderDAO.getAll();
+        if (orders == null) return null;
+        Order assignedOrder = null;
+        for(Order o: orders){
+            if (o.getAssignedTruck().getRegistrationNumber().equals(truck.getRegistrationNumber())){
+                assignedOrder = o;
+                break;
+            }
+        }
+        Collection<Cargo> cargos = cargoDAO.getAll();
+        if (cargos == null) return null;
+        List<Cargo> cargosAssignedToOrder = new ArrayList<>();
+        for(Cargo c: cargos){
+            if (c.getAssignedOrder().getOrderDescription().equals(assignedOrder.getOrderDescription())){
+                cargosAssignedToOrder.add(c);
+            }
+        }
         Collection<Cargo> result = new ArrayList<>();
-        for(Cargo c: allCargos){
-            if (c.getLoadPoint().getCity().getCityName().equals(city.getCityName()) ||
-                    c.getUnloadPoint().getCity().getCityName().equals(city.getCityName())) result.add(c);
+        for(Cargo c: cargosAssignedToOrder){
+            if (c.getLoadPoint().getCity().getCityName().equals(d.getDriver().getCurrentCity().getCityName()) ||
+                    c.getUnloadPoint().getCity().getCityName().equals(d.getDriver().getCurrentCity().getCityName())) result.add(c);
         }
         return result;
     }

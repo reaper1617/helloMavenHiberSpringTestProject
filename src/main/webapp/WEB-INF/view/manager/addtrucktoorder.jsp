@@ -82,6 +82,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
+                                    <div>
+                                        <h2>Trucks:</h2>
+                                    </div>
                                     <select name="truckRegNum" class="ramka" form="addtrucktoorder">
                                         <c:forEach items="${truckListFitsToOrder}" var="cell">
                                             <option value="${cell.registrationNumber}">${cell.registrationNumber} Current city: ${cell.currentCity.cityName}</option>

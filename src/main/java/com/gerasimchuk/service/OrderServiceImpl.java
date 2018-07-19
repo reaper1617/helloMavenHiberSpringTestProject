@@ -147,14 +147,16 @@ public class OrderServiceImpl implements OrderService{
         for(User u: allUsers){
             Driver d = u.getDriver();
             if (d != null){
-               if (d.getCurrentCity() == t.getCurrentCity()){
-                   if (d.getState() == DriverState.FREE){
-                        if ((d.getHoursWorked() + getTimeOfOrderExecution(truckToOrderDTO) < Constants.MAX_WORK_TIME_LIMIT_FOR_DRIVER_PER_MONTH) &&
-                                (!isMonthTransitionWhileOrderExec(truckToOrderDTO))){
-                            result.add(u);
+                if (d.getCurrentTruck() ==null) {
+                    if (d.getCurrentCity().getCityName().equals(t.getCurrentCity().getCityName())) {
+                        if (d.getState() == DriverState.FREE) {
+                            if ((d.getHoursWorked() + getTimeOfOrderExecution(truckToOrderDTO) < Constants.MAX_WORK_TIME_LIMIT_FOR_DRIVER_PER_MONTH) &&
+                                    (!isMonthTransitionWhileOrderExec(truckToOrderDTO))) {
+                                result.add(u);
+                            }
                         }
-                   }
-               }
+                    }
+                }
             }
         }
 
@@ -242,10 +244,11 @@ public class OrderServiceImpl implements OrderService{
         for(int i = 0; i < drivers.length; i++){
             User u = userDAO.getById(drivers[i]);
             if (u == null) return false;
-            if (u.getDriver().getCurrentCity() != t.getCurrentCity()) return false;
-            if (u.getDriver().getState()!=DriverState.FREE) return false;
-            if (u.getDriver().getCurrentTruck()!=null) return false;
-            users.add(u);
+            if (u.getDriver().getCurrentCity().equals(t.getCurrentCity().getCityName()) &&
+                    u.getDriver().getState()==DriverState.FREE &&
+                    u.getDriver().getCurrentTruck()==null) {
+                users.add(u);
+            }
         }
 
         Order order =  orderDAO.getByDescription(driversToOrderDTO.getOrderDescription());

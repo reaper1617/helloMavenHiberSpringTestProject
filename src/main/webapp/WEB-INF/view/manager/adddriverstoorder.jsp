@@ -82,6 +82,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
+                                    <div>
+                                        <h2>Drivers:</h2>
+                                    </div>
                                     <select name="driverId" class="ramka" multiple form="adddriverstoorder">
                                         <c:forEach items="${driversList}" var="cell">
                                             <option value="${cell.id}">${cell.userName} ${cell.middleName} ${cell.lastName} Current city: ${cell.driver.currentCity.cityName}</option>

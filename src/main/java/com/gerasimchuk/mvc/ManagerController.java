@@ -126,7 +126,10 @@ public class ManagerController {
         if (!accessGranted) return "/error/errorpage";
         if (id == 0) {
             boolean success = driverService.addDriverToDatabase(driverDTO);
-            if (success) return "/manager/addeddriversuccess";
+            if (success) {
+                ui.addAttribute("addActionSuccess", "Driver added successfully!");
+                return "/manager/manageractionsuccess";
+            }
             else return "/error/errorpage";
         }
         if (id == 1){
@@ -175,7 +178,10 @@ public class ManagerController {
         if (!accessGranted) return "/error/errorpage";
         if (id == 0) {
             boolean success = cargoService.addCargoToDatabase(cargoDTO);
-            if (success) return "/manager/addedcargosuccess";
+            if (success) {
+                ui.addAttribute("addActionSuccess", "Cargo added successfully!");
+                return "/manager/manageractionsuccess";
+            }
             else {
                 ui.addAttribute("errorMessage", "Can't add cargo!");
                 return "/error/errorpage";
@@ -190,8 +196,8 @@ public class ManagerController {
             return "/manager/changecargos";
         }
         if (id == 2){
-            ui.addAttribute("addActionSuccess", "No actual delete but success!");
-            return "/manager/manageractionsuccess";
+            ui.addAttribute("errorMessage", "You don't have rights to remove cargo!");
+            return "/error/errorpage";
         }
         else return "/error/errorpage";
     }
@@ -301,6 +307,7 @@ public class ManagerController {
     public String addTruckToOrder(Model ui){
         boolean accessGranted = isAccessGranted(ui);
         if (!accessGranted) return "/error/errorpage";
+
         return "/manager/addtrucktoorder";
     }
 
@@ -335,7 +342,7 @@ public class ManagerController {
         // TODO: check how logics works!!!
         boolean success = orderService.addDriversToOrder(driversToOrderDTO);
         if (success) {
-            ui.addAttribute("addActionSuccess", "no actual drivers assign ut success");
+            ui.addAttribute("addActionSuccess", "Drivers assigned successfully!");
             return "/manager/manageractionsuccess";
         }
         else {

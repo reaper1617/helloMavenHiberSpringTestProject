@@ -83,7 +83,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="container">
                             <div class="slider-info">
                                 <div class="col-md-8">
-
+                                    <div>
+                                        <h2>Trucks:</h2>
+                                    </div>
                                     <form  id="changeordeletetruck" method="post">
                                         <select  class="ramka"  size="20" name = "truckId" form="changeordeletetruck">
                                             <c:forEach items="${currentTrucksList}" var="cell">

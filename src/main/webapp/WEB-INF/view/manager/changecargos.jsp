@@ -93,7 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                                 <div class="col-md-4">
                                     <div class="banner-form-agileinfo" align="center">
-                                        <h5> <span>Change cargo ${changedCargoId}</span></h5>
+                                        <h5> <span>Change cargo id:${changedCargoId}</span></h5>
 
                                         <form action="/changecargos" id="changecargo" method="post">
                                             <input type="text" name="name" form="changecargo" placeholder="Cargo name"  >

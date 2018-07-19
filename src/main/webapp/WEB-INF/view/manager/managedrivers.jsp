@@ -83,6 +83,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="slider-info">
                                 <div class="col-md-8">
                                     <form  id="changeordeletedriver" method="post">
+                                        <div>
+                                            <h2>Drivers:</h2>
+                                        </div>
                                         <select  class="ramka"  size="24" name = "driverId" form="changeordeletedriver">
                                             <c:forEach items="${currentDriversList}" var="cell">
                                                 <option value="${cell.id}">${cell.userName} ${cell.middleName} ${cell.lastName}</option>
@@ -114,7 +117,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         <form action="/managedrivers/0" id="addnewdriver" method="post">
                                             <input type="text" name="userName" form="addnewdriver" placeholder="Name" required="required" >
                                             <input type="text" name="middleName" form="addnewdriver" placeholder="Middle name" required="required" >
-                                            <input type="text" name="lastName" form="addnewdriver" placeholder="Middle name" required="required" >
+                                            <input type="text" name="lastName" form="addnewdriver" placeholder="Last name" required="required" >
                                             <input type="password" class="ramka" name="password" form="addnewdriver" placeholder="Password" required="required" >
                                             <input type="text"  name="hoursWorked" form="addnewdriver" placeholder="Hours worked" required="required" >
 
@@ -125,14 +128,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                 </c:forEach>
                                             </select>
 
-                                            <select class="ramka" name="currentTruck" id="currenttruckregnum" form="addnewdriver">
-                                                <c:forEach items="${currentTrucksList}" var="cell">
-                                                    <option value="${cell.id}">${cell.registrationNumber}</option>
-                                                </c:forEach>
-                                            </select>
+                                            <%--<select class="ramka" name="currentTruck" id="currenttruckregnum" form="addnewdriver">--%>
+                                                <%--<c:forEach items="${currentTrucksList}" var="cell">--%>
+                                                    <%--<option value="${cell.id}">${cell.registrationNumber}</option>--%>
+                                                <%--</c:forEach>--%>
+                                            <%--</select>--%>
                                             <%--<input type="text" name="state" form="addnewtruck" placeholder="Current state" required="required" >--%>
                                             <%--<input type="text" name="currentCity" form="addnewtruck" placeholder="Current city" required="required" >--%>
-                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new truck!">
+                                            <input type="submit" formmethod="post" class="hvr-shutter-in-vertical" value="Add new driver!">
                                         </form>
                                     </div>
                                 </div>

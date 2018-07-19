@@ -16,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CargoServiceImplTest {
 
-
+    private OrderDAO orderDAO = new OrderDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
     private CargoDAO cargoDAO = new CargoDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
     private CityDAO cityDAO = new CityDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
     private RoutepointDAO routepointDAO = new RoutepointDAOImpl(SessionFactorySingleton.getSessionFactoryInstance());
-    private CargoService cargoService = new CargoServiceImpl(cargoDAO,cityDAO,routepointDAO);
+    private CargoService cargoService = new CargoServiceImpl(cargoDAO,cityDAO, routepointDAO, orderDAO);
 
 
     @Test

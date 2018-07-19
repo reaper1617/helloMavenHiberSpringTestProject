@@ -83,16 +83,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="banner-dott">
                         <div class="container">
                             <div class="slider-info">
+                                <div>
+                                    <h2>Orders:</h2>
+                                </div>
                                 <div class="col-md-8">
 
                                     <form  id="changeorder" method="post">
                                         <select  class="ramka"  size="20" name = "orderId" form="changeorder" >
                                             <c:forEach items="${ordersList}" var="cell">
-                                                <option value="${cell.orderId}" </option>
+                                                <option value="${cell.orderId}">${cell.orderDescription} ${cell.orderState.toString()}</option>
                                             </c:forEach>
 
                                         </select>
-                                        <div class="banner-form-agileinfo ramka">
+                                        <div class="banner-form-agileinfo ramka" align="center">
                                             <table>
                                                 <tr>
                                                     <td><input type="submit"  formaction="/manageraccount/1" formmethod="post" class="hvr-shutter-in-vertical" value="Change"></td>
@@ -104,13 +107,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </form>
 
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="banner-form-agileinfo" align="center">
-
-
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -118,67 +114,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </li>
 
 
-            <%--<li>--%>
-            <%--<div class="w3layouts-banner-top w3layouts-banner-top2">--%>
-            <%--<div class="banner-dott">--%>
-            <%--<div class="container">--%>
-            <%--<div class="slider-info">--%>
-            <%--<div class="col-md-8">--%>
-            <%--<h3>vehicles Transport</h3>--%>
-            <%--<h4>Huge in collection</h4>--%>
-            <%--<div class="w3ls-button">--%>
-            <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="col-md-4">--%>
-            <%--<div class="banner-form-agileinfo">--%>
-            <%--<h5> <span>Log in</span></h5>--%>
 
-            <%--<form name="login" action="#" method="post">--%>
-            <%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
-            <%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
-            <%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
-            <%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
-            <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
-            <%--</form>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</li>--%>
-
-            <%--<li>--%>
-            <%--<div class="w3layouts-banner-top w3layouts-banner-top4">--%>
-            <%--<div class="banner-dott">--%>
-            <%--<div class="container">--%>
-            <%--<div class="slider-info">--%>
-            <%--<div class="col-md-8">--%>
-            <%--<h3>Goods Carrying Train</h3>--%>
-            <%--<h4>Truck shipping</h4>--%>
-            <%--<div class="w3ls-button">--%>
-            <%--<a href="#" data-toggle="modal" data-target="#myModal">More About Our Transport</a>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="col-md-4">--%>
-            <%--<div class="banner-form-agileinfo">--%>
-            <%--<h5> <span>Log in</span></h5>--%>
-
-            <%--<form name="login" action="#" method="post">--%>
-            <%--<input type="text" class="email" name="name" placeholder="Name" required="required">--%>
-            <%--<input type="text" class="email" name="middlename" placeholder="Middle name" required="required">--%>
-            <%--<input type="text" class="email" name="lastname" placeholder="Last name" required="required">--%>
-            <%--<input type="password" class="email" name="pass" placeholder="Password" required="required">--%>
-            <%--<input type="submit" class="hvr-shutter-in-vertical" value="Get started">--%>
-            <%--</form>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</li>--%>
         </ul>
     </div>
     <div class="clearfix"></div>

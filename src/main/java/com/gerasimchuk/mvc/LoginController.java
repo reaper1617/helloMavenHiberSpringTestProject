@@ -87,6 +87,10 @@ public class LoginController {
             ui.addAttribute("ordersList", orders);
             return "/manager/manageraccount";
         }
+        if (signedUser.getRole() == UserRole.ADMIN){
+            adminController.setAdminPageParams(ui);
+            return "/admin/adminaccount";
+        }
         return "/error/errorpage";
     }
 

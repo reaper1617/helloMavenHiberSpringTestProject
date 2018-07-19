@@ -123,11 +123,13 @@ public class AdminServiceImpl implements AdminService {
         if (!validateUserDataInAdminDTO(adminDTO)) return false;
         User user = userDAO.getById(adminDTO.getUserId());
         if (user == null) return false;
+
         if (user.getDriver() != null){
             Driver d = user.getDriver();
+            userDAO.delete(user.getId());
             driverDAO.delete(d.getId());
+            return true;
         }
-        userDAO.delete(user.getId());
-        return true;
+        else return false;
     }
 }

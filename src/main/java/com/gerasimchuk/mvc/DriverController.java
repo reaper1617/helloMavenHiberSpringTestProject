@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 
 @Controller
 public class DriverController {
@@ -80,6 +82,7 @@ public class DriverController {
                 ui.addAttribute("errorMessage", "Can not update order status!");
                 return "/error/errorpage";
             }
+            paramsSetterUtils.setParamsForDriverAccountPage(ui,u);
             ui.addAttribute("orderStateUpdateSuccess", "Order state updated successfully!");
         }
         return "/driver/driveraccount";
