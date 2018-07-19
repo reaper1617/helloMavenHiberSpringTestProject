@@ -12,10 +12,52 @@
 	   http://www.springframework.org/schema/context/spring-context.xsd">
 
     <mvc:annotation-driven />
+    <!--<context:annotation-config/>-->
+
+    <context:component-scan base-package="com.gerasimchuk.dao"/>
+    <context:component-scan base-package="com.gerasimchuk.mvc"/>
+    <context:component-scan base-package="com.gerasimchuk.service"/>
+    <context:component-scan base-package="com.gerasimchuk.utils"/>
+    <context:component-scan base-package="com.gerasimchuk.entities"/>
+
     <!-- Static Resources Configuration (get access to static sources such as CSS and JavaScript files) -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <!-- themes can be put in different folder such as
         <mvc:resources mapping="/resources/**" location="/resources/themeBlue" />
         <mvc:resources mapping="/resources/**" location="/resources/themeGreen" />
      -->
+
+
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource"
+                  ref="dataSource"/>
+        <property name="packagesToScan"
+                  value="com.gerasimchuk.entities"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">
+                    update
+                </prop>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQL57Dialect
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/logisticon3000?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
 </beans>

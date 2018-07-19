@@ -28,4 +28,5 @@
     <mvc:view-controller path="/failed" view-name="/signup/failed"/>
     <mvc:view-controller path="/success" view-name="/signup/success"/>
 
+
 </beans>

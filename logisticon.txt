@@ -1,0 +1,276 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+
+-- -----------------------------------------------------
+-- Schema logisticon3000
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema logisticon3000
+-- -----------------------------------------------------
+DROP schema if exists `logisticon3000`;
+CREATE SCHEMA IF NOT EXISTS `logisticon3000` DEFAULT CHARACTER SET utf8 ;
+USE `logisticon3000` ;
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`cities`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`cities` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`cities` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `city_name` VARCHAR(50) NOT NULL,
+  `has_agency` ENUM('HAS', 'HASNOT') NOT NULL DEFAULT 'HASNOT',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`route_points`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`route_points` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`route_points` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `_type` ENUM('LOADING', 'UNLOADING') NOT NULL DEFAULT 'LOADING',
+  `city_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `city_id_fk_idx` (`city_id` ASC),
+  CONSTRAINT `city_id_fk`
+    FOREIGN KEY (`city_id`)
+    REFERENCES `logisticon3000`.`cities` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`trucks`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`trucks` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`trucks` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `registration_number` VARCHAR(15) NOT NULL,
+  `shift` INT(11) NOT NULL,
+  `capacity` DOUBLE NOT NULL,
+  `state` ENUM('READY', 'NOTREADY') NOT NULL DEFAULT 'NOTREADY',
+  `current_city_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `registration_number` (`registration_number` ASC),
+  INDEX `current_city_id` (`current_city_id` ASC),
+  CONSTRAINT `trucks_ibfk_1`
+    FOREIGN KEY (`current_city_id`)
+    REFERENCES `logisticon3000`.`cities` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`orders`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`orders` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`orders` (
+  `order_id` INT(11) NOT NULL,
+  `order_state` ENUM('PREPARED', 'SHIPPED', 'DELIVERED') NOT NULL DEFAULT 'PREPARED',
+  `order_description` VARCHAR(45) NOT NULL,
+  `order_date` DATETIME NOT NULL,
+  `assigned_truck_id` INT NULL,
+  PRIMARY KEY (`order_id`),
+  UNIQUE INDEX `order_id_UNIQUE` (`order_id` ASC),
+  INDEX `assigned_truck_id_fk_idx` (`assigned_truck_id` ASC),
+  CONSTRAINT `assigned_truck_id_fk`
+    FOREIGN KEY (`assigned_truck_id`)
+    REFERENCES `logisticon3000`.`trucks` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`cargos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`cargos` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`cargos` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `cargo_name` VARCHAR(50) NOT NULL,
+  `weight` DOUBLE NOT NULL,
+  `status` ENUM('PREPARED', 'SHIPPED', 'DELIVERED') NOT NULL DEFAULT 'PREPARED',
+  `assigned_order_id` INT NULL,
+  `load_point_id` INT NOT NULL,
+  `unload_point_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `load_point_id_pk_idx` (`load_point_id` ASC),
+  INDEX `unload_point_id_fk_idx` (`unload_point_id` ASC),
+  INDEX `assigned_order_id_fk_idx` (`assigned_order_id` ASC),
+  CONSTRAINT `load_point_id_fk`
+    FOREIGN KEY (`load_point_id`)
+    REFERENCES `logisticon3000`.`route_points` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `unload_point_id_fk`
+    FOREIGN KEY (`unload_point_id`)
+    REFERENCES `logisticon3000`.`route_points` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `assigned_order_id_fk`
+    FOREIGN KEY (`assigned_order_id`)
+    REFERENCES `logisticon3000`.`orders` (`order_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`drivers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`drivers` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`drivers` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `hours_worked` DOUBLE NOT NULL,
+  `state` ENUM('DRIVING','SECOND_DRIVER' , 'LOAD_UNLOAD_WORKS','RESTING', 'FREE') NOT NULL DEFAULT 'FREE',
+  `current_city_id` INT NOT NULL,
+  `current_truck_id` INT,
+  PRIMARY KEY (`id`),
+  INDEX `current_city_id_fk_idx` (`current_city_id` ASC),
+  INDEX `current_truck_id_fk_idx` (`current_truck_id` ASC),
+  CONSTRAINT `current_city_id_fk`
+    FOREIGN KEY (`current_city_id`)
+    REFERENCES `logisticon3000`.`cities` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `current_truck_id_fk`
+    FOREIGN KEY (`current_truck_id`)
+    REFERENCES `logisticon3000`.`trucks` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`managers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`managers` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`managers` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `manager_position` ENUM('JUNIOR', 'MIDDLE', 'EXPERT') NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`route`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`route` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`route` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `departure_city_id` INT NOT NULL,
+  `destination_city_id` INT NOT NULL,
+  `distance` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `route_id_UNIQUE` (`id` ASC),
+  INDEX `map_ibfk_1_idx` (`departure_city_id` ASC),
+  INDEX `map_ibfk_2_idx` (`destination_city_id` ASC),
+  CONSTRAINT `route_ibfk_1`
+    FOREIGN KEY (`departure_city_id`)
+    REFERENCES `logisticon3000`.`cities` (`id`),
+  CONSTRAINT `route_ibfk_2`
+    FOREIGN KEY (`destination_city_id`)
+    REFERENCES `logisticon3000`.`cities` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `logisticon3000`.`users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `logisticon3000`.`users` ;
+
+CREATE TABLE IF NOT EXISTS `logisticon3000`.`users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_name` VARCHAR(50) NOT NULL,
+  `middle_name` VARCHAR(50) NOT NULL,
+  `lastname` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  `role` ENUM('DRIVER', 'MANAGER', 'ADMIN') NOT NULL,
+  `manager` INT(11) NULL DEFAULT NULL,
+  `driver` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `manager` (`manager` ASC),
+  INDEX `driver` (`driver` ASC),
+  CONSTRAINT `users_ibfk_1`
+    FOREIGN KEY (`manager`)
+    REFERENCES `logisticon3000`.`managers` (`id`),
+  CONSTRAINT `users_ibfk_2`
+    FOREIGN KEY (`driver`)
+    REFERENCES `logisticon3000`.`drivers` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+insert into cities values (1, 'Moscow', 'HAS');
+insert into cities values (2, 'Saint-Petersburg', 'HAS');
+insert into cities values (3, 'Petrozavodsk', 'HAS');
+insert into cities values (4, 'Pskov', 'HAS');
+insert into cities values (5, 'Kazan', 'HAS');
+insert into cities values (6, 'Saratov', 'HAS');
+
+insert into drivers values (1,7, 'FREE', 1, null);
+insert into users values(1, 'Driver','Driver', 'Driver','Driver', 'DRIVER', null, 1);
+
+insert into managers values(1, 'JUNIOR');
+insert into users values(2, 'Manager','Manager', 'Manager','Manager', 'MANAGER', 1, null);
+
+insert into users values(3, 'Admin','Admin', 'Admin','Admin', 'ADMIN', null, null);
+
+
+
+
+
+
+
+insert into trucks values(1, 'rr55555', 2, 4, 'READY', 1);
+insert into trucks values(2, 'ss44444', 3, 7, 'READY', 2);
+insert into trucks values(3, 'vv77777', 2, 5, 'NOTREADY', 3);
+
+
+
+
+insert into route_points values(1, 'LOADING', 1);
+insert into route_points values(2, 'UNLOADING', 1);
+insert into route_points values(3, 'LOADING', 2);
+insert into route_points values(4, 'UNLOADING', 2);
+insert into route_points values(5, 'LOADING', 3);
+insert into route_points values(6, 'UNLOADING', 3);
+insert into route_points values(7, 'LOADING', 4);
+insert into route_points values(8, 'UNLOADING', 4);
+insert into route_points values(9, 'LOADING', 5);
+insert into route_points values(10, 'UNLOADING', 5);
+insert into route_points values(11, 'LOADING', 6);
+insert into route_points values(12, 'UNLOADING', 6);
+
+
+
+
+insert into cargos values(1, 'Beer', 10, 'PREPARED', null, 1,4);
+insert into cargos values(2, 'Lemonade', 12, 'PREPARED', null, 3,6);
